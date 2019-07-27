@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "author": "dashao <capslock.ch@outlook.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "dev": "webpack --config ./build/webpack.dev.conf.js --hide-modules",
     "build": "node build/build.js",

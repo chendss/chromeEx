@@ -28,7 +28,7 @@ module.exports = {
   content_scripts: [
     {
       js: ['js/inject.js'],
-      run_at: 'document_end',
+      run_at: 'document_start',
       matches: ['<all_urls>'],
       all_frames: false,
     },

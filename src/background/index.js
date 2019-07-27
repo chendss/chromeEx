@@ -1,1 +1,1 @@
-console.log('This is BACKGROUND page!')
+console.log('后台啊', document.querySelector('body'))
