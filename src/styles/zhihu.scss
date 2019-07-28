@@ -90,3 +90,10 @@ header.Sticky.AppHeader.is-fixed {
 .QuestionHeader-footer-inner {
   width: calc(#{$vw} - 100px) !important;
 }
+.Question-main {
+  .ListShortcut {
+    .Question-mainColumn {
+      width: calc(#{$vw} - 420px) !important;
+    }
+  }
+}
