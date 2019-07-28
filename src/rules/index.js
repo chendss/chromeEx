@@ -13,6 +13,7 @@ let baseConfig = {
   cto: {
     js: () => require('../model/cto').default(),
     css: () => require('../styles/cto51.scss'),
+    load: true,
   },
   nga: {
     js: () => require('../model/nga').default(),

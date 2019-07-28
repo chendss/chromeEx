@@ -1,4 +1,4 @@
-# chrome-ex
+# 互联网净化
 
 > chrome ex
 
@@ -14,3 +14,16 @@ npm start
 # build for production with minification && crx package
 npm run build
 ```
+
+## 网站列表
+
+### 知乎
+
+### ip.cn
+
+### 51CTO
+
+- 首页
+- 文章详情
+- 文章列表
+- 个人中心

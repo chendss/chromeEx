@@ -78,3 +78,16 @@
     font-size: 16px;
   }
 }
+
+.more.maps,
+.rightTools,
+.Right {
+  display: none;
+}
+.blog-my .Left {
+  width: auto;
+}
+
+a[href="https://blog.51cto.com/blog/follow"] {
+  display: none;
+}
