@@ -1,0 +1,10 @@
+#tp {
+  width: 300px;
+  max-width: 300px;
+}
+a[href='#'] {
+  overflow: hidden;
+  height: 0px;
+  width: 0px;
+  display: block;
+}

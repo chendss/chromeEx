@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'Vue Chrome Extension',
+  name: '还互联网一片净土',
   version: '1.0.0',
-  description: '还互联网一片清净',
+  description: '还互联网一片净土',
   author: '',
   manifest_version: 2,
   icons: {
@@ -16,7 +16,7 @@ module.exports = {
       '38': 'icons/main.png',
       '128': 'icons/main.png',
     },
-    default_title: 'default title',
+    default_title: '还互联网一片净土',
     default_popup: 'pages/popup.html',
   },
   background: {

@@ -1,0 +1,80 @@
+#topbanner14,
+.group_img_box,
+.Navigates.Navigates-right.more.maps,
+.service-btn,
+.comment-creat,
+.special-column,
+.Navigates.fl li .column-stress {
+  display: none !important;
+}
+
+.artical-title {
+  display: flex;
+  justify-content: center;
+}
+
+.artical-title-list {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.editor-side-new {
+  max-width: 100vw !important;
+}
+.artical-title-list a.checkFollow-btn.on {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  margin-left: 10px;
+}
+.fr {
+  margin-left: auto !important;
+}
+.Index .Right {
+  display: none !important;
+}
+.Index .Left {
+  width: 100% !important;
+}
+.Index .Left .cates {
+  width: 370px !important;
+}
+.Index .Left .cates li .layer3 {
+  left: 370px;
+}
+
+#banners {
+  width: 73.8636% !important;
+}
+.Blog-Right {
+  position: fixed;
+  left: 50%;
+  bottom: 190px;
+  margin-left: 661px !important;
+  right: 0 !important;
+}
+@media (min-width: 1250px) {
+  .Page {
+    width: 1200px !important;
+  }
+  .editor-side-new * {
+    font-size: 18px !important;
+  }
+  .editor-preview > p,
+  .editor-preview-side > p a {
+    font-size: 14px;
+  }
+}
+@media (min-width: 1750px) {
+  .Page {
+    width: 1480px !important;
+  }
+  .editor-side-new * {
+    font-size: 20px !important;
+  }
+  .editor-preview > p,
+  .editor-preview-side > p a {
+    font-size: 16px;
+  }
+}

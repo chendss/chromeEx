@@ -1,0 +1,92 @@
+$vw: (100/1.2) * 1vw; // TODO:
+
+.Tabs-link.AppHeader-TabsLink[href="//www.zhihu.com/question/waiting"] {
+  display: none !important;
+}
+
+.Messages-list {
+  a[href="//www.zhihu.com/inbox/2604512670"],
+    a[href="//www.zhihu.com/inbox/0899455870"],
+  a[href="//www.zhihu.com/inbox/1137339936293408768"] {
+    display: none !important;
+  }
+  a[href="//www.zhihu.com/inbox/5793442270"],
+    a[href="//www.zhihu.com/inbox/4651746360"],
+  a[href="//www.zhihu.com/inbox/0555970660"] {
+    display: none !important;
+  }
+  a[href="//www.zhihu.com/inbox/2479177150"] {
+    display: none !important;
+  }
+  a[href="//www.zhihu.com/inbox/0497676840"] {
+    display: none !important;
+  }
+}
+
+.GlobalSideBar-categoryItem {
+  a[href='/consult'],
+  a[href='/lives'] {
+    display: none !important;
+  }
+}
+
+.GlobalSideBar-categoryItem {
+  width: auto !important;
+  margin-right: 20px !important;
+}
+
+.Topstory-mainColumn {
+  width: calc(100% - 300px) !important;
+}
+
+.GlobalSideBar {
+  width: 300px !important;
+}
+
+.Card[data-za-detail-view-path-module='ContentList'] {
+  display: none !important;
+}
+
+.Question-sideColumn.Question-sideColumn--sticky {
+  width: 300px !important;
+}
+
+.Question-mainColumn {
+  flex: 1 !important;
+  margin-right: 20px !important;
+  width: auto;
+}
+
+.Sticky--holder {
+  width: 300px;
+}
+
+.Sticky.AppHeader.is-fixed.is-hidden {
+  width: 100vw;
+}
+
+header.Sticky.AppHeader.is-fixed {
+  width: 100vw;
+}
+
+.AdblockBanner {
+  display: none !important;
+}
+
+.ColumnPageHeader-Wrapper {
+  .Sticky.ColumnPageHeader.is-fixed {
+    width: 100vw;
+  }
+}
+
+.ContentItem-actions.Sticky.RichContent-actions.is-fixed.is-bottom {
+  width: calc(#{$vw} - 420px) !important;
+}
+
+.Topstory-container,
+.AppHeader-inner,
+.Question-main,
+.QuestionHeader-content,
+.QuestionHeader-footer-inner {
+  width: calc(#{$vw} - 100px) !important;
+}

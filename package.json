@@ -14,6 +14,10 @@
     "stop": "pm2 stop chromeEx"
   },
   "dependencies": {
+    "axios": "^0.19.0",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
+    "underscore": "^1.9.1",
     "vue": "^2.5.11"
   },
   "browserslist": [
