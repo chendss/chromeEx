@@ -1,0 +1,20 @@
+.dialog-guide-download.win-download {
+  display: none !important;
+}
+
+#nav {
+  .topnav[href="https://ke.youdao.com/?keyfrom=dict2.top"],
+  .topnav[href="http://note.youdao.com/?keyfrom=dict2.top"],
+  .topnav[href="http://www.huihui.cn/?keyfrom=dict2.top"] {
+    display: none;
+  }
+}
+
+#follow {
+  display: none;
+}
+
+#inputOriginal,
+#transTarget {
+  min-height: 55vh;
+}

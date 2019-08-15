@@ -19,4 +19,11 @@ export default {
     'https://zhuanlan.zhihu.com/*',
     'http://zhuanlan.zhihu.com/*',
   ],
+  youdao: [
+    'http://dict.youdao.com*',
+    'https://dict.youdao.com*',
+    'http://fanyi.youdao.com/*',
+    'https://fanyi.youdao.com/*',
+  ],
+  ruan: ['http*://www.ruanyifeng.com/*'],
 }

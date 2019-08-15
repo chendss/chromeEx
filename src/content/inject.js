@@ -22,7 +22,6 @@ const iocStyle = function() {
     const matchs = get(rule, 'matchs', ['http://*', 'https://*'])
     const r_list = matchs.map(match => new RegExp(match))
     if (r_list.some(r => r.test(href))) {
-      console.log('当前规则', rules)
       const { css } = rule
       css && css()
     }

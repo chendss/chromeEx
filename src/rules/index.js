@@ -1,41 +1,7 @@
 import matchs from './matchs'
 import { merge } from 'lodash'
-
-let baseConfig = {
-  ip: {
-    js: () => require('../model/ip').default(),
-    css: () => require('../styles/ip.scss'),
-    load: true,
-  },
-  auto: {
-    js: () => require('../model/auto').default(),
-  },
-  cto: {
-    js: () => require('../model/cto').default(),
-    css: () => require('../styles/cto51.scss'),
-    load: true,
-  },
-  nga: {
-    js: () => require('../model/nga').default(),
-    load: true,
-  },
-  imooc: {
-    css: () => require('../styles/imooc.scss'),
-  },
-  baidu: {
-    js: () => require('../model/baidu').default(),
-    css: () => require('../styles/baidu.scss'),
-    load: true,
-  },
-  zhihu: {
-    js: () => require('../model/zhihu').default(),
-    css: () => require('../styles/zhihu.scss'),
-    load: true,
-  },
-  clearCopy: {
-    js: () => require('../model/clearCopy').default(),
-  },
-}
+import baseConfig from './base'
+import extend_1 from './extend-1'
 
 const config = function() {
   let result = {}
@@ -50,4 +16,14 @@ const config = function() {
   })
   return result
 }
-export default merge(baseConfig, config())
+
+const staticConfig = function() {
+  const list = [baseConfig, extend_1]
+  let result = {}
+  for (let con of list) {
+    result = merge(result, con)
+  }
+  return result
+}
+
+export default merge(staticConfig(), config())

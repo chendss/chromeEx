@@ -5,11 +5,7 @@ export default function() {
     const style = document.documentElement.style
     style.zoom = dx
   }
-  window.addEventListener('resize', event => {
-    auto()
-  })
-  window.addEventListener('load', event => {
-    auto()
-  })
+  window.addEventListener('resize', auto)
+  window.addEventListener('load', auto)
   auto()
 }
