@@ -1,5 +1,4 @@
-import rules from '../rules/index'
-import { get } from 'lodash'
+import icoHandle from '../utils/index'
 
 const iocJs = function() {
   const content = chrome.extension.getURL('js/content.js')
@@ -17,15 +16,11 @@ const zoom = function() {
 }
 
 const iocStyle = function() {
-  const href = window.location.href
-  for (let rule of Object.values(rules)) {
-    const matchs = get(rule, 'matchs', ['http://*', 'https://*'])
-    const r_list = matchs.map(match => new RegExp(match))
-    if (r_list.some(r => r.test(href))) {
-      const { css } = rule
-      css && css()
-    }
-  }
+  icoHandle((rule, r) => {
+    console.log('规则是使命', rule, r)
+    const { css } = rule
+    css && css()
+  })
 }
 
 const main = function() {

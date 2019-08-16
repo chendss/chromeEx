@@ -6,6 +6,5 @@ module.exports = function(source) {
     }
     return code
   })
-  console.log('这个列表', codeList)
   return codeList.join('\r\n')
 }
