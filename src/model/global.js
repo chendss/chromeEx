@@ -31,4 +31,7 @@ const clearBaidu = function() {
 export default function() {
   clearBaidu()
   clearCopy()
+  window.addEventListener('message', event => {
+    console.log('收到消息', event)
+  })
 }

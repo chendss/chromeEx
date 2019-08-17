@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <img src="../assets/logo.png">
+    <img src="../assets/logo.png"
+      @click="imgClick">
     <h1>{{ msg }}</h1>
   </div>
 </template>
@@ -11,6 +12,11 @@ export default {
   data () {
     return {
       msg: '少爷'
+    }
+  },
+  methods: {
+    imgClick () {
+      console.log('点击了')
     }
   }
 }
