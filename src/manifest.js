@@ -4,6 +4,7 @@ module.exports = {
   description: '还互联网一片净土',
   author: '',
   manifest_version: 2,
+  ids: ['dashaoye112233'],
   icons: {
     '16': 'icons/main.png',
     '48': 'icons/main.png',

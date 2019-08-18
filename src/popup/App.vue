@@ -4,13 +4,20 @@
   </div>
 </template>
 <script>
+
 export default {
   name: 'App',
   data () {
     return {}
   },
   created () {
-    console.log('初始化')
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.result) {
+        sendResponse({
+          farewell: "ok"
+        });
+      }
+    })
   }
 }
 </script>

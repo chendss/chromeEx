@@ -17,7 +17,6 @@ const zoom = function() {
 
 const iocStyle = function() {
   icoHandle((rule, r) => {
-    console.log('规则是使命', rule, r)
     const { css } = rule
     css && css()
   })
