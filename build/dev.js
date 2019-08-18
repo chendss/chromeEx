@@ -6,5 +6,9 @@ while (true) {
     execSync('npm run dev', {
       cwd: path.join(process.cwd(), '/'),
     })
-  } catch (error) {}
+  } catch (error) {
+    if (!error.message.includes('Unhandled stream error')) {
+      console.error('发生一个错误', error)
+    }
+  }
 }

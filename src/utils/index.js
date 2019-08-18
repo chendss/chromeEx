@@ -5,7 +5,6 @@ const href = window.location.href
 export default function(handle) {
   for (let ruleKey of Object.keys(rules)) {
     const rule = rules[ruleKey]
-    console.log('有啥', rule)
     const matchs = get(rule, 'matchs', ['http://*', 'https://*'])
     const r_list = matchs.map(match => new RegExp(match))
     if (r_list.some(r => r.test(href))) {

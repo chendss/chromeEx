@@ -70,6 +70,7 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        include: [resolve('src'), resolve('node_modules/vue-echarts'), resolve('node_modules/resize-detector')],
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

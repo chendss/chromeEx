@@ -1,6 +1,14 @@
 {
-  "presets": [
-    ["env", { "modules": false }],
-    "stage-3"
-  ]
+    "presets": [
+        [
+            "env",
+            {
+                "modules": "commonjs"
+            }
+        ],
+        "stage-3"
+    ],
+    "plugins": [
+        "syntax-dynamic-import"
+    ]
 }
