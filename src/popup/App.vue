@@ -11,12 +11,8 @@ export default {
     return {}
   },
   created () {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (request.result) {
-        sendResponse({
-          farewell: "ok"
-        });
-      }
+    chrome.runtime.sendMessage({ greeting: 'Hello' }, (response) => {
+      console.log(response, '复杂')
     })
   }
 }

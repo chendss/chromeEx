@@ -20,17 +20,3 @@ const main = function() {
 }
 
 main()
-console.log('插件加载')
-window.addEventListener('load', event => {
-  chrome.runtime.sendMessage(
-    {
-      msg: '从 Content Script 向 事件页面 传递消息',
-      result: 1,
-    },
-    function(response) {
-      if (response && response.msg) {
-        console.log(response.msg, '返回的玩意')
-      }
-    }
-  )
-})
