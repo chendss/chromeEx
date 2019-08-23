@@ -31,7 +31,7 @@ module.exports = {
     default_popup: 'pages/popup.html',
   },
   background: {
-    persistent: false,
+    persistent: true,
     scripts: ['js/background.js'],
   },
   // devtools_page: 'pages/devtools.html',

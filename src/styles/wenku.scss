@@ -1,13 +1,33 @@
-.cover-img-ie8,
+.footer,
+.zq-logo,
+.vip-card,
+#jghz-menu,
+.log-xsend,
 #docBubble,
 .mod.tousu,
-.vip-card,
-.footer,
-.doc-tag-wrap.super-vip,
+#doc-comment,
+.centerRight,
+#jingpin-menu,
+#channel-menu,
+.open-in-phone,
+.cover-img-ie8,
+.add-has-money-pay,
+.pgcuser-approve-warp,
 .yuedu-recommend-wrap,
-.normal.mr13.vip-free-alert.vip-free-new,
+.doc-tag-wrap.super-vip,
+.main-nav.side-nav.clearfix,
+.banner-core-wrap.super-vip,
 .search-wrapper-box-recommend.clearfix,
+.normal.mr13.vip-free-alert.vip-free-new,
+.doc-bottom-wrap.complex.hidden-doc-banner,
 .header-box-recommend.clearfix.inline {
+  display: none;
+}
+
+a[data-href="http://news.baidu.com"],
+a[href="/user/browse/vip/"],
+li[style="width: 122px;"],
+a[data-href="https://b2b.baidu.com"] {
   display: none;
 }
 

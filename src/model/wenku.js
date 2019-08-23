@@ -1,7 +1,11 @@
 import $ from 'jquery'
 import { log } from '../utils'
 
-export default function() {
+const clickMore = function() {
+  document.querySelector('.moreBtn.goBtn').click()
+}
+
+const copyDoc = function() {
   let timeoutId = -1
   let downloadBtn =
     '<div id="reader-copy-div" style="float:left;padding:10px 20px;background:green;z-index:999;position:relative;top:60px;left:0px;"><a id="reader-copy-text" href="###" style="color:white;font-size:15px;"><b class="ui-btn-btc">Copy Page</b></a></div>'
@@ -60,4 +64,9 @@ export default function() {
   $('.mod.reader-page.complex').each(function() {
     PrependButtonTo($(this))
   })
+}
+
+export default function() {
+  copyDoc()
+  clickMore()
 }
