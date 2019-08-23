@@ -1,3 +1,8 @@
+/**
+ * 阮一峰
+ *
+ * @export
+ */
 export default function() {
   let a = document.createElement('a'),
     img = document.createElement('img')

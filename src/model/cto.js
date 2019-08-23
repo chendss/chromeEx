@@ -1,3 +1,8 @@
+/**
+ * 51cto
+ *
+ * @export
+ */
 export default function() {
   let n = 0
   const clearMask = setInterval(() => {

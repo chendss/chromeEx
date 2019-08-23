@@ -62,6 +62,11 @@ const replaceSponsoredLinks = function() {
   })
 }
 
+/**
+ * nga论坛优化
+ *
+ * @export
+ */
 export default function() {
   simple()
   overseas()

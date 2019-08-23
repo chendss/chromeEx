@@ -1,3 +1,8 @@
+/**
+ * 自动缩放
+ *
+ * @export
+ */
 export default function() {
   const auto = function() {
     let dx = window.innerWidth / 1920

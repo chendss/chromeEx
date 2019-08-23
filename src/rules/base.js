@@ -1,8 +1,6 @@
 export default {
   ip: {
-    js: () => require('../model/ip').default(),
     css: () => require('../styles/ip.scss'),
-    load: true,
   },
   global: {
     js: () => require('../model/global').default(),

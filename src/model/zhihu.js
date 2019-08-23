@@ -35,14 +35,11 @@ const replaceAllLinkZhihu = function() {
   }, 1000)
 }
 
-const an = function() {
-  /**
-   * 去除首页广告
-   *
-   */
-  $('.Card.Banner').remove()
-}
-
+/**
+ * 知乎优化
+ *
+ * @export
+ */
 export default function() {
   replaceAllLinkZhihu()
   an()

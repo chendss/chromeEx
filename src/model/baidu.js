@@ -12,6 +12,11 @@ const haoFilter = function() {
   list.forEach(l => l.remove())
 }
 
+/**
+ * 过滤百家号
+ *
+ * @export
+ */
 export default function() {
   haoFilter()
 }
