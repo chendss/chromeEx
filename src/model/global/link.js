@@ -3,7 +3,6 @@
  *
  */
 const clearCopy = function() {
-  'use strict'
   document.addEventListener('copy', e => {
     e.preventDefault()
     var pagelink = '\nRead more: ' + document.location.href,
@@ -15,37 +14,14 @@ const clearCopy = function() {
   })
 }
 
+/**
+ * 清空返利连接
+ *
+ */
 const backLink = function() {
-  const check = function() {
-    const href = window.location.href
-    const regStrList = [
-      'http*://*.jd.*/*',
-      'http*://*.amazon.cn/*',
-      'http*://*.yixun.com/*',
-      'http://base.yixun.com/*',
-      'http*://*.yhd.com/*',
-      'http*://*.suning.com/*',
-      'http*://*.dangdang.com/*',
-      'http*://*.tmall.com/*',
-      'http*://*.taobao.com/*',
-      'http*://*.smzdm.com/*',
-    ]
-
-    for (let reStr of regStrList) {
-      const re = new RegExp(reStr)
-      if (re.test(href)) {
-        return true
-      }
-    }
-    return false
-  }
-
-  if (!check()) return
-
   function setcookie(name, domain) {
     document.cookie = name + '=' + '' + ';path=/;domain=' + domain
   }
-
   var jdad = new Array(
     'USER_FLAG_CHECK',
     'm.jd.com',
@@ -92,7 +68,6 @@ const backLink = function() {
     '_tp',
     'jd.com'
   )
-
   var zad = new Array(
     'at-main',
     'amazon.cn',
@@ -107,7 +82,6 @@ const backLink = function() {
     'session-token',
     'amazon.cn'
   )
-
   var yxad = new Array(
     '__jda',
     'yixun.com',
@@ -124,11 +98,8 @@ const backLink = function() {
     'cps_tkd',
     'yixun.com'
   )
-
   var yhad = new Array('unionKey', 'yhd.com', 'websiteid', 'yhd.com', 'uid', 'yhd.com')
-
   var suad = new Array('_snmb', 'suning.com', '_snmp', 'suning.com', '_snsr', 'suning.com', 'traceId', 'suning.com')
-
   var ddad = new Array(
     '__ddc_15d',
     'dangdang.com',
@@ -151,9 +122,7 @@ const backLink = function() {
     'pos_6_end',
     'dangdang.com'
   )
-
   var tmad = new Array('isg', 'tmall.com', 'l', 'tmall.com', 'pnm_cku822', 'detail.tmall.com')
-
   var tbad = new Array(
     '_cc_',
     'taobao.com',
@@ -166,7 +135,6 @@ const backLink = function() {
     'uss',
     'taobao.com'
   )
-
   if (window.location.host.indexOf('jd.') > 0) {
     if (window.location.host.indexOf('re.jd.com') == 0) {
       location.replace(document.getElementsByClassName('gobuy')[0].getElementsByTagName('a')[0].href)
@@ -178,7 +146,6 @@ const backLink = function() {
       location.replace(window.location.origin + window.location.pathname)
     }
   }
-
   if (window.location.host == 'www.amazon.cn' && window.location.search.indexOf('tag=') > 0) {
     window.addEventListener(
       'load',
@@ -188,7 +155,6 @@ const backLink = function() {
       false
     ) //亚马逊的cookies似乎是在加载完成后才写入，必须加延迟
   }
-
   function zadkill() {
     for (i = 0; i < zad.length; i++) {
       setcookie(zad[i], zad[i + 1])
@@ -197,42 +163,36 @@ const backLink = function() {
     sessionStorage.clear()
     location.replace(window.location.origin + window.location.pathname)
   }
-
   if (window.location.host.indexOf('yixun') > 0 && window.location.search.indexOf('YTAG=') == 1) {
     for (i = 0; i < yxad.length; i++) {
       setcookie(yxad[i], yxad[i + 1])
     }
-    window.location.href = window.location.origin + window.location.pathname //用location.replace有问题
+    window.location.href = window.location.origin + window.location.pathname
   }
-
   if (window.location.host.indexOf('yhd.com') > 0 && window.location.search.indexOf('tracker_u') > 0) {
     for (i = 0; i < yhad.length; i++) {
       setcookie(yhad[i], yhad[i + 1])
     }
     location.replace(window.location.origin + window.location.pathname)
   }
-
   if (window.location.host.indexOf('suning.com') > 0 && window.location.search.indexOf('utm_campaign') > 0) {
     for (i = 0; i < suad.length; i++) {
       setcookie(suad[i], suad[i + 1])
     }
     location.replace(window.location.origin + window.location.pathname)
   }
-
   if (window.location.host.indexOf('dangdang') > 0 && window.location.search.indexOf('_ddclickunion') > 0) {
     for (i = 0; i < ddad.length; i++) {
       setcookie(ddad[i], ddad[i + 1])
     }
     location.replace(window.location.origin + window.location.pathname)
   }
-
   if (document.location.host.indexOf('tmall.com') > 0 && document.location.search.indexOf('ali_trackid') > 0) {
     for (i = 0; i < tmad.length; i++) {
       setcookie(tmad[i], tmad[i + 1])
     }
     location.replace(document.location.href.slice(0, document.location.href.indexOf('ali_trackid')))
   }
-
   if (document.location.host.indexOf('taobao.com') > 0 && document.location.search.indexOf('ali_trackid') > 0) {
     window.addEventListener(
       'load',
@@ -242,14 +202,12 @@ const backLink = function() {
       false
     )
   }
-
   function tbadkill() {
     for (i = 0; i < tbad.length; i++) {
       setcookie(tbad[i], tbad[i + 1])
     }
     location.replace(document.location.href.slice(0, document.location.href.indexOf('&')))
   }
-
   if (document.location.host.indexOf('smzdm.com') > 0) {
     document.body.addEventListener('mousedown', function() {
       var dlink = document.getElementsByClassName('feed-link-btn-inner')
@@ -261,10 +219,9 @@ const backLink = function() {
           dlink[i].removeChild(dlink[i].getElementsByTagName('a')[0])
           var link = document.createElement('a')
           var link = document.createElement('a')
-          link.innerHTML = '干净链接'
+          link.innerHTML = 'clear'
           link.setAttribute('class', 'z-btn z-btn-red')
           link.setAttribute('onclick', "window.open('" + l[i] + "')")
-
           dlink[i].appendChild(link)
         }
       }
@@ -272,7 +229,7 @@ const backLink = function() {
         var buy = buylink[0].getElementsByTagName('a')[0].href
         buylink[0].removeChild(buylink[0].getElementsByTagName('a')[0])
         var link = document.createElement('a')
-        link.innerHTML = '干净链接'
+        link.innerHTML = 'clear'
         //link.setAttribute("class","z-btn z-btn-red");
         link.setAttribute('onclick', "window.open('" + buy + "')")
         buylink[0].appendChild(link)

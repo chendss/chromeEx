@@ -10,7 +10,17 @@ module.exports = {
     '48': 'icons/main.png',
     '128': 'icons/main.png',
   },
-  permissions: ['*://*/', 'storage', 'contextMenus', 'clipboardWrite', 'clipboardRead'],
+  permissions: [
+    '*://*/',
+    'storage',
+    'contextMenus',
+    'clipboardWrite',
+    'clipboardRead',
+    'webRequest',
+    'webRequestBlocking',
+    'tabs',
+    '<all_urls>',
+  ],
   browser_action: {
     default_icon: {
       '19': 'icons/main.png',

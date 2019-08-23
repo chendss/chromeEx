@@ -33,7 +33,4 @@ export default {
     css: () => require('../styles/zhihu.scss'),
     load: true,
   },
-  clearCopy: {
-    js: () => require('../model/clearCopy').default(),
-  },
 }

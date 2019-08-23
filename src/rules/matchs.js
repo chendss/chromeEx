@@ -26,4 +26,5 @@ export default {
     'https://fanyi.youdao.com/*',
   ],
   ruan: ['http*://www.ruanyifeng.com/*'],
+  wenku: ['wenku.baidu*'],
 }

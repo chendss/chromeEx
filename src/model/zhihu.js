@@ -1,5 +1,3 @@
-import $ from 'jquery'
-
 const replaceAllLinkZhihu = function() {
   function replaceAllLink() {
     let as = document.getElementsByTagName('a')

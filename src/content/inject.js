@@ -1,5 +1,8 @@
 import icoHandle from '../utils/index'
 
+const log = console.log
+
+console.log('插件加载')
 const iocJs = function() {
   const content = chrome.extension.getURL('js/content.js')
   const script = document.createElement('script')

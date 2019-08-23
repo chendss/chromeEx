@@ -1,6 +1,9 @@
 import rules from '../rules/index'
 import { get } from 'lodash'
+
 const href = window.location.href
+
+export const log = console.log
 
 export default function(handle) {
   for (let ruleKey of Object.keys(rules)) {

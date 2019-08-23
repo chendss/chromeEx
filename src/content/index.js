@@ -4,7 +4,6 @@ import icoHandle from '../utils/index'
 const loadAction = function(handle) {
   window.addEventListener('load', handle)
 }
-
 const actionJs = function(rule) {
   const load = rule.load || false
   const { js } = rule
