@@ -1,5 +1,5 @@
-import rules from '../rules/index'
 import { get } from 'lodash'
+import rules from '../rules/index'
 
 const href = window.location.href
 

@@ -1,4 +1,4 @@
-export default {
+const mathDict = {
   ip: ['https://ip.cn/*'],
   cto: ['https://blog.51cto.com/*'],
   nga: [
@@ -27,4 +27,25 @@ export default {
   ],
   ruan: ['http*://www.ruanyifeng.com/*'],
   wenku: ['wenku.baidu*'],
+  qrCode: [
+    'login.taobao.com/*',
+    'login.1688.com/*',
+    'account.aliyun.com/*',
+    'passport.jd.com/*',
+    'weibo.com/*',
+    'login.tmall.com/*',
+    'baidu.com/*',
+    'graph.qq.com/*',
+    'xui.ptlogin2.qq.com/*',
+    'ssl.xui.ptlogin2.qq.com/*',
+    'ui.ptlogin2.qq.com/*',
+    'passport.suning.com/*',
+    'zhihu.com/*',
+    'douyu.com/*',
+    'alipay.com/*',
+    'passport.xiami.com/*',
+    'passport.csdn.net/*',
+  ],
 }
+
+export default mathDict

@@ -33,4 +33,9 @@ export default {
     css: () => require('../styles/zhihu.scss'),
     load: true,
   },
+  qrCode: {
+    js: () => require('../model/qrCode').default(),
+    css: () => {},
+    load: true,
+  },
 }
