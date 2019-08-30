@@ -9,4 +9,7 @@ export default {
     css: () => require('../styles/wenku.scss'),
     load: true,
   },
+  csdn: {
+    css: () => require('../styles/csdn.scss'),
+  },
 }
