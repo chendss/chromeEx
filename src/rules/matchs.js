@@ -34,6 +34,7 @@ const mathDict = {
     'passport.xiami.com/*',
     'passport.csdn.net/*',
   ],
+  csdn: ['csdn.*/'],
 }
 
 export default mathDict
