@@ -36,7 +36,8 @@ const mathDict = {
   ],
   csdn: ['csdn.*/'],
   avgle: ['avgle.com/videos*'],
-  'vue-cli': ['cli.vuejs.org*'],
+  'vue-cli': ['cli.vuejs.org*', 'vuex.vuejs.org*'],
+  fanBaidu: ['fanyi.baidu.com*'],
 }
 
 export default mathDict

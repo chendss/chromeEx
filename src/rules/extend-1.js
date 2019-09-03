@@ -19,4 +19,7 @@ export default {
   'vue-cli': {
     css: () => require('../styles/vue-cli.scss'),
   },
+  'vue-cli': {
+    css: () => require('../styles/fanBaidu.scss'),
+  },
 }
