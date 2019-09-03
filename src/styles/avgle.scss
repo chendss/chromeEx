@@ -1,0 +1,24 @@
+a[href="https://click.dtiserv2.com/Click2/517-103-us10649"] {
+  display: none;
+}
+.container {
+  width: calc(100vw - 100px);
+  > .row {
+    display: flex;
+    .col-md-9.col-sm-8 {
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        > div {
+          width: 500px;
+        }
+      }
+    }
+    .list-group {
+      width: 200px;
+    }
+  }
+}

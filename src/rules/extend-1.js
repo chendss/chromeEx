@@ -12,4 +12,11 @@ export default {
   csdn: {
     css: () => require('../styles/csdn.scss'),
   },
+  avgle: {
+    css: () => require('../styles/avgle.scss'),
+    js: () => require('../model/avgle').default(),
+  },
+  'vue-cli': {
+    css: () => require('../styles/vue-cli.scss'),
+  },
 }

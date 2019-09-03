@@ -35,6 +35,8 @@ const mathDict = {
     'passport.csdn.net/*',
   ],
   csdn: ['csdn.*/'],
+  avgle: ['avgle.com/videos*'],
+  'vue-cli': ['cli.vuejs.org*'],
 }
 
 export default mathDict

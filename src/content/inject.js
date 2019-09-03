@@ -1,4 +1,5 @@
-import icoHandle from '../utils/index'
+import iocHandle from '../utils/index'
+import excludes from '../rules/excludes'
 
 console.log('插件加载')
 const iocJs = function() {
@@ -10,6 +11,7 @@ const iocJs = function() {
 }
 
 const zoom = function() {
+  if (excludes()) return
   let dx = window.innerWidth / 1920
   dx = Math.max(dx * 0.9, 1)
   const style = document.documentElement.style
@@ -17,7 +19,7 @@ const zoom = function() {
 }
 
 const iocStyle = function() {
-  icoHandle((rule, r) => {
+  iocHandle((rule, r) => {
     const { css } = rule
     css && css()
   })
