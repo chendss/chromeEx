@@ -1,3 +1,5 @@
+import excludes from '../rules/excludes'
+
 /**
  * 自动缩放
  *
@@ -5,6 +7,7 @@
  */
 export default function() {
   const auto = function() {
+    if (excludes()) return
     let dx = window.innerWidth / 1920
     dx = Math.max(dx * 0.9, 1)
     const style = document.documentElement.style

@@ -1,5 +1,5 @@
 const href = window.location.href
-const rules = ['avgle.com/videos*'].map(s => new RegExp(s))
+const rules = ['avgle.com/videos*','avgle.com*'].map(s => new RegExp(s))
 
 /**
  * 是否要缩放此网页
