@@ -12,4 +12,12 @@
 .inner {
   width: 100vw;
   padding: 30px;
+  box-sizing: border-box;
+}
+
+.translateio {
+  margin-top: 20px;
+}
+.container {
+  overflow: hidden;
 }
