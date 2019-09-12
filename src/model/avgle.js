@@ -86,7 +86,12 @@ const loadHtml = async function(btn) {
 
 const eventBtn = function(btn) {
   btn.addEventListener('click', () => {
-    loadHtml(btn)
+    const basePageIndex = pageStart()
+    if (pageIndex - basePageIndex > 50) {
+      window.location.href = location.origin + location.pathname + `?page=${pageIndex}`
+    } else {
+      loadHtml(btn)
+    }
   })
 }
 
