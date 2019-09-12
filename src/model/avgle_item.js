@@ -6,7 +6,10 @@ export default function() {
     m3u8: '未知',
   }
   const post = function(url) {
-    let data = document.querySelector('.custom-box').value
+    let str = document.querySelector('.custom-box').value
+    let data = JSON.parse(str)
+    data.m3u8 = document.querySelector('#custom-box2').value
+    data = JSON.stringify(data)
     window.$.ajax({
       url: url,
       type: 'post',
@@ -21,6 +24,7 @@ export default function() {
   }
   let html = `<div class="custom-dig custom-dig-hiddle">
                 <textarea class="custom-box">${JSON.stringify(config)}</textarea>
+                <textarea id="custom-box2"></textarea>
                 <button class="custom-btn-close btn">关闭</button>
                 <button class="custom-btn-sub btn">提交</button>
                 <button class="custom-btn-del btn">删除</button>
@@ -28,7 +32,7 @@ export default function() {
             <button class="custom-btn">弹出</button>
             <button class="custom-btn start">开始</button>
             `
-  document.body.insertAdjacentHTML('beforebegin', html)
+  document.body.insertAdjacentHTML('beforeend', html)
   document.querySelector('.custom-btn').addEventListener('click', () => {
     let div = document.querySelector('.custom-dig-hiddle')
     div.classList.remove('custom-dig-hiddle')

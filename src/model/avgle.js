@@ -1,5 +1,22 @@
 import axios from 'axios'
 
+const pageStart = function() {
+  const href = location.href
+  let n = '0'
+  if (href.includes('page')) {
+    n = href
+      .split('?')[1]
+      .split('&')
+      .find(item => item.includes('page'))
+      .split('=')[1]
+  } else {
+    n = 1
+  }
+  return parseFloat(n)
+}
+
+let pageIndex = pageStart()
+
 const openLoading = function() {
   const loading = document.querySelector('#loading')
   loading.classList.remove('none')
@@ -28,27 +45,13 @@ const addBtn = function() {
   return container.querySelector('.more_btn')
 }
 
-const pageStart = function() {
-  const href = location.href
-  let n = '0'
-  if (href.includes('page')) {
-    n = href
-      .split('?')[1]
-      .split('&')
-      .find(item => item.includes('page'))
-      .split('=')[1]
-  } else {
-    n = 1
-  }
-  return parseFloat(n)
-}
-
 const urlList = function() {
-  let n = pageStart()
   const result = []
-  for (let i = n + 1; i < n + 4; i++) {
+  const n = pageIndex
+  for (let i = n + 1; i < n + 8; i++) {
     const url = location.origin + location.pathname
     result.push(`${url}?page=${i}`)
+    pageIndex++
   }
   return result
 }
@@ -88,6 +91,7 @@ const eventBtn = function(btn) {
 }
 
 export default function() {
+  if (!location.pathname.includes('videos')) return
   addLoading()
   const btn = addBtn()
   eventBtn(btn)
