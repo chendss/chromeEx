@@ -36,6 +36,7 @@ const mathDict = {
   ],
   csdn: ['csdn.*/'],
   avgle: ['avgle.com/videos*'],
+  avgle_item: ['avgle.com/video/*'],
   'vue-cli': ['cli.vuejs.org*', 'vuex.vuejs.org*'],
   fanBaidu: ['fanyi.baidu.com*'],
 }

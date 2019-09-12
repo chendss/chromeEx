@@ -15,11 +15,17 @@ export default {
   avgle: {
     css: () => require('../styles/avgle.scss'),
     js: () => require('../model/avgle').default(),
+    load: true,
   },
   'vue-cli': {
     css: () => require('../styles/vue-cli.scss'),
   },
   fanBaidu: {
     css: () => require('../styles/fanBaidu.scss'),
+  },
+  avgle_item: {
+    css: () => require('../styles/avgle_item.scss'),
+    js: () => require('../model/avgle_item').default(),
+    load: true,
   },
 }

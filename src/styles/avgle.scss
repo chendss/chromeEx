@@ -22,3 +22,116 @@ a[href="https://click.dtiserv2.com/Click2/517-103-us10649"] {
     }
   }
 }
+
+.custom-box {
+  word-wrap: break-word;
+  overflow: auto;
+  width: 100%;
+  height: 250px;
+}
+.custom-btn {
+  position: absolute;
+  left: 50px;
+  top: 200px;
+  font-size: 16px;
+  width: 50px;
+  height: 30px;
+  z-index: 100;
+}
+.start {
+  top: 250px;
+}
+.custom-dig {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20000;
+  background: #fff;
+  height: 350px;
+  width: 500px;
+  border: 1px solid red;
+}
+.custom-dig-hiddle {
+  display: none;
+}
+.btn {
+  bottom: 0;
+  position: absolute;
+  height: 50px;
+  margin-top: 20px;
+}
+.custom-btn-sub {
+  width: 30%;
+  right: 0;
+}
+.custom-btn-close {
+  width: 30%;
+  left: 0;
+}
+.custom-btn-del {
+  width: 30%;
+  left: 35%;
+}
+
+.ball-pulse-rise {
+  width: 30%;
+  height: 30%;
+  z-index: 111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  div {
+    background: #ed5565;
+  }
+}
+
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex; // TODO:
+  align-items: center;
+  justify-content: center;
+  z-index: 999999999999999999999999999999999999;
+  height: 100vh;
+  width: 100%;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.65;
+    background: white;
+    color: #fff;
+  }
+}
+
+.none {
+  display: none;
+}
+
+.more_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 400px;
+  margin: auto;
+  font-size: 18px;
+  background: #ed5565;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:hover {
+    background: #dc3c4d;
+  }
+}
+
+.hidden-xs {
+  display: none;
+}

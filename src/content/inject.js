@@ -19,6 +19,7 @@ const zoom = function() {
 }
 
 const iocStyle = function() {
+  require('../styles/global.scss')
   iocHandle((rule, r) => {
     const { css } = rule
     css && css()

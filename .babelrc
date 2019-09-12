@@ -1,14 +1,21 @@
 {
-    "presets": [
-        [
-            "env",
-            {
-                "modules": "commonjs"
-            }
-        ],
-        "stage-3"
+  "presets": [
+    [
+      "env",
+      {
+        "modules": "commonjs"
+      }
     ],
-    "plugins": [
-        "syntax-dynamic-import"
+    "stage-3"
+  ],
+  "plugins": [
+    "syntax-dynamic-import",
+    "syntax-async-generators",
+    [
+      "transform-runtime",
+      {
+        "regenerator": true
+      }
     ]
+  ]
 }
