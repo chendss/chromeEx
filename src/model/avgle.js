@@ -37,12 +37,17 @@ const addLoading = function() {
 const addBtn = function() {
   const container = document.querySelector('#wrapper .container')
   const html = `
-    <div class="more_btn">
-      加载更多
+    <div class="btn_box">
+      <div class="more_btn _btn">
+        加载更多
+      </div>
+      <div class="reset_btn _btn">
+        刷新页面
+      </div>
     </div>
   `
   container.insertAdjacentHTML('beforeend', html)
-  return container.querySelector('.more_btn')
+  return [container.querySelector('.more_btn'), container.querySelector('.reset_btn')]
 }
 
 const urlList = function() {
@@ -75,29 +80,35 @@ const getMorePage = async function() {
   return domList
 }
 
-const loadHtml = async function(btn) {
+const loadHtml = async function() {
   openLoading()
   let rows = await getMorePage()
   const container = document.querySelector('#wrapper .container')
   rows.forEach(row => container.insertAdjacentHTML('beforeend', row))
-  container.appendChild(btn)
+  const dom = document.querySelector('#wrapper .container .btn_box')
+  container.appendChild(dom)
   closeLoading()
 }
 
-const eventBtn = function(btn) {
-  btn.addEventListener('click', () => {
+const eventBtn = function(btn, resetBtn) {
+  btn.addEventListener('click', async () => {
     const basePageIndex = pageStart()
+    const href = location.origin + location.pathname + `?page=${pageIndex}`
     if (pageIndex - basePageIndex > 50) {
-      window.location.href = location.origin + location.pathname + `?page=${pageIndex}`
+      window.location.href = href
     } else {
-      loadHtml(btn)
+      await loadHtml()
+      resetBtn.innerText = `刷新 ${pageIndex}`
     }
+  })
+  eventBtn.addEventListener('click', () => {
+    window.location.href = href
   })
 }
 
 export default function() {
   if (!location.pathname.includes('videos')) return
   addLoading()
-  const btn = addBtn()
-  eventBtn(btn)
+  const [moreBtn, resetBtn] = addBtn()
+  eventBtn(moreBtn, resetBtn)
 }

@@ -60,21 +60,31 @@ a[href="https://click.dtiserv2.com/Click2/517-103-us10649"] {
   display: none;
 }
 
-.more_btn {
-  height: 50px;
-  width: 400px;
-  margin: auto;
-  color: white;
+.btn_box {
   display: flex;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 5px;
-  background: #ed5565;
+  width: 100%;
   align-items: center;
-  transition: all 0.2s;
   justify-content: center;
-  &:hover {
-    background: #dc3c4d;
+  ._btn {
+    height: 50px;
+    width: 250px;
+    color: white;
+    display: inline-flex;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #ed5565;
+    align-items: center;
+    transition: all 0.2s;
+    justify-content: center;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  .more_btn {
+    margin-right: 40px;
+  }
+  .reset_btn {
   }
 }
 
