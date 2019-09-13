@@ -101,7 +101,7 @@ const eventBtn = function(btn, resetBtn) {
       resetBtn.innerText = `刷新 ${pageIndex}`
     }
   })
-  eventBtn.addEventListener('click', () => {
+  resetBtn.addEventListener('click', () => {
     window.location.href = href
   })
 }
