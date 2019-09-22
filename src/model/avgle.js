@@ -29,8 +29,10 @@ const closeLoading = function() {
 
 const addLoading = function() {
   const body = document.querySelector('body')
-  console.log('sss', body)
-  const html = `<div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`
+  const html = `
+  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div id="fiexd_btn"> </div>
+  `
   body.insertAdjacentHTML('beforeend', html)
 }
 
@@ -42,7 +44,7 @@ const addBtn = function() {
         加载更多
       </div>
       <div class="reset_btn _btn">
-        刷新页面
+        刷新页面 ${pageIndex}
       </div>
     </div>
   `
@@ -102,6 +104,7 @@ const eventBtn = function(btn, resetBtn) {
     }
   })
   resetBtn.addEventListener('click', () => {
+    const href = location.origin + location.pathname + `?page=${pageIndex}`
     window.location.href = href
   })
 }
