@@ -28,4 +28,7 @@ export default {
     js: () => require('../model/avgle_item').default(),
     load: true,
   },
+  jd: {
+    css: () => require('../styles/jd.scss'),
+  },
 }
