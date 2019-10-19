@@ -5,12 +5,12 @@
   "author": "dashao <capslock.ch@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --config ./build/webpack.dev.conf.js --hide-modules",
-    "build": "git pull && node build/build.js",
+    "build": "node build/build.js",
+    "start": "node ./build/dev.js",
     "zip": "zip -q -r extension.zip dist",
     "clear": "rm -rf chrome-ext.crx extension.zip dist",
     "start2": "pm2 start ./build/dev.js --name chromeEx",
-    "start": "node ./build/dev.js",
+    "dev": "webpack --config ./build/webpack.dev.conf.js --hide-modules",
     "stop": "pm2 stop chromeEx"
   },
   "dependencies": {

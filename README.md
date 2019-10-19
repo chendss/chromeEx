@@ -21,3 +21,10 @@
 - [vue-infinite-scroll](https://github.com/ElemeFE/vue-infinite-scroll) VueJS 的无限滚动指令
 - [vue-virtual-scroller](https://github.com/Akryum/vue-virtual-scroller) 带任意数目数据的顺畅的滚动
 - [vue2-touch-events](https://github.com/jerrybendy/vue-touch-events#readme) vue 移动端 touch
+
+## 命令解析
+
+- 进程不死调试 `npm start`
+- 普通调试 `npm run dev`
+- 压缩编译 `npm run build`
+- 打包 `npm run zip`
