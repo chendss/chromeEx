@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack --config ./build/webpack.dev.conf.js --hide-modules",
-    "build": "node build/build.js",
+    "build": "git pull && node build/build.js",
     "zip": "zip -q -r extension.zip dist",
     "clear": "rm -rf chrome-ext.crx extension.zip dist",
     "start2": "pm2 start ./build/dev.js --name chromeEx",

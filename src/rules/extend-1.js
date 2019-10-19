@@ -31,4 +31,7 @@ export default {
   jd: {
     css: () => require('../styles/jd.scss'),
   },
+  'zhihu-search': {
+    css: () => require('../styles/zhihu-search.scss'),
+  },
 }

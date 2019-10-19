@@ -40,6 +40,7 @@ const mathDict = {
   'vue-cli': ['cli.vuejs.org*', 'vuex.vuejs.org*'],
   fanBaidu: ['fanyi.baidu.com*'],
   jd: ['item.jd.com/*'],
+  'zhihu-search': ['zhihu.com/search*'],
 }
 
 export default mathDict
