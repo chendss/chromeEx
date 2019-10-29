@@ -1,0 +1,12 @@
+.none {
+  opacity: 0.002;
+  width: 1.1px;
+  height: 0.5px;
+  overflow: hidden;
+}
+form[name='FORM'],
+.tips,
+iframe,
+.sptable_do_not_remove {
+  @extend .none; // TODO:
+}

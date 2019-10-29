@@ -34,4 +34,14 @@ export default {
   'zhihu-search': {
     css: () => require('../styles/zhihu-search.scss'),
   },
+  'ty66-down': {
+    css: () => require('../styles/ty66-down.scss'),
+    js: () => require('../model/ty66-down.js').default(),
+    load: true,
+  },
+  'ty66-page': {
+    css: () => require('../styles/ty66-page.scss'),
+    js: () => require('../model/ty66-page.js').default(),
+    load: true,
+  },
 }

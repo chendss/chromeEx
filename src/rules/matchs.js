@@ -2,18 +2,18 @@ const mathDict = {
   ip: ['ip.cn/*'],
   cto: ['blog.51cto.com/*'],
   nga: ['nga.178.com/*', 'nga.178.com/*', 'bbs.ngacn.cc/*', 'bbs.ngacn.cc/*', 'bbs.nga.cn/*', 'bbs.nga.cn/*'],
-  imooc: ['www.imooc.com/video/*'],
-  baidu: ['www.baidu.com/*', 'www.baidu.com/*'],
+  imooc: ['imooc.com/video/*'],
+  baidu: ['baidu.com/*', 'baidu.com/*'],
   zhihu: [
     '.zhihu.com/*',
-    'www.zhihu.com/question/*',
-    'www.zhihu.com/*',
-    'www.zhihu.com/*',
+    'zhihu.com/question/*',
+    'zhihu.com/*',
+    'zhihu.com/*',
     'zhuanlan.zhihu.com/*',
     'zhuanlan.zhihu.com/*',
   ],
   youdao: ['dict.youdao.com*', 'dict.youdao.com*', 'fanyi.youdao.com/*', 'fanyi.youdao.com/*'],
-  ruan: ['www.ruanyifeng.com/*'],
+  ruan: ['ruanyifeng.com/*'],
   wenku: ['wenku.baidu*'],
   qrCode: [
     'login.taobao.com/*',
@@ -41,6 +41,8 @@ const mathDict = {
   fanBaidu: ['fanyi.baidu.com*'],
   jd: ['item.jd.com/*'],
   'zhihu-search': ['zhihu.com/search*'],
+  'ty66-down': ['rmdown.com/link.php*'],
+  'ty66-page': ['t66y.com/htm_data/*'],
 }
 
 export default mathDict

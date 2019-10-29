@@ -19,7 +19,6 @@ const config = function() {
       }
     }
   })
-  console.log('规则生成', result)
   return result
 }
 
