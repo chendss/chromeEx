@@ -44,4 +44,14 @@ export default {
     js: () => require('../model/ty66-page.js').default(),
     load: true,
   },
+  '89File': {
+    css: () => require('../styles/89FileDown.scss'),
+    js: () => require('../model/89File.js').default(),
+    load: true,
+  },
+  '89FileDown': {
+    css: () => require('../styles/89FileDown.scss'),
+    js: () => require('../model/89FileDown.js').default(),
+    load: true,
+  },
 }

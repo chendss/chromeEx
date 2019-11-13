@@ -43,6 +43,8 @@ const mathDict = {
   'zhihu-search': ['zhihu.com/search*'],
   'ty66-down': ['rmdown.com/link.php*'],
   'ty66-page': ['t66y.com/htm_data/*'],
+  '89File': ['http://www.89file.com/file/*'],
+  '89FileDown': ['http://www.89file.com/down/*'],
 }
 
 export default mathDict

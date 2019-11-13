@@ -1,0 +1,30 @@
+.custom-dig {
+  position: fixed;
+  right: 100px;
+  top: 300px;
+  .downFile_ {
+    display: inline-flex;
+    width: 300px;
+    height: 100px;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    background: #ff6363;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.r336,
+.ad970 {
+  position: fixed;
+  z-index: -1111;
+  width: 1.1px;
+  height: 1.1px;
+  opacity: 0;
+}
