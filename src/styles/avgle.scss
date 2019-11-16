@@ -92,3 +92,47 @@ a[href="https://click.dtiserv2.com/Click2/517-103-us10649"] {
 .footer-container {
   display: none;
 }
+
+.input-box-2 {
+  top: 300px;
+  right: 60px;
+  height: 50px;
+  display: flex;
+  position: fixed;
+  min-width: 220px;
+  align-items: center;
+  &:hover {
+    #input-number {
+      width: 100px;
+      opacity: 1;
+    }
+  }
+  #input-number {
+    width: 0px;
+    opacity: 0;
+    height: 100%;
+    border-radius: 5px;
+    margin-right: 20px;
+    margin-left: 100px;
+    transition: all 0.2s;
+    border: 1px solid #ed5565;
+  }
+  #confirm {
+    border: 0;
+    color: #fff;
+    height: 100%;
+    width: 100px;
+    flex: 1 1 auto;
+    margin-left: auto;
+    border-radius: 5px;
+    align-items: center;
+    background: #ed5565;
+    transition: all 0.2s;
+    transition: all 0.2s;
+    display: inline-flex;
+    justify-content: center;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}

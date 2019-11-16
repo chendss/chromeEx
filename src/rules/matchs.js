@@ -45,6 +45,7 @@ const mathDict = {
   'ty66-page': ['t66y.com/htm_data/*'],
   '89File': ['http://www.89file.com/file/*'],
   '89FileDown': ['http://www.89file.com/down/*'],
+  gogs: ['http://d.bjong.me:9546/', 'gogs*'],
 }
 
 export default mathDict

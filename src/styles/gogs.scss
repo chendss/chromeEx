@@ -1,0 +1,16 @@
+@mixin container {
+  .ui.container:not(.fluid) {
+    max-width: 1680px;
+    width: 70vw;
+  }
+}
+
+.full.height {
+  .dashboard.feeds {
+    @include container; //TODO:
+  }
+}
+
+.following.bar.light {
+  @include container; //TODO:
+}

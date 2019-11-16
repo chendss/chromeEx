@@ -54,4 +54,7 @@ export default {
     js: () => require('../model/89FileDown.js').default(),
     load: true,
   },
+  gogs: {
+    css: () => require('../styles/gogs.scss'),
+  },
 }

@@ -1,4 +1,8 @@
 import axios from 'axios'
+import DB from '../utils/DB'
+import { get, toNumber } from 'lodash'
+
+const dxNumber = toNumber(get(DB.get('av'), 'number', '8'))
 
 const pageStart = function() {
   const href = location.href
@@ -52,10 +56,22 @@ const addBtn = function() {
   return [container.querySelector('.more_btn'), container.querySelector('.reset_btn')]
 }
 
+const inputHtml = function() {
+  const container = document.body
+  const html = `
+    <div class="input-box-2">
+      <input id="input-number" type="number">
+      <button id="confirm">确定</button>
+    </div>
+  `
+  container.insertAdjacentHTML('beforeend', html)
+  return [container.querySelector('#input-number'), container.querySelector('#confirm')]
+}
+
 const urlList = function() {
   const result = []
   const n = pageIndex
-  for (let i = n + 1; i < n + 8; i++) {
+  for (let i = n + 1; i < n + dxNumber; i++) {
     const url = location.origin + location.pathname
     result.push(`${url}?page=${i}`)
     pageIndex++
@@ -92,7 +108,17 @@ const loadHtml = async function() {
   closeLoading()
 }
 
-const eventBtn = function(btn, resetBtn) {
+/**
+ * 页面重绘
+ *
+ */
+const reset = function() {
+  const href = location.origin + location.pathname + `?page=${pageIndex}`
+  window.location.href = href
+}
+
+const eventBtn = function() {
+  const [btn, resetBtn] = addBtn()
   btn.addEventListener('click', async () => {
     const basePageIndex = pageStart()
     const href = location.origin + location.pathname + `?page=${pageIndex}`
@@ -103,15 +129,22 @@ const eventBtn = function(btn, resetBtn) {
       resetBtn.innerText = `刷新 ${pageIndex}`
     }
   })
-  resetBtn.addEventListener('click', () => {
-    const href = location.origin + location.pathname + `?page=${pageIndex}`
-    window.location.href = href
+  resetBtn.addEventListener('click', reset)
+}
+
+const eventInput = function() {
+  const [inputDom, confirmDom] = inputHtml()
+  inputDom.value = dxNumber
+  confirmDom.addEventListener('click', () => {
+    const val = inputDom.value
+    DB.set('av', { number: val })
+    reset()
   })
 }
 
 export default function() {
   if (!location.pathname.includes('videos')) return
   addLoading()
-  const [moreBtn, resetBtn] = addBtn()
-  eventBtn(moreBtn, resetBtn)
+  eventBtn()
+  eventInput()
 }
