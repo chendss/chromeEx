@@ -1,11 +1,13 @@
 import matchs from './matchs'
 import { merge } from 'lodash'
 import baseConfig from './base'
-import extend_1 from './extend-1'
+import extra_1 from './extra-1'
+import extra_2 from './extra-2'
 
 const mergeConfig = {
   ...baseConfig,
-  ...extend_1,
+  ...extra_1,
+  ...extra_2,
 }
 
 const config = function() {

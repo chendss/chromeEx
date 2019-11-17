@@ -41,6 +41,7 @@ const mathDict = {
   fanBaidu: ['fanyi.baidu.com*'],
   jd: ['item.jd.com/*'],
   'zhihu-search': ['zhihu.com/search*'],
+  'zhihu-people': ['www.zhihu.com/people*', 'www.zhihu.com/people'],
   'ty66-down': ['rmdown.com/link.php*'],
   'ty66-page': ['t66y.com/htm_data/*'],
   '89File': ['http://www.89file.com/file/*'],

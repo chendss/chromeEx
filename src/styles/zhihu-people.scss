@@ -1,0 +1,26 @@
+.App-main {
+  #ProfileHeader {
+    width: 1680px;
+  }
+  .Profile-main {
+    width: 1680px;
+    .Profile-mainColumn {
+      margin-right: 20px;
+      width: max-content;
+    }
+    .Profile-sideColumn {
+      flex: 1 1 auto;
+      width: max-content;
+    }
+  }
+}
+
+.ImageGallery.is-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .ImageGallery-Content {
+    top: auto;
+    left: auto;
+  }
+}

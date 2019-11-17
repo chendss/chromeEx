@@ -1,5 +1,13 @@
 import { get } from 'lodash'
 
+export const log = function(...args) {
+  console.log(...args)
+}
+
+export const q = s => document.querySelector(s)
+
+export const qs = s => document.querySelectorAll(s)
+
 export const toArray = function(source) {
   let result = []
   if (source instanceof Array) {

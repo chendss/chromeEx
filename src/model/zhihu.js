@@ -40,5 +40,4 @@ const replaceAllLinkZhihu = function() {
  */
 export default function() {
   replaceAllLinkZhihu()
-  an()
 }
