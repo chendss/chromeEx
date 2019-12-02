@@ -32,16 +32,16 @@ export default {
     css: () => require('../styles/jd.scss'),
   },
   'zhihu-search': {
-    css: () => require('../styles/zhihu-search.scss'),
+    css: () => require('../styles/zhihu/zhihu-search.scss'),
   },
   'ty66-down': {
-    css: () => require('../styles/ty66-down.scss'),
-    js: () => require('../model/ty66-down.js').default(),
+    css: () => require('../styles/ty66/ty66-down.scss'),
+    js: () => require('../model/ty66/ty66-down').default(),
     load: true,
   },
   'ty66-page': {
-    css: () => require('../styles/ty66-page.scss'),
-    js: () => require('../model/ty66-page.js').default(),
+    css: () => require('../styles/ty66/ty66-page.scss'),
+    js: () => require('../model/ty66/ty66-page').default(),
     load: true,
   },
   '89File': {

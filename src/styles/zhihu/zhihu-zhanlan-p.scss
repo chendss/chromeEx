@@ -1,0 +1,19 @@
+$width: 1680px; // TODO:
+#root {
+  .App {
+    .App-main {
+      .Post-content {
+        .Post-Main.Post-NormalMain {
+          padding-left: 20px;
+          padding-right: 20px;
+          .Post-Header {
+            width: 100%;
+          }
+          .Post-RichTextContainer {
+            width: $width;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+$width: 1680px; // TODO:
+#root {
+  .QuestionPage {
+    .QuestionHeader {
+      .QuestionHeader-content {
+        width: 100%;
+        .QuestionHeader-main {
+          width: calc(100% - 296px);
+          .QuestionHeader-side {
+            .QuestionHeader-follow-status {
+              .NumberBoard.QuestionFollowStatus-counts.NumberBoard--divider {
+                width: auto;
+              }
+            }
+          }
+        }
+      }
+      .QuestionHeader-footer {
+        width: 100%;
+        .QuestionHeader-footer-inner {
+          width: 100%;
+        }
+      }
+    }
+    .Question-main {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+      .ListShortcut {
+        width: calc(100% - 296px);
+        .Question-mainColumn {
+          width: calc(100% - 10px);
+        }
+      }
+    }
+    .Question-sideColumn.Question-sideColumn--sticky {
+      .Sticky {
+        .Card[data-za-detail-view-path-module="ContentList"] {
+          display: none;
+        }
+      }
+    }
+  }
+}

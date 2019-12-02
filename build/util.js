@@ -5,12 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const PAGE_OPTIONS = {
   title: '',
   hash: true,
+  chunks: [],
   cache: true,
   inject: 'body',
+  appMountId: 'app',
   filename: 'pages/temp.html',
   template: path.resolve(__dirname, './page.ejs'),
-  appMountId: 'app',
-  chunks: [],
 }
 
 exports.resolve = dir => path.join(__dirname, '..', dir || '')

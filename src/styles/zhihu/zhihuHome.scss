@@ -1,0 +1,78 @@
+$width: 1680px; // TODO:
+
+#root {
+  .AdblockBanner {
+    display: none;
+  }
+  .Footer,
+  footer {
+    display: none;
+  }
+  div {
+    .Sticky.AppHeader {
+      .AppHeader-inner {
+        width: $width;
+      }
+    }
+    header {
+      .PageHeader.is-shown {
+        .TopstoryPageHeader {
+          width: $width;
+        }
+      }
+    }
+  }
+  main {
+    display: flex;
+    justify-content: center;
+    > div {
+      width: $width;
+    }
+    .Topstory {
+      .Topstory-container {
+        width: $width;
+        .Topstory-mainColumn {
+          width: calc(100% - 300px);
+        }
+        .GlobalSideBar {
+          div {
+            .Sticky {
+              .StoryCompetitionBanner {
+                display: none;
+              }
+              .Card {
+                .GlobalSideBar-navList {
+                  li {
+                    a[href="/community"],
+                    a[href="/copyright"] {
+                      display: none;
+                    }
+                  }
+                }
+                .GlobalSideBar-categoryList {
+                  margin: auto;
+                  li {
+                    a[href="/lives"],
+                    a[href="/pub/"],
+                    a[href="/roundtable"],
+                    a[href="/consult"] {
+                      display: none;
+                    }
+                  }
+                }
+              }
+              footer {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .CornerAnimayedFlex {
+    &:first-child {
+      display: none;
+    }
+  }
+}

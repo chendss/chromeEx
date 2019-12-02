@@ -10,7 +10,7 @@ const mergeConfig = {
   ...extra_2,
 }
 
-const config = function() {
+const config = function () {
   let result = {}
   const keys = Object.keys(mergeConfig)
   Object.entries(matchs).forEach(match => {
@@ -24,4 +24,5 @@ const config = function() {
   return result
 }
 
-export default merge(mergeConfig, config())
+const result = merge(mergeConfig, config())
+export default result

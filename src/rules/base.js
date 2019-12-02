@@ -28,14 +28,14 @@ export default {
     css: () => require('../styles/baidu.scss'),
     load: true,
   },
-  zhihu: {
+  zhihuHome: {
     js: () => require('../model/zhihu').default(),
-    css: () => require('../styles/zhihu.scss'),
+    css: () => require('../styles/zhihu/zhihuHome.scss'),
     load: true,
   },
   qrCode: {
     js: () => require('../model/qrCode').default(),
-    css: () => {},
+    css: () => { },
     load: true,
   },
 }
