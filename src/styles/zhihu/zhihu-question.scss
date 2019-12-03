@@ -28,13 +28,24 @@ $width: 1680px; // TODO:
       justify-content: center;
       padding: 0;
       .ListShortcut {
-        width: calc(100% - 296px);
-        .Question-mainColumn {
-          width: calc(100% - 10px);
+        width: 100%;
+        .ContentItem.AnswerItem {
+          .RichContent {
+            .RichContent-inner {
+              .ContentItem-actions.Sticky.RichContent-actions.is-fixed.is-bottom {
+                width: calc(1680px - 296px);
+              }
+            }
+          }
         }
+      }
+      .Question-mainColumn {
+        width: calc(100% - 10px);
+        margin-right: 10px;
       }
     }
     .Question-sideColumn.Question-sideColumn--sticky {
+      width: 296px;
       .Sticky {
         .Card[data-za-detail-view-path-module="ContentList"] {
           display: none;
