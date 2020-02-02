@@ -80,11 +80,15 @@ const queryBtnClick = async function (id) {
 }
 
 const score = function (titleDom) {
-  const texts = titleDom.title.split(']').map(item => item.replace('[', ''))
-  const text = texts.find(t => t.includes('豆瓣'))
+  let infos = titleDom.title.split(']')
+  if (infos.length <= 1) {
+    infos = titleDom.title.split('/')
+  }
+  const texts = infos.map(item => item.replace('[', ''))
+  const text = texts.find(t => t.includes('豆瓣')) || '0'
   const n = text.replace('豆瓣', '').replace('分', '')
   console.log('片子', texts[0], '分数为', n)
-  return Number(n) > 7.2
+  return { status: Number(n) > 7.2, name: texts[0].split(' ')[0] }
 }
 
 const checkAllItems = function () {
@@ -95,12 +99,14 @@ const checkAllItems = function () {
     if (attr == null) {
       const id = item.getAttribute('id')
       item.setAttribute('attr', 'value')
-      item.insertAdjacentHTML('beforeend', `<div class="query-btn" >查看磁力链接</div>`)
-      const btn = item.querySelector('.query-btn')
-      btn.addEventListener('click', () => queryBtnClick(id))
       const title = item.querySelector('.entry-title.postli-1>a')
-      if (!score(title)) {
+      const scoreDict = score(title)
+      if (!scoreDict.status) {
         item.classList.add('none')
+      } else {
+        item.insertAdjacentHTML('beforeend', `<div class="query-btn" >查看磁力链接</div> <a class="douban" target="_blank" href="https://search.douban.com/movie/subject_search?search_text=${decodeURIComponent(scoreDict.name)}">豆瓣搜索</a>`)
+        const btn = item.querySelector('.query-btn')
+        btn.addEventListener('click', () => queryBtnClick(id))
       }
     }
   }

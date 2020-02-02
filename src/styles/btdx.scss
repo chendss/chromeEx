@@ -80,6 +80,7 @@
 }
 
 .btn_box {
+  height: 80px;
   display: flex;
   width: 100%;
   align-items: center;
@@ -107,11 +108,18 @@
   }
 }
 
-.query-btn {
+.query-btn,
+.douban {
   color: red;
   cursor: pointer;
   font-size: 24px;
+  margin-right: 16px;
   white-space: nowrap;
+  display: inline-flex;
+}
+
+.douban {
+  color: #6565da;
 }
 
 #id-modal {
