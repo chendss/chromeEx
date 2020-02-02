@@ -142,16 +142,17 @@
     }
   }
   .modal-content {
-    padding: 8px;
     z-index: 9;
+    padding: 8px;
     height: 100%;
-    width: $content-w; // TODO:
     display: flex;
+    overflow-y: auto;
     margin-left: auto;
     flex-direction: column;
     background-color: #fff;
-    animation: move-left 0.1s linear; // TODO:
+    width: $content-w; // TODO:
     background-clip: padding-box;
+    animation: move-left 0.1s linear; // TODO:
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
   }
 }
@@ -180,7 +181,11 @@
   }
   .info-textarea {
     margin-top: 8px;
-    display: flex;
     cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    word-break: break-all;
   }
 }

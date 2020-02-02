@@ -104,7 +104,7 @@ const checkAllItems = function () {
       if (!scoreDict.status) {
         item.classList.add('none')
       } else {
-        item.insertAdjacentHTML('beforeend', `<div class="query-btn" >查看磁力链接</div> <a class="douban" target="_blank" href="https://search.douban.com/movie/subject_search?search_text=${decodeURIComponent(scoreDict.name)}">豆瓣搜索</a>`)
+        item.insertAdjacentHTML('beforeend', `<div class="query-btn" >查看磁力链接</div> <a class="douban" target="_blank" href="https://search.douban.com/movie/subject_search?search_text=${decodeURIComponent(scoreDict.name)}&cat=1002">豆瓣搜索</a>`)
         const btn = item.querySelector('.query-btn')
         btn.addEventListener('click', () => queryBtnClick(id))
       }
