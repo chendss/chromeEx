@@ -43,6 +43,7 @@ const mathDict = {
   '89File': ['http://www.89file.com/file'],
   '89FileDown': ['http://www.89file.com/down'],
   gogs: ['http://d.bjong.me:9546', 'gogs'],
+  btdax: ['www.btdx8.com/douban_rating']
 }
 
 export default mathDict
