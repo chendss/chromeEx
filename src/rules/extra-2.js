@@ -15,5 +15,17 @@ export default {
     css: () => require('../styles/btdx.scss'),
     js: () => require('../model/btdx.js').default(),
     load: true
-  }
+  },
+  'crsoso': {
+    css: () => require('../styles/crsoso.scss'),
+  },
+  jianshu: {
+    css: () => require('../styles/jianshu.scss'),
+    js: () => require('../model/jianshu.js').default(),
+  },
+  jdSearch: {
+    css: () => require('../styles/jdSearch.scss'),
+    js: () => require('../model/jdSearch.js').default(),
+    load: true
+  },
 }
