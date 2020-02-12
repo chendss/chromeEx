@@ -28,4 +28,9 @@ export default {
     js: () => require('../model/jdSearch.js').default(),
     load: true
   },
+  movieDouban: {
+    css: () => require('../styles/movieDouban.scss'),
+    js: () => require('../model/movieDouban.js').default(),
+    load: true
+  },
 }

@@ -21,12 +21,10 @@ const addBtn = function () {
           const skuId = item.dataset.sku
           const price = Number(item.querySelector('.p-price i').innerText)
           let number = 1
-          if (price > 100 && price < 200) {
-            number = 2
+          if (price >= 100) {
+            number = Math.ceil(300 / price)
           } else if (price < 100) {
-            number = 3
-          } else if (price < 10) {
-            number = 5
+            number = Math.ceil(200 / price)
           }
           await axios.post(`http://127.0.0.1:9254/add/${skuId}`, { number })
           console.log('添加成功')

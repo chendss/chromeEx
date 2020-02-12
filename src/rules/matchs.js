@@ -47,6 +47,7 @@ const mathDict = {
   'zhihu-people': ['www.zhihu.com/people', 'www.zhihu.com/people'],
   jianshu: ['.jianshu.com'],
   jdSearch: ['search.jd.com'],
+  movieDouban: ['movie.douban.com/explore'],
 }
 
 export default mathDict
