@@ -33,4 +33,9 @@ export default {
     js: () => require('../model/movieDouban.js').default(),
     load: true
   },
+  cilixiong: {
+    css: () => require('../styles/cilixiong.scss'),
+    js: () => require('../model/cilixiong.js').default(),
+    load: true
+  },
 }

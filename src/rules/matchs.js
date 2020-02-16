@@ -2,7 +2,7 @@ const mathDict = {
   ip: ['ip.cn'],
   wenku: ['wenku.baidu'],
   cto: ['blog.51cto.com'],
-  ruan: ['ruanyifeng.com'],
+  ruan: ['www.ruanyifeng.com/'],
   imooc: ['imooc.com/video'],
   'zhihu-ome': ['zhihu.com',],
   baidu: ['baidu.com', 'baidu.com'],
@@ -48,6 +48,7 @@ const mathDict = {
   jianshu: ['.jianshu.com'],
   jdSearch: ['search.jd.com'],
   movieDouban: ['movie.douban.com/explore'],
+  cilixiong: ['cilixiong.com/movie/'],
 }
 
 export default mathDict
