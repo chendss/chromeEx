@@ -3,7 +3,7 @@ import DB from '../utils/DB'
 import { sortBy, flatMap, unionBy } from 'lodash'
 import { queryToObj, get } from '../utils/index'
 
-let num = 32
+let num = 64
 
 let page_start = 2
 
@@ -51,8 +51,38 @@ const sleep = async function (time) {
   })
 }
 
-const main = async function () {
+const addSearch = function () {
+  document.querySelector('#search_btn').addEventListener('click', () => {
+    const modal = document.querySelector('#id-modal')
+    modal.classList.remove('none')
+  })
+}
+
+const markEvent = function () {
+  document.querySelector('#id-modal .mark').addEventListener('click', () => {
+    const modal = document.querySelector('#id-modal')
+    modal.classList.add('none')
+    modal.querySelector('.modal-content').innerHTML = ''
+    document.body.classList.remove('hidde')
+  })
+}
+
+const insertHtml = function () {
   document.body.insertAdjacentHTML('beforeend', `  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`)
+  document.body.insertAdjacentHTML('beforeend', `
+    <div id="search_btn">筛选</div>
+    <div id="id-modal" class="none">
+      <div class="mark"></div>
+      <div class="modal-content">
+      </div>
+    </div>
+  `)
+}
+
+const main = async function () {
+  insertHtml()
+  addSearch()
+  markEvent()
   const more = document.querySelector('.main-container .imagebg .container .row .tsc_pagination')
   const parent = more.parentElement
   parent.insertAdjacentHTML('beforeend', `<div class="custom_more">加载更多</div>`)
@@ -60,7 +90,6 @@ const main = async function () {
   readMore.addEventListener('click', () => {
     addMovie()
   })
-  addMovie(max)
 }
 
 export default main
