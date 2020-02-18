@@ -1,4 +1,4 @@
-$width: calc(100vw - 80px); // TODO:
+$width: calc(100% - 80px); // TODO:
 
 #root {
   .AdblockBanner {
@@ -71,6 +71,9 @@ $width: calc(100vw - 80px); // TODO:
     }
     .ContentLayout-mainColumn {
       width: $width;
+    }
+    .Card.TopstoryItem.TopstoryItem--advertCard.TopstoryItem-isRecommend {
+      display: none;
     }
   }
   .CornerAnimayedFlex {
