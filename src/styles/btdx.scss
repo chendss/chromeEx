@@ -4,7 +4,7 @@
   display: none;
 }
 #wrapper {
-  width: 1680px;
+  width: calc(100vw - 80px);
   #main {
     width: auto;
     #content {

@@ -1,6 +1,6 @@
 @mixin container {
   .ui.container:not(.fluid) {
-    max-width: 1680px;
+    max-width: calc(100vw - 80px);
     width: 70vw;
   }
 }
