@@ -103,9 +103,8 @@
     width: 100%;
     color: #fff;
     height: 100%;
-    opacity: 0.65;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.65);
   }
 }
 
@@ -163,4 +162,7 @@
   &:hover {
     transform: scale(1.2);
   }
+}
+.hidde {
+  overflow: hidden;
 }

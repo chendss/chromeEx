@@ -1,11 +1,16 @@
+import Nedb from 'nedb'
 import axios from "axios"
-import Clipdboard from 'clipboard'
 import DB from "../utils/DB"
-import { random } from '../utils/index'
 import '../utils/spop.min.js'
+import Clipdboard from 'clipboard'
 import { get, toNumber } from "lodash"
+import { random } from '../utils/index'
 
 const dxNumber = toNumber(get(DB.get("av"), "number", "8"))
+const dataset = new Nedb({
+  filename: '/data/btdx.db',
+  autoload: true
+})
 
 const copyStr = function (dom) {
   const textarea = dom.querySelector('.info-textarea')
@@ -19,7 +24,7 @@ const copyStr = function (dom) {
     input.remove()
   }, 2000)
   spop({
-    template: '成功',
+    template: '复制成功',
     position: 'bottom-right',
     style: 'success',
     autoclose: 2000
@@ -45,8 +50,8 @@ const insterModal = function () {
   modal.classList.remove('none')
 }
 
-const queryBtnClick = async function (id) {
-  openLoading()
+const getModalContent = async function (id) {
+  let htmlList = []
   try {
     const parent = document.querySelector(`#${id}`)
     const a = parent.querySelector('.entry-title a')
@@ -58,20 +63,47 @@ const queryBtnClick = async function (id) {
     const downDomList = [...Html.querySelectorAll('#zdownload .download-link')]
     const btxtList = [...Html.querySelectorAll('#btxt>a')]
     const links = [...btxtList, ...downDomList].map(d => ({ href: d.href, name: d.outerText }))
-    const modalContent = document.querySelector('#id-modal .modal-content')
-    const htmlList = links.map(l => {
-      const id = random()
+    console.log('连接地址', links)
+    htmlList = links.map(l => {
+      const infoId = random()
       const model = `
-        <div class="info-li" id="${id}">
+        <div class="info-li" id="${infoId}">
           <div class="title">${l.name}</div>
           <div class="info-textarea">${l.href}</div>
         </div>
       `
       return model
     })
-    modalContent.insertAdjacentHTML('beforeend', htmlList.join('\n'))
+  } catch (error) {
+    console.error('错误', error)
+  }
+  return htmlList.join('\n')
+}
+
+const datasetFind = function (id) {
+  return new Promise((resolve) => {
+    dataset.find({ name: id }, (err, docs) => {
+    })
+    dataset.findOne({ name: id }, (err, docs) => {
+      resolve(docs)
+    })
+  })
+}
+
+const queryBtnClick = async function (id) {
+  openLoading()
+  try {
+    const dataContent = await datasetFind(id)
+    let html = ''
+    if (dataContent != null) {
+      html = dataContent.content
+    } else {
+      html = await getModalContent(id)
+      dataset.insert({ name: id, content: html })
+    }
+    const modalContent = document.querySelector('#id-modal .modal-content')
+    modalContent.insertAdjacentHTML('beforeend', html)
     modalContent.querySelectorAll('.info-li').forEach(l => l.addEventListener('click', () => copyStr(l)))
-    console.log('连接地址', links)
     insterModal()
   } catch (error) {
     console.log('查看报错', error)

@@ -51,10 +51,16 @@ const sleep = async function (time) {
   })
 }
 
+const insertModalContent = function () {
+  let result = { 年代: [], 分数: [], 类型: [] }
+}
+
 const addSearch = function () {
   document.querySelector('#search_btn').addEventListener('click', () => {
     const modal = document.querySelector('#id-modal')
     modal.classList.remove('none')
+    document.body.classList.add('hidde')
+    insertModalContent()
   })
 }
 
