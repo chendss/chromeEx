@@ -1,7 +1,6 @@
 #collect {
   $size          : 50px; // TODO:
-  top            : 0;
-  bottom         : 0;
+  top            : 30%;
   border-radius  : 50%;
   display        : flex;
   right          : 80px;
@@ -12,11 +11,12 @@
   position       : fixed;
   justify-content: center;
   align-items    : center;
+  cursor         : pointer;
   transition     : all 0.1s;
   background     : rgba(124, 77, 255, 0.75);
 
   &:hover {
-    background: rgba(124, 77, 255, 1);
     transform : scale(1.2);
+    background: rgba(124, 77, 255, 1);
   }
 }
