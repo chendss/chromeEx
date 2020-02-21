@@ -38,4 +38,9 @@ export default {
     js: () => require('../model/cilixiong.js').default(),
     load: true
   },
+  iconfont: {
+    css: () => require('../styles/iconfont.scss'),
+    js: () => require('../model/iconfont.js').default(),
+    load: true
+  },
 }

@@ -49,6 +49,7 @@ const mathDict = {
   jdSearch: ['search.jd.com'],
   movieDouban: ['movie.douban.com/explore'],
   cilixiong: ['cilixiong.com/movie/'],
+  iconfont: ['.iconfont.cn/manage/index?spm='],
 }
 
 export default mathDict

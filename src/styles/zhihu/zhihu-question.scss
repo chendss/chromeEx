@@ -1,4 +1,4 @@
-$width: 1680px; // TODO:
+$width: calc(100% - 80px); // TODO:
 #root {
   .QuestionPage {
     .QuestionHeader {
@@ -33,7 +33,7 @@ $width: 1680px; // TODO:
           .RichContent {
             .RichContent-inner {
               .ContentItem-actions.Sticky.RichContent-actions.is-fixed.is-bottom {
-                width: calc(1680px - 296px);
+                width: calc(100% - 296px);
               }
             }
           }

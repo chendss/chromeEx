@@ -5,6 +5,8 @@ import { queryToObj, get, random } from '../utils/index'
 
 let num = 64
 
+let isRender = true
+
 let page_start = 2
 
 const toggleLoading = function () {
@@ -33,10 +35,13 @@ const choseEvery = function (type, id) {
   choseInit(type)
   element.classList.toggle('chose')
   if (element.classList.contains('chose')) {
+    console.time('t1')
     document.querySelectorAll('.masonry.masonry-demos .masonry__item').forEach(parent => {
       parent.classList.remove('none')
       const item = parent.querySelector('figcaption')
-      const types = item.querySelector('p').innerText.split('\n')[1].split('：')[1].split('|').filter(s => s)
+      const text = item.querySelector('p').innerText
+      let typeStr = text.split('\n')[1].split('：')[1]
+      let types = typeStr.split('|').filter(s => s)
       const time = Number(item.querySelector('.type--fine-print').innerText)
       let none = false
       if (type === 'year') {
@@ -45,6 +50,7 @@ const choseEvery = function (type, id) {
       }
       none && parent.classList.add('none')
     })
+    console.timeEnd('t1')
   }
 }
 
@@ -70,6 +76,7 @@ const action = async function (i) {
 
 const addMovie = async function () {
   toggleLoading()
+  isRender = true
   try {
     let promiseList = []
     const max = page_start + num
@@ -96,18 +103,21 @@ const sleep = async function (time) {
 }
 
 const insertModalContent = function () {
-  let 类型 = []
-  document.querySelectorAll('.masonry.masonry-demos .masonry__item figcaption').forEach(item => {
-    const types = item.querySelector('p').innerText.split('\n')[1].split('：')[1].split('|').filter(s => s)
-    类型.push(...types)
-  })
-  const modal = document.querySelector('#id-modal')
-  const typeBox = modal.querySelector('.type_box')
-  typeBox.innerHTML = Array.from(new Set(类型)).map(item => {
-    const id = random()
-    const itemHtml = `<div class="empty" onclick="choseEvery('type','${id}')" id="${id}"><div class="type_item item_v" val="${item}">${item}</div></div>`
-    return itemHtml
-  }).join('\n')
+  if (isRender === true) {
+    let 类型 = []
+    document.querySelectorAll('.masonry.masonry-demos .masonry__item figcaption').forEach(item => {
+      const types = item.querySelector('p').innerText.split('\n')[1].split('：')[1].split('|').filter(s => s)
+      类型.push(...types)
+    })
+    const modal = document.querySelector('#id-modal')
+    const typeBox = modal.querySelector('.type_box')
+    typeBox.innerHTML = Array.from(new Set(类型)).map(item => {
+      const id = random()
+      const itemHtml = `<div class="empty" onclick="choseEvery('type','${id}')" id="${id}"><div class="type_item item_v" val="${item}">${item}</div></div>`
+      return itemHtml
+    }).join('\n')
+    isRender = false
+  }
 }
 
 const addSearch = function () {

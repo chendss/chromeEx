@@ -1,0 +1,22 @@
+#collect {
+  $size          : 50px; // TODO:
+  top            : 0;
+  bottom         : 0;
+  border-radius  : 50%;
+  display        : flex;
+  right          : 80px;
+  margin         : auto;
+  color          : #fff;
+  width          : $size;
+  height         : $size;
+  position       : fixed;
+  justify-content: center;
+  align-items    : center;
+  transition     : all 0.1s;
+  background     : rgba(124, 77, 255, 0.75);
+
+  &:hover {
+    background: rgba(124, 77, 255, 1);
+    transform : scale(1.2);
+  }
+}
