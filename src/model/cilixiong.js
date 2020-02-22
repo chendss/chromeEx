@@ -1,11 +1,28 @@
 import axios from 'axios'
+import $ from 'jquery'
 import DB from '../utils/DB'
+import Nedb from 'nedb'
 import { sortBy, flatMap, unionBy } from 'lodash'
 import { queryToObj, get, random } from '../utils/index'
+
+const dataset = new Nedb({
+  filename: '/data/cli.db',
+  autoload: true
+})
 
 let num = 64
 
 let page_start = 2
+
+let render = true
+
+const datasetFind = function (href) {
+  return new Promise((resolve) => {
+    dataset.findOne({ id: href }, (err, docs) => {
+      resolve(docs)
+    })
+  })
+}
 
 const toggleLoading = function () {
   document.querySelector('#loading').classList.toggle('none')
@@ -26,6 +43,41 @@ const choseInit = function (type) {
   }
 }
 
+const 拦截a点击 = function () {
+  document.querySelectorAll('.masonry.masonry-demos .masonry__item').forEach(async parent => {
+    if (parent.getAttribute('url') == null) {
+      const a = parent.querySelector('.text-block')
+      const href = a.href
+      a.href = 'javascript:void(0);'
+      a.target = ''
+      parent.setAttribute('url', href)
+      parent.setAttribute('showtype', 'normal')
+      const content = await datasetFind(href)
+      if (content == null) {
+        let res = await axios.get(href)
+        let data = get(res, 'data', '<html></html>')
+        const p = new DOMParser()
+        const Html = p.parseFromString(data, "text/html")
+        const card = Html.querySelector('.col-md-4 .summary-card .information-text').innerHTML
+        dataset.insert({ id: href, content: card, normal: parent.innerHTML })
+      }
+      parent.addEventListener('click', async () => {
+        let hr = parent.getAttribute('url')
+        const dict_ = await datasetFind(hr)
+        if (parent.getAttribute('showtype') === 'normal') {
+          parent.innerHTML = `<div class="info_content">${dict_['content']}</div>`
+          parent.setAttribute('showtype', 'card')
+          parent.setAttribute('large', 'true')
+        } else {
+          parent.innerHTML = dict_['normal']
+          parent.setAttribute('showtype', 'normal')
+          parent.setAttribute('large', 'false')
+        }
+      })
+    }
+  })
+}
+
 const choseEvery = function (type, id) {
   const me = document.querySelector(`#${id}`)
   const element = me.querySelector('.item_v')
@@ -33,24 +85,37 @@ const choseEvery = function (type, id) {
   choseInit(type)
   element.classList.toggle('chose')
   if (element.classList.contains('chose')) {
-    document.querySelectorAll('.masonry.masonry-demos .masonry__item').forEach(parent => {
-      parent.classList.remove('none')
+    console.time('t1')
+    const copyDom = document.querySelector('.container .masonry.masonry-demos')
+    copyDom.querySelectorAll('.masonry__item').forEach(parent => {
       const item = parent.querySelector('figcaption')
-      const types = item.querySelector('p').innerText.split('\n')[1].split('：')[1].split('|').filter(s => s)
+      const text = item.querySelector('p').innerText
+      const typeStr = text.split('类型：')[1]
+      const typeStr_ = typeStr.split('片长：')[0]
+      const types = typeStr_.split('|').filter(s => s)
       const time = Number(item.querySelector('.type--fine-print').innerText)
-      let none = false
+      const rate = Number(item.querySelector('em').innerText)
       if (type === 'year') {
         const range = val.split('-').map(ele => Number(ele))
-        none = !(time >= range[0] && time < range[1])
+        let none = time >= range[0] && time < range[1]
+        parent.setAttribute('yearstatus', none + '')
+      } else if (type === 'rate') {
+        let none = rate >= Number(val)
+        parent.setAttribute('ratestatus', none + '')
+      } else if (type === 'type') {
+        let none = types.includes(val)
+        parent.setAttribute('typestatus', none + '')
       }
-      none && parent.classList.add('none')
     })
+    console.timeEnd('t1')
   }
 }
 
 const clearChose = function () {
   document.querySelectorAll('.masonry.masonry-demos .masonry__item').forEach(parent => {
-    parent.classList.remove('none')
+    parent.removeAttribute('yearstatus')
+    parent.removeAttribute('ratestatus')
+    parent.removeAttribute('typestatus')
   })
   choseInit()
 }
@@ -64,12 +129,18 @@ const htmlProcess = function (data) {
 }
 
 const action = async function (i) {
-  let res = await axios.get(`https://www.cilixiong.com/movie/index_${i}.html`)
-  return get(res, 'data', '<html></html>')
+  return new Promise((resolve) => {
+    axios.get(`https://www.cilixiong.com/movie/index_${i}.html`).then(res => {
+      resolve(get(res, 'data', '<html></html>'))
+    }).catch(err => {
+      resolve('<html></html>')
+    })
+  })
 }
 
 const addMovie = async function () {
   toggleLoading()
+  render = true
   try {
     let promiseList = []
     const max = page_start + num
@@ -77,13 +148,15 @@ const addMovie = async function () {
       promiseList.push(action(i))
       page_start += 1
     }
-    let Htmls = await (await Promise.all(promiseList)).map(htmlProcess)
+    let list = await Promise.all(promiseList)
+    let Htmls = list.map(htmlProcess)
     const masonry = document.querySelector('.container .masonry-demos')
     const movesParent = masonry.querySelector('.masonry__container')
     movesParent.insertAdjacentHTML('beforeend', Htmls.join('\n'))
   } catch (error) {
   }
   toggleLoading()
+  拦截a点击()
 }
 
 
@@ -96,9 +169,12 @@ const sleep = async function (time) {
 }
 
 const insertModalContent = function () {
+  if (render === false) return
   let 类型 = []
   document.querySelectorAll('.masonry.masonry-demos .masonry__item figcaption').forEach(item => {
-    const types = item.querySelector('p').innerText.split('\n')[1].split('：')[1].split('|').filter(s => s)
+    const strList = item.querySelector('p').outerHTML.split('类型：')
+    const typesStr = strList[1].split('<br')[0]
+    const types = typesStr.split('|').filter(s => s)
     类型.push(...types)
   })
   const modal = document.querySelector('#id-modal')
@@ -108,6 +184,7 @@ const insertModalContent = function () {
     const itemHtml = `<div class="empty" onclick="choseEvery('type','${id}')" id="${id}"><div class="type_item item_v" val="${item}">${item}</div></div>`
     return itemHtml
   }).join('\n')
+  render = false
 }
 
 const addSearch = function () {
@@ -143,16 +220,17 @@ const insertHtml = function () {
           <div class="empty" onclick="choseEvery('year','a2020-0')" id="a2020-0"><div class="year_item item_v" val="2020-3000">2020年以上</div></div>
           </div>
         <div class="rate_box row">
-          <div class="empty" onclick="choseEvery('rate','8')" id="rate-8"><div class="rate_item item_v" val="8">8.0分以上</div></div>
-          <div class="empty" onclick="choseEvery('rate','8.5')" id="rate-8.5"><div class="rate_item item_v" val="8.5">8.5分以上</div></div>
-          <div class="empty" onclick="choseEvery('rate','9')" id="rate-9"><div class="rate_item item_v" val="9">9.0分以上</div></div>
-          <div class="empty" onclick="choseEvery('rate','9.5')" id="rate-9.5"><div class="rate_item item_v" val="9.5">9..5分以上</div></div>
+          <div class="empty" onclick="choseEvery('rate','rate-8')" id="rate-8"><div class="rate_item item_v" val="8">8.0分以上</div></div>
+          <div class="empty" onclick="choseEvery('rate','rate-8_5')" id="rate-8_5"><div class="rate_item item_v" val="8.5">8.5分以上</div></div>
+          <div class="empty" onclick="choseEvery('rate','rate-9')" id="rate-9"><div class="rate_item item_v" val="9">9.0分以上</div></div>
+          <div class="empty" onclick="choseEvery('rate','rate-9_5')" id="rate-9_5"><div class="rate_item item_v" val="9.5">9..5分以上</div></div>
         </div>
         <div class="type_box row"></div>
         <div class="row clear_btn" onclick="clearChose()">清空条件</div>
       </div>
     </div>
   `)
+  拦截a点击()
 }
 
 const main = async function () {

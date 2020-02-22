@@ -5,8 +5,8 @@ import excludes from '../rules/excludes'
  *
  * @export
  */
-export default function() {
-  const auto = function() {
+export default function () {
+  const auto = function () {
     if (excludes()) return
     let dx = window.innerWidth / 1920
     dx = Math.max(dx * 0.9, 1)

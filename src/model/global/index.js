@@ -2,7 +2,7 @@ import clearBaidu from './baidu'
 import clearLink from './link'
 import ajaxHooks from './ajaxHooks'
 
-const addMeta = function() {
+const addMeta = function () {
   window.addEventListener('load', () => {
     const head = document.querySelector('head')
     const metaUTF8 = document.createElement('meta')
@@ -16,7 +16,7 @@ const addMeta = function() {
  *
  * @export
  */
-export default function() {
+export default function () {
   addMeta()
   clearBaidu()
   clearLink()

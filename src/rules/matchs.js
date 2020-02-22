@@ -4,7 +4,7 @@ const mathDict = {
   cto: ['blog.51cto.com'],
   ruan: ['www.ruanyifeng.com/'],
   imooc: ['imooc.com/video'],
-  'zhihu-ome': ['zhihu.com',],
+  zhihuHome: ['zhihu.com',],
   baidu: ['baidu.com', 'baidu.com'],
   'zhihu-zhanlan': ['zhuanlan.zhihu.com',],
   'zhihu-zhanlan-p': ['zhuanlan.zhihu.com/p',],
@@ -49,6 +49,7 @@ const mathDict = {
   jdSearch: ['search.jd.com'],
   movieDouban: ['movie.douban.com/explore'],
   cilixiong: ['cilixiong.com/movie/'],
+  wuerpojie: ['52pojie.cn/thread'],
 }
 
 export default mathDict

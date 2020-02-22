@@ -1,0 +1,20 @@
+body {
+  #jz52top {
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    span {
+      display: none;
+      &:first-child {
+        display: block;
+      }
+      &:last-child {
+        display: block;
+      }
+    }
+  }
+}

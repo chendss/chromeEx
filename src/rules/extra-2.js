@@ -38,4 +38,9 @@ export default {
     js: () => require('../model/cilixiong.js').default(),
     load: true
   },
+  wuerpojie: {
+    css: () => require('../styles/wuerpojie.scss'),
+    js: () => require('../model/wuerpojie.js').default(),
+    load: true
+  },
 }
