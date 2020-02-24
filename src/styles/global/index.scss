@@ -1,0 +1,13 @@
+@import "./global.scss"; // TODO:
+
+* {
+  transition: all 0.3s;
+}
+
+
+body,
+html {
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}

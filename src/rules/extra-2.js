@@ -41,6 +41,10 @@ export default {
   iconfont: {
     css: () => require('../styles/iconfont.scss'),
     js: () => require('../model/iconfont.js').default(),
+  },
+  wuerpojie: {
+    css: () => require('../styles/wuerpojie.scss'),
+    js: () => require('../model/wuerpojie/index').default(),
     load: true
   },
 }

@@ -7,6 +7,7 @@ const iocJs = function () {
   const script = document.createElement('script')
   script.setAttribute('type', 'text/javascript')
   script.setAttribute('src', content)
+  script.charset = 'UTF-8'
   document.documentElement.appendChild(script)
 }
 
@@ -19,7 +20,7 @@ const zoom = function () {
 }
 
 const iocStyle = function () {
-  require('../styles/global.scss')
+  require('../styles/global/index.scss')
   const matching = []
   iocHandle((rule, r) => {
     const { css } = rule

@@ -2151,6 +2151,11 @@ d@1:
     es5-ext "^0.10.50"
     type "^1.0.1"
 
+darkmode-js@^1.5.5:
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/darkmode-js/-/darkmode-js-1.5.5.tgz#6e0180a5dc98038c4b96fbdcc482fb230966ff14"
+  integrity sha512-loXmLt2rJ2PYg7Z4lD8drIKG+LEk0ai7ay4JTV0bS5ZWpXmH7s9dShCu6tQ0mwWgETIn2yZ5BURK/fZoPXgZxQ==
+
 dashdash@^1.12.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/dashdash/-/dashdash-1.14.1.tgz#853cfa0f7cbe2fed5de20326b8dd581035f6e2f0"
@@ -6989,6 +6994,11 @@ svgo@^0.7.0:
     mkdirp "~0.5.1"
     sax "~1.2.1"
     whet.extend "~0.9.9"
+
+sweetalert2@^9.8.2:
+  version "9.8.2"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-9.8.2.tgz#6dc89d84267ae4b35bfc2dc244bb7265ce961d4a"
+  integrity sha512-Lr7DbVi/uNwQ9LOJXt9N5JZkJT0Tga9bCGfPbtnm9Gwfhs/Wthp8vSrtE+x9kjMSpvlkvoPO7TDFxoP0jFnDow==
 
 swiper@^4.0.7:
   version "4.5.0"
