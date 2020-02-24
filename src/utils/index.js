@@ -1,10 +1,38 @@
 import { toArray } from './tools'
 import rules from '../rules/index'
+import Nedb from 'nedb'
 import { isArray, pick, map, mergeWith, get as lodashGet, isEqual, isObject, set, isFunction } from 'lodash'
 
 const href = window.location.href
 
 export const log = console.log
+
+/**
+* 创建数据库对象
+*
+* @param {*} dbPath
+* @returns
+*/
+export const dataset = function (dbPath) {
+  return new Nedb({
+    filename: dbPath,
+    autoload: true
+  })
+}
+
+/**
+* 找到一个值
+*
+* @param {*} dict_
+* @returns
+*/
+export const datasetFind = function (db, dict_) {
+  return new Promise((resolve) => {
+    db.findOne(dict_, (err, docs) => {
+      resolve(docs)
+    })
+  })
+}
 
 /**
  * 生成随机数
@@ -61,6 +89,19 @@ export const get = function (obj, path, defaultValue) {
     }
   }
   return defaultValue
+}
+
+/**
+* 创建一个script标签
+*
+* @param {*} src
+*/
+export const createScript = function (src) {
+  const script = document.createElement("script")
+  script.type = 'text/javascript'
+  script.src = src
+  script.charset = 'UTF-8'
+  document.body.appendChild(script)
 }
 
 export default function (handle) {

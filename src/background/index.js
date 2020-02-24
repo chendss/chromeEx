@@ -8,7 +8,7 @@ var pattern = [
   'https://wenku.baidu.com/xpage/interface/getadmanageconf?merge=1&end_type=1&ad_pos=11,12&t=1566591972100',
 ]
 
-function redirect(requestDetails) {
+function redirect (requestDetails) {
   return {
     cancel: true,
   }

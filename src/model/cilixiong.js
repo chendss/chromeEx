@@ -10,7 +10,7 @@ const dataset = new Nedb({
   autoload: true
 })
 
-let num = 64
+let num = 76
 
 let page_start = 2
 
@@ -59,13 +59,22 @@ const 拦截a点击 = function () {
         const p = new DOMParser()
         const Html = p.parseFromString(data, "text/html")
         const card = Html.querySelector('.col-md-4 .summary-card .information-text').innerHTML
-        dataset.insert({ id: href, content: card, normal: parent.innerHTML })
+        const downDom = Html.querySelector('.tabs-container .picture-container').innerHTML
+        dataset.insert({
+          downDom,
+          id: href,
+          content: card,
+          normal: parent.innerHTML,
+        })
       }
       parent.addEventListener('click', async () => {
         let hr = parent.getAttribute('url')
         const dict_ = await datasetFind(hr)
         if (parent.getAttribute('showtype') === 'normal') {
-          parent.innerHTML = `<div class="info_content">${dict_['content']}</div>`
+          parent.innerHTML = `<div class="info_content">
+            <a class="info_content_yuan" href="${hr}" target="_blank">原地址</a>
+            ${dict_['content']}
+          </div>`
           parent.setAttribute('showtype', 'card')
           parent.setAttribute('large', 'true')
         } else {

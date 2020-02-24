@@ -24,7 +24,7 @@ body {
           width: 350px;
         }
         .info_content {
-          padding: 20px;
+          padding: 12px;
           color: #b283b5;
           font-size: 18px;
           overflow-y: auto;
@@ -33,6 +33,18 @@ body {
           background: #372d42;
           &::-webkit-scrollbar {
             width: 0 !important;
+          }
+          .info_content_yuan {
+            display: flex;
+            color: #99ccff;
+            font-size: 24px;
+            margin-bottom: 6px;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s;
+            &:hover {
+              transform: scale(1.2);
+            }
           }
         }
       }

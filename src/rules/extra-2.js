@@ -40,7 +40,7 @@ export default {
   },
   wuerpojie: {
     css: () => require('../styles/wuerpojie.scss'),
-    js: () => require('../model/wuerpojie.js').default(),
+    js: () => require('../model/wuerpojie/index').default(),
     load: true
   },
 }
