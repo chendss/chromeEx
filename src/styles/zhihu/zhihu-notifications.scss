@@ -1,0 +1,11 @@
+main {
+  $w: 300px; 
+
+  .Card.Notifications-Main {
+    width: calc(100% - #{$w});
+  }
+
+  .GlobalSideBar {
+    width: 300px;
+  }
+}

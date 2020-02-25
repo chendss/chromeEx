@@ -11,6 +11,7 @@ export default {
   },
   csdn: {
     css: () => require('../styles/csdn.scss'),
+    js: () => require('../model/csdn.js').default(),
   },
   avgle: {
     css: () => require('../styles/avgle.scss'),

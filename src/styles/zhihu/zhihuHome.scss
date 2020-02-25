@@ -1,19 +1,21 @@
 $width: calc(100% - 80px); // TODO:
 
 #root {
-  .AdblockBanner {
-    display: none;
-  }
+
   .Footer,
+  .AdblockBanner,
+  .Pc-card.Card,
   footer {
     display: none;
   }
+
   div {
     .Sticky.AppHeader {
       .AppHeader-inner {
         width: $width;
       }
     }
+
     header {
       .PageHeader.is-shown {
         .TopstoryPageHeader {
@@ -22,36 +24,46 @@ $width: calc(100% - 80px); // TODO:
       }
     }
   }
+
   main {
-    display: flex;
+    display        : flex;
     justify-content: center;
-    > div {
+
+    >div {
       width: $width;
     }
+
     .Topstory {
       .Topstory-container {
         width: $width;
+
         .Topstory-mainColumn {
           width: calc(100% - 300px);
         }
+
         .GlobalSideBar {
           div {
             .Sticky {
               .StoryCompetitionBanner {
                 display: none;
               }
+
               .Card {
                 .GlobalSideBar-navList {
                   li {
+
                     a[href="/community"],
                     a[href="/copyright"] {
                       display: none;
                     }
                   }
                 }
+
                 .GlobalSideBar-categoryList {
                   margin: auto;
+
                   li {
+
                     a[href="/lives"],
                     a[href="/pub/"],
                     a[href="/roundtable"],
@@ -61,21 +73,27 @@ $width: calc(100% - 80px); // TODO:
                   }
                 }
               }
+
               footer {
                 display: none;
               }
             }
           }
+
+          width: 300px;
         }
       }
     }
+
     .ContentLayout-mainColumn {
       width: $width;
     }
+
     .Card.TopstoryItem.TopstoryItem--advertCard.TopstoryItem-isRecommend {
       display: none;
     }
   }
+
   .CornerAnimayedFlex {
     &:first-child {
       display: none;

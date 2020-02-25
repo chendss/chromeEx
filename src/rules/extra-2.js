@@ -11,6 +11,9 @@ export default {
   'zhihu-zhanlan-p': {
     css: () => require('../styles/zhihu/zhihu-zhanlan-p.scss'),
   },
+  'zhihu-notifications': {
+    css: () => require('../styles/zhihu/zhihu-notifications.scss'),
+  },
   'btdax': {
     css: () => require('../styles/btdx.scss'),
     js: () => require('../model/btdx.js').default(),

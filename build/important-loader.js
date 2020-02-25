@@ -1,10 +1,12 @@
-module.exports = function(source) {
+module.exports = function (source) {
   const line = source.split('\r\n')
   const codeList = line.map(code => {
-    if (code.includes(';') && ['important', 'TODO:'].every(k => !code.includes(k))) {
-      code = code.replace(';', ' !important ;')
+    let result = code
+    let code_ = code.replace(/\s*/g, "")
+    if (code_.includes(';') && ['important', 'TODO:', '$:'].every(k => !code_.includes(k))) {
+      result = code.replace(';', ' !important ;')
     }
-    return code
+    return result
   })
   return codeList.join('\r\n')
 }
