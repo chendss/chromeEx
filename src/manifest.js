@@ -35,6 +35,7 @@ module.exports = {
     scripts: ['js/background.js'],
   },
   // devtools_page: 'pages/devtools.html',
+  background_page: "pages/background.html",
   options_page: 'pages/options.html',
   content_scripts: [
     {

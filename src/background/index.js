@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const log = chrome.extension.getBackgroundPage().console.log
 
 var pattern = [
@@ -14,4 +16,22 @@ function redirect (requestDetails) {
   }
 }
 
+
 chrome.webRequest.onBeforeRequest.addListener(redirect, { urls: pattern }, ['blocking'])
+
+chrome.extension.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    log('真的麻烦')
+    if (request.type == 'fetch') {
+      sendResponse('fffffdd多大但')
+      setTimeout(() => {
+        axios.get(request.url)
+      }, 1000)
+      // fetch(request.url)
+      //   .then(response => response.text())
+      //   .then(text => sendResponse(text))
+      //   .catch(error => sendResponse(error))
+      return true;  // Will respond asynchronously.
+
+    }
+  })
