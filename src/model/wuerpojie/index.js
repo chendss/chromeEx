@@ -1,5 +1,4 @@
 import './wangpanlink'
-import './noti'
 import { sample } from 'lodash'
 import { dataset, datasetFind } from '../../utils'
 
@@ -67,15 +66,23 @@ const reply = function () {
 export default function () {
   replyHtml()
   window.reply = reply
-  const dict = datasetFind({ id: window.location.href })
+  const dict = datasetFind(db, { id: window.location.href })
   if (dict == null) {
     setTimeout(() => {
       reply()
       db.insert({ id: window.location.href })
     }, 500)
   }
-  chrome.runtime.sendMessage({ greeting: "您好" }, function (response) {
-    console.log(response.farewell);
-  })
+  chrome.runtime.sendMessage('edggalppcgbgdhbfobcnanmpflpekohl',
+    {
+      // 里面的值应该可以自定义，用于判断哪个请求之类的
+      type: 'fetch',
+      url: 'https://btools.cc/zatsudan-1/' // 需要请求的url
+    },
+    response => {
+      console.log('hhh', response)
+      const dd = JSON.parse(response.text())
+    }
+  )
 }
 
