@@ -1,0 +1,37 @@
+@import "./global/collect.scss";
+
+
+.main-container {
+  width          : 100%;
+  display        : flex;
+  justify-content: center;
+  padding-left   : 16px;
+  padding-right  : 16px;
+
+  .article {
+    width: 100%;
+  }
+
+
+  #sidebar {
+    @extend .empty_element;
+  }
+
+  .topad {
+    @extend .empty_element;
+  }
+}
+
+.container {
+  width          : 100%;
+  display        : flex;
+  justify-content: center;
+  padding-left   : 16px;
+  padding-right  : 16px;
+}
+
+#commentsAdd,
+.related-posts,
+#site-footer {
+  @extend .empty_element;
+}

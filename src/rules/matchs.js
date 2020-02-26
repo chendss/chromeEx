@@ -34,6 +34,7 @@ const mathDict = {
   csdn: ['csdn.'],
   jd: ['item.jd.com'],
   jianshu: ['.jianshu.com'],
+  'xiaozong': ['appinn.com'],
   avgle: ['avgle.com/videos'],
   jdSearch: ['search.jd.com'],
   fanBaidu: ['fanyi.baidu.com'],

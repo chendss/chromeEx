@@ -2,14 +2,17 @@
  * 粘贴板过滤
  *
  */
-const clearCopy = function() {
+const clearCopy = function () {
   document.addEventListener('copy', e => {
-    e.preventDefault()
-    var pagelink = '\nRead more: ' + document.location.href,
+    let copytext = window.getSelection()
+    if (typeof copytext.focusNode === 'string') {
+      e.preventDefault()
       copytext = window.getSelection()
-    var clipdata = e.clipboardData || window.clipboardData
-    if (clipdata) {
-      clipdata.setData('Text', copytext)
+      let pagelink = '\nRead more: ' + document.location.href
+      let clipdata = e.clipboardData || window.clipboardData
+      if (clipdata && copytext.focusNode) {
+        clipdata.setData('Text', copytext)
+      }
     }
   })
 }
@@ -18,7 +21,7 @@ const clearCopy = function() {
  * 清空返利连接
  *
  */
-const backLink = function() {
+const backLink = function () {
   function setcookie(name, domain) {
     document.cookie = name + '=' + '' + ';path=/;domain=' + domain
   }
@@ -149,7 +152,7 @@ const backLink = function() {
   if (window.location.host == 'www.amazon.cn' && window.location.search.indexOf('tag=') > 0) {
     window.addEventListener(
       'load',
-      function() {
+      function () {
         setTimeout(zadkill, 1500)
       },
       false
@@ -196,7 +199,7 @@ const backLink = function() {
   if (document.location.host.indexOf('taobao.com') > 0 && document.location.search.indexOf('ali_trackid') > 0) {
     window.addEventListener(
       'load',
-      function() {
+      function () {
         setTimeout(tbadkill, 1500)
       },
       false
@@ -209,7 +212,7 @@ const backLink = function() {
     location.replace(document.location.href.slice(0, document.location.href.indexOf('&')))
   }
   if (document.location.host.indexOf('smzdm.com') > 0) {
-    document.body.addEventListener('mousedown', function() {
+    document.body.addEventListener('mousedown', function () {
       var dlink = document.getElementsByClassName('feed-link-btn-inner')
       var buylink = document.getElementsByClassName('buy')
       var l = new Array()
@@ -243,7 +246,7 @@ const backLink = function() {
  *
  * @export
  */
-export default function() {
+export default function () {
   clearCopy()
   backLink()
 }

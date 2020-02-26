@@ -1,13 +1,21 @@
 @import "./global.scss"; // TODO:
 
-* {
-  transition: all 0.3s;
-}
-
-
-body,
-html {
+#__dashao {
   &::-webkit-scrollbar {
     width: 0 !important;
   }
+
+  body {
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+
+  iframe {
+    display: none;
+  }
+}
+
+* {
+  transition: all 0.3s;
 }

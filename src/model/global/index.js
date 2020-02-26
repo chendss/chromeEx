@@ -11,12 +11,25 @@ const addMeta = function () {
   })
 }
 
+const addId = function () {
+  const documentElement = document.documentElement
+  const widgetId = '__dashao'
+  let id = documentElement.getAttribute('id') || ''
+  if (id.includes(widgetId)) {
+    return
+  } else {
+    id = widgetId
+  }
+  documentElement.setAttribute('id', id)
+}
+
 /**
  * 全局函数入口
  *
  * @export
  */
 export default function () {
+  addId()
   addMeta()
   clearBaidu()
   clearLink()
