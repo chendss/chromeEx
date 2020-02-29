@@ -2,6 +2,19 @@ import iocHandle from '../utils/index'
 import excludes from '../rules/excludes'
 
 console.log('插件加载')
+
+const addId = function () {
+  const documentElement = document.documentElement
+  const widgetId = '__dashao'
+  let id = documentElement.getAttribute('id') || ''
+  if (id.includes(widgetId)) {
+    return
+  } else {
+    id = widgetId
+  }
+  documentElement.setAttribute('id', id)
+}
+
 const iocJs = function () {
   const content = chrome.extension.getURL('js/content.js')
   const script = document.createElement('script')
@@ -9,6 +22,7 @@ const iocJs = function () {
   script.setAttribute('src', content)
   script.charset = 'UTF-8'
   document.documentElement.appendChild(script)
+  addId()
 }
 
 const zoom = function () {
