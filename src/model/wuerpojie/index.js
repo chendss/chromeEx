@@ -3,6 +3,7 @@ import { sample } from 'lodash'
 import { dataset, datasetFind } from '../../utils'
 
 const db = dataset('/path/wuai.db')
+let top_ = document.documentElement.scrollTop
 
 const replyHtml = function () {
   const parent = document.querySelector('#jz52top')
@@ -57,6 +58,7 @@ const 文案 = function () {
 }
 
 const reply = function () {
+  top_ = document.documentElement.scrollTop
   const textarea = document.querySelector('#fastpostmessage')
   textarea.value = 文案()
   const btn = document.querySelector('#fastpostsubmit')
@@ -73,16 +75,29 @@ export default function () {
       db.insert({ id: window.location.href })
     }, 500)
   }
-  chrome.runtime.sendMessage('edggalppcgbgdhbfobcnanmpflpekohl',
-    {
-      // 里面的值应该可以自定义，用于判断哪个请求之类的
-      type: 'fetch',
-      url: 'https://btools.cc/zatsudan-1/' // 需要请求的url
-    },
-    response => {
-      console.log('hhh', response)
-      const dd = JSON.parse(response.text())
-    }
-  )
+  const btn = document.querySelector('#fastpostsubmit')
+  btn.addEventListener('click', () => {
+    const k = setInterval(() => {
+      console.log('恢复滚动条')
+      if (document.documentElement.scrollTop !== top_) {
+        document.documentElement.scrollTop = top_
+        clearInterval(k)
+      }
+    }, 300);
+    setTimeout(() => {
+
+    }, 300)
+  })
+  // chrome.runtime.sendMessage('edggalppcgbgdhbfobcnanmpflpekohl',
+  //   {
+  //     // 里面的值应该可以自定义，用于判断哪个请求之类的
+  //     type: 'fetch',
+  //     url: 'https://btools.cc/zatsudan-1/' // 需要请求的url
+  //   },
+  //   response => {
+  //     console.log('hhh', response)
+  //     const dd = JSON.parse(response.text())
+  //   }
+  // )
 }
 

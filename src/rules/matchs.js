@@ -40,6 +40,7 @@ const mathDict = {
   fanBaidu: ['fanyi.baidu.com'],
   avgle_item: ['avgle.com/video'],
   'ty66-page': ['t66y.com/htm_data'],
+  segmentfault: ['segmentfault.com'],
   cilixiong: ['cilixiong.com/movie/'],
   'zhihu-search': ['zhihu.com/search'],
   'ty66-down': ['rmdown.com/link.php'],
@@ -53,6 +54,7 @@ const mathDict = {
   'vue-cli': ['cli.vuejs.org', 'vuex.vuejs.org'],
   wuerpojie: ['52pojie.cn/thread', '52pojie.cn/forum'],
   'zhihu-people': ['www.zhihu.com/people', 'www.zhihu.com/people'],
+  engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
 }
 
 export default mathDict
