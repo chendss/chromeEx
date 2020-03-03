@@ -53,6 +53,7 @@ const mathDict = {
   iconfont: ['.iconfont.cn/manage/index?spm='],
   'vue-cli': ['cli.vuejs.org', 'vuex.vuejs.org'],
   wuerpojie: ['52pojie.cn/thread', '52pojie.cn/forum'],
+  googleSearch: ['google.com/search'],
   'zhihu-people': ['www.zhihu.com/people', 'www.zhihu.com/people'],
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
 }
