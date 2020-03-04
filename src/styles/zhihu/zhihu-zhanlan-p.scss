@@ -1,56 +1,69 @@
-$width: 1680px; // TODO:
+$width: calc(100vw - 80px); // TODO:
+
 #root {
   .App {
     .App-main {
       .Post-content {
         .Post-Main.Post-NormalMain {
-          padding-left: 20px;
+          padding-left : 20px;
           padding-right: 20px;
-          > div {
+
+          >div {
             width: 100%;
           }
+
           .Post-Header {
             width: 100%;
           }
+
           .Post-RichTextContainer {
             width: $width;
           }
+
           .ContentItem-time {
             width: 100%;
           }
+
           .Reward {
             width: 100%;
           }
+
           .Post-topicsAndReviewer {
             width: 100%;
           }
+
           .Sticky.RichContent-actions.is-fixed.is-bottom {
             .ContentItem-actions {
-              width: $width;
-              max-width: $width;
-              display: flex;
+              width          : $width;
+              max-width      : $width;
+              display        : flex;
               justify-content: center;
-              > span {
+
+              >span {
                 margin-right: auto;
               }
             }
+
             .Post-SideActions {
               right: 0px;
-              left: auto;
+              left : auto;
             }
           }
-          .Sticky.RichContent-actions.is-bottom {
-          }
+
+          .Sticky.RichContent-actions.is-bottom {}
         }
+
         .Post-Sub.Post-NormalSub {
-          > div {
+          >div {
             width: 100%;
           }
+
           .Recommendations-Main {
-            padding-left: 20px;
+            padding-left : 20px;
             padding-right: 20px;
+
             .Recommendations-List {
-              a + a {
+              a+a {
                 margin-left: 80px;
               }
             }

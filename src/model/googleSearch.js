@@ -1,11 +1,6 @@
 export default function () {
   setInterval(() => {
-    const div_list = [...document.querySelectorAll('div:not(#foot)')]
-    const a_list = div_list.reduce((pre, div) => {
-      const links = [...div.querySelectorAll('a')]
-      pre.push(...links)
-      return pre
-    }, [])
+    const a_list = [...document.querySelectorAll('#res a')]
     for (let a of a_list) {
       const target = a.getAttribute('target')
       if (target == null) {
