@@ -104,6 +104,12 @@ export const createScript = function (src) {
   document.body.appendChild(script)
 }
 
+export const isInViewPort = function (el) {
+  const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  const top = el.getBoundingClientRect() && el.getBoundingClientRect().top
+  return top <= viewPortHeight + 100
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

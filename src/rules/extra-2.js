@@ -4,6 +4,7 @@ export default {
   },
   'zhihu-question': {
     css: () => require('../styles/zhihu/zhihu-question.scss'),
+    js: () => require('../model/zhihu/zhihu-question.js').default(),
   },
   'zhihu-zhanlan': {
     css: () => require('../styles/zhihu/zhihu-zhanlan.scss'),
