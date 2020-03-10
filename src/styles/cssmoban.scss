@@ -1,6 +1,12 @@
 @import "./global/collect.scss"; // TODO:
 
 #__dashao {
+  body {
+    >div {
+      height: auto;
+    }
+  }
+
   .adcenter {
     @include empty_element;
   }
@@ -10,6 +16,7 @@
   .col-ads-960,
   .detail-ads3.bts,
   .bg-ads,
+  div[align="center"],
   .wide-bg-dark1 {
     @include empty_element;
   }
@@ -56,7 +63,7 @@
       }
 
       .down {
-        background : #5AB820;
+        background  : #5AB820;
         margin-right: 0;
       }
     }
