@@ -14,11 +14,11 @@
 
 
   #sidebar {
-    @extend .empty_element;
+    @include empty_element;
   }
 
   .topad {
-    @extend .empty_element;
+    @include empty_element;
   }
 }
 
@@ -33,5 +33,5 @@
 #commentsAdd,
 .related-posts,
 #site-footer {
-  @extend .empty_element;
+  @include empty_element;
 }

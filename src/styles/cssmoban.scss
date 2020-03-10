@@ -1,0 +1,19 @@
+@import "./global/collect.scss"; // TODO:
+
+#__dashao {
+  .adcenter {
+    @include empty_element;
+  }
+
+  .detail-ads,
+  footer,
+  .col-ads-960,
+  .detail-ads3.bts,
+  .wide-bg-dark1 {
+    @include empty_element;
+  }
+
+  .sidebar-wrap {
+    @include empty_element;
+  }
+}

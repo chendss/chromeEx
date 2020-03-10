@@ -3,7 +3,7 @@ module.exports = function (source) {
   const codeList = line.map(code => {
     let result = code
     let code_ = code.replace(/\s*/g, "")
-    if (code_.includes(';') && ['important', 'TODO:', '$:', '@import', '@extend'].every(k => !code_.includes(k))) {
+    if (code_.includes(';') && ['important', 'TODO:', '$:', '@import', '@extend','@include'].every(k => !code_.includes(k))) {
       result = code.replace(';', ' !important ;')
     }
     return result

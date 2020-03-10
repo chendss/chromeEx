@@ -2,6 +2,9 @@ export default {
   xiaozong: {
     css: () => require('../styles/xiaozong.scss'),
   },
+  cssmoban: {
+    css: () => require('../styles/cssmoban.scss'),
+  },
   segmentfault: {
     css: () => require('../styles/segmentfault.scss'),
   },
