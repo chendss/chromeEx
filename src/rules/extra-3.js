@@ -5,6 +5,10 @@ export default {
   cssmoban: {
     css: () => require('../styles/cssmoban.scss'),
   },
+  cssmoban_tag: {
+    js: () => require('../model/cssmoban_tag.js').default(),
+    load: true
+  },
   segmentfault: {
     css: () => require('../styles/segmentfault.scss'),
   },

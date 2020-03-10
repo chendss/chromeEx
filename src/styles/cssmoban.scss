@@ -9,11 +9,56 @@
   footer,
   .col-ads-960,
   .detail-ads3.bts,
+  .bg-ads,
   .wide-bg-dark1 {
     @include empty_element;
   }
 
   .sidebar-wrap {
     @include empty_element;
+  }
+
+  @for $i from 1280 through 1920 {
+    .col-ads-#{$i} {
+      @include empty_element;
+    }
+  }
+
+  .thumbItem.clearfix li:not(.bg-ads) {
+    position: relative;
+
+    .btn-box {
+      position       : absolute;
+      z-index        : 99999;
+      right          : 16px;
+      top            : 16px;
+      display        : flex;
+      align-items    : center;
+      justify-content: center;
+
+      .query,
+      .down {
+        cursor         : pointer;
+        border-radius  : 50%;
+        margin-right   : 16px;
+        width          : 50px;
+        height         : 50px;
+        color          : #fff;
+        align-items    : center;
+        justify-content: center;
+        background     : #418ada;
+        transition     : all 0.1s;
+        display        : inline-flex;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+
+      .down {
+        background : #5AB820;
+        margin-right: 0;
+      }
+    }
   }
 }
