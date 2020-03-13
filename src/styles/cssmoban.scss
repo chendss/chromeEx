@@ -11,6 +11,10 @@
     @include empty_element;
   }
 
+  .header-section {
+    top: 0;
+  }
+
   .detail-ads,
   footer,
   .col-ads-960,
@@ -34,12 +38,13 @@
   .thumbItem.clearfix li:not(.bg-ads) {
     position: relative;
 
+
+
     .btn-box {
       position       : absolute;
       z-index        : 99999;
       right          : 16px;
       top            : 16px;
-      display        : flex;
       align-items    : center;
       justify-content: center;
 
@@ -65,6 +70,16 @@
       .down {
         background  : #5AB820;
         margin-right: 0;
+      }
+    }
+
+    .btn-box {
+      display: none;
+    }
+
+    &:hover {
+      .btn-box {
+        display: flex;
       }
     }
   }

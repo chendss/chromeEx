@@ -18,4 +18,7 @@ export default {
   googleSearch: {
     js: () => require('../model/googleSearch.js').default(),
   },
+  jbzj: {
+    css: () => require('../styles/jbzj.scss'),
+  },
 }
