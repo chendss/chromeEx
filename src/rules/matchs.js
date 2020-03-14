@@ -47,6 +47,7 @@ const mathDict = {
   googleSearch: ['google.com/search'],
   'zhihu-search': ['zhihu.com/search'],
   'ty66-down': ['rmdown.com/link.php'],
+  'jbzj': ['www.jb51.net'],
   btdax: ['www.btdx8.com/douban_rating'],
   cssmoban_tag: ['cssmoban.com/tags.asp'],
   '89File': ['http://www.89file.com/file'],

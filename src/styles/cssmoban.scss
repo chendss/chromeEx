@@ -1,8 +1,18 @@
 @import "./global/collect.scss"; // TODO:
 
 #__dashao {
+  body {
+    >div {
+      height: auto;
+    }
+  }
+
   .adcenter {
     @include empty_element;
+  }
+
+  .header-section {
+    top: 0;
   }
 
   .detail-ads,
@@ -10,6 +20,7 @@
   .col-ads-960,
   .detail-ads3.bts,
   .bg-ads,
+  div[align="center"],
   .wide-bg-dark1 {
     @include empty_element;
   }
@@ -27,12 +38,13 @@
   .thumbItem.clearfix li:not(.bg-ads) {
     position: relative;
 
+
+
     .btn-box {
       position       : absolute;
       z-index        : 99999;
       right          : 16px;
       top            : 16px;
-      display        : flex;
       align-items    : center;
       justify-content: center;
 
@@ -56,8 +68,18 @@
       }
 
       .down {
-        background : #5AB820;
+        background  : #5AB820;
         margin-right: 0;
+      }
+    }
+
+    .btn-box {
+      display: none;
+    }
+
+    &:hover {
+      .btn-box {
+        display: flex;
       }
     }
   }

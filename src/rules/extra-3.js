@@ -21,4 +21,7 @@ export default {
   bbs3dgame: {
     js: () => require('../model/bbs3dgame.js').default(),
   },
+  jbzj: {
+    css: () => require('../styles/jbzj.scss'),
+  },
 }

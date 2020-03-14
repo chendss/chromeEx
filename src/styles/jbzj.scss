@@ -1,0 +1,31 @@
+@import "./global/collect.scss"; // TODO:
+
+#wrapper {
+  .pt10 {
+    display: none;
+  }
+}
+
+.logom.fl,
+.logor.fr {
+  display: none;
+}
+
+#topbar,
+#topbar {
+  display: none;
+}
+
+#main {
+  .main-right {
+    display: none;
+  }
+}
+
+#right-share {
+  display: none;
+}
+
+.lbd.clearfix {
+  display: none;
+}
