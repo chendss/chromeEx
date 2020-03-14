@@ -18,4 +18,7 @@ export default {
   googleSearch: {
     js: () => require('../model/googleSearch.js').default(),
   },
+  bbs3dgame: {
+    js: () => require('../model/bbs3dgame.js').default(),
+  },
 }

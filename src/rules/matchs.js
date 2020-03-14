@@ -39,6 +39,7 @@ const mathDict = {
   jdSearch: ['search.jd.com'],
   fanBaidu: ['fanyi.baidu.com'],
   cssmoban: ['cssmoban.com'],
+  bbs3dgame: ['bbs.3dmgame.com'],
   avgle_item: ['avgle.com/video'],
   'ty66-page': ['t66y.com/htm_data'],
   segmentfault: ['segmentfault.com'],

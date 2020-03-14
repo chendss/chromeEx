@@ -91,24 +91,15 @@ export const get = function (obj, path, defaultValue) {
   return defaultValue
 }
 
-/**
-* 创建一个script标签
-*
-* @param {*} src
-*/
-export const createScript = function (src) {
-  const script = document.createElement("script")
-  script.type = 'text/javascript'
-  script.src = src
-  script.charset = 'UTF-8'
-  document.body.appendChild(script)
+export const dpi = function (dom) {
+  let dx = window.innerWidth / 1920
+  dx = Math.max(dx * 0.9, 1)
+  const fontSize = Number(getComputedStyle(dom).fontSize.replace('px', ''))
+  const size = Math.ceil(fontSize * dx)
+  const style = dom.getAttribute('style') || ''
+  dom.setAttribute('style', style + `font-size:${size}px;`)
 }
 
-export const isInViewPort = function (el) {
-  const viewPortHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-  const top = el.getBoundingClientRect() && el.getBoundingClientRect().top
-  return top <= viewPortHeight + 100
-}
 
 export default function (handle) {
   const matching = {}
