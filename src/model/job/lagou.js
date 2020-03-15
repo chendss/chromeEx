@@ -1,18 +1,34 @@
-import axios from 'axios'
-import { get, queryToObj } from '../../utils'
 import qs from 'qs'
+import axios from 'axios'
 import { set } from 'lodash'
+import Custom from '../../assets/custom'
+import { get, queryToObj } from '../../utils'
 
 const globalConfig = {
   pageIndex: 1,
   total: null
 }
 
+const priceDict = function () {
+  const list = ['0-不限', ... new Array(22).fill('0')].map((_, index) => `${index + 3}-${index + 3}k以上`)
+  return list
+}
+
+const 工资筛选 = function () {
+  const list = priceDict()
+  const li = list.map(item => {
+    const [price, text] = item.split('-')
+    return `<li><a rel="nofollow" href="javascript:;" onclick="changePrice(${Number(price)})">${text}</a></li>`
+  })
+  return `<ul>${li.join('\n')}</ul>`
+}
+
 const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
   const showId = get(data, 'showId', '')
+  const priceList = get(item, 'salary', '').split('-').map(p => Number(p.replace('k', '')))
   return `
-    <li class="con_list_item first_row default_list">
+    <li class="con_list_item first_row default_list my-item" price="${priceList.join('-')}">
     <span class="top_icon direct_recruitment"></span>
     <div class="list_item_top">
       <div class="position">
@@ -59,9 +75,16 @@ const itemHtml = function (item, data) {
       <div class="li_b_r">“${item.positionAdvantage}”</div>
     </div>
     <div class="postation">
-      <div class="line">${get(item, 'linestaion', '无路线')}</div>
-      <div class="address">${item.longitude},${item.latitude}</div>
-      <span class="create-time">${item.createTime}</span>
+      <div class="line p-row">
+        落点处：
+        ${get(item, 'linestaion', '无路线').split(';').map(l => (`<span title="${l}">${l}</span>`)).join('\n')}
+      </div>
+      <div class="address p-row">经纬度：${item.longitude},${item.latitude}</div>
+      <span class="create-time p-row">发布时间：${item.createTime}</span>
+      <div class="chuiniu p-row">
+        公司标签：
+        ${get(item, 'companyLabelList', []).map(lable => (`<span title="${lable}">${lable}</span>`)).join('\n')}
+      </div>
       </div>
   </li>
 `
@@ -111,6 +134,12 @@ const insertHtml = function (list, data) {
   const ul = document.querySelector('#s_position_list .item_con_list')
   let html = list.map(item => itemHtml(item, data))
   ul.insertAdjacentHTML('beforeend', html.join('\n'))
+  const li = ul.querySelectorAll('li')
+  li.forEach(item => {
+    if (!item.classList.contains('my-item')) {
+      item.remove()
+    }
+  })
 }
 
 const createContent = async function () {
@@ -133,9 +162,28 @@ const insertData = function () {
   }, 1.5 * 1000)
 }
 
+const changePrice = function (price) {
+  const textDom = document.querySelector('#order .item.salary.selectUI .selectUI-text.text>span')
+  const list = document.querySelectorAll('.my-item')
+  const priceList = priceDict()
+  const text = priceList.find(item => item.split('-')[0] === price + '').split('-')[1]
+  textDom.innerHTML = text
+  list.forEach(item => {
+    const minPrice = item.getAttribute('price').split('-')[0]
+    if (Number(minPrice) < price) {
+      item.classList.add('none')
+    } else {
+      item.classList.remove('none')
+    }
+  })
+}
+
 export default function () {
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
   insertData()
   window.createContent = createContent
+  window.changePrice = changePrice
+  const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
+  drop.innerHTML = 工资筛选()
 }

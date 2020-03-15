@@ -26,5 +26,6 @@ export default {
   },
   'job-lagou': {
     js: () => require('../model/job/lagou.js').default(),
+    css: () => require('../styles/job/lagou.scss'),
   },
 }

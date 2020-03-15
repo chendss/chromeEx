@@ -1,0 +1,9 @@
+class GlobalAction {
+  constructor() {
+
+  }
+
+  actionHtml (){
+    
+  }
+}

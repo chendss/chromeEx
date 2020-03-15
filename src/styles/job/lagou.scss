@@ -1,0 +1,38 @@
+.postation {
+  display       : flex;
+  flex-direction: column;
+  padding       : 16px;
+  padding-bottom: 8px;
+
+  .line,
+  .chuiniu {
+    span {
+      display       : inline-block;
+      max-width     : 108px;
+      height        : 20px;
+      padding       : 0 5px;
+      font-size     : 12px;
+      line-height   : 20px;
+      color         : #555;
+      border        : 1px solid #dcdcdc;
+      border-radius : 3px;
+      vertical-align: middle;
+      overflow      : hidden;
+      text-overflow : ellipsis;
+      white-space   : nowrap;
+      word-wrap     : normal;
+    }
+
+  }
+
+  .p-row {
+    display    : flex;
+    align-items: center;
+    padding    : 4px;
+  }
+}
+
+.none,
+.item_con_pager {
+  display: none;
+}
