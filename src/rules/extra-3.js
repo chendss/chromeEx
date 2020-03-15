@@ -24,4 +24,7 @@ export default {
   jbzj: {
     css: () => require('../styles/jbzj.scss'),
   },
+  'job-lagou': {
+    js: () => require('../model/job/lagou.js').default(),
+  },
 }
