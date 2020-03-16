@@ -5,7 +5,7 @@ import router from './router'
 // import VueAMap from 'vue-amap'
 // import ECharts from 'vue-echarts'
 // import VModal from 'vue-js-modal'
-import ElementUI from 'element-ui'
+// import ElementUI from 'element-ui'
 // import mavonEditor from 'mavon-editor'
 // import VueVideoPlayer from 'vue-video-player'
 // import Vue2TouchEvents from 'vue2-touch-events'
@@ -17,12 +17,12 @@ import ElementUI from 'element-ui'
 // import 'swiper/dist/css/swiper.css'
 // import 'echarts/lib/component/tooltip'
 // import 'mavon-editor/dist/css/index.css'
-import 'element-ui/lib/theme-chalk/index.css'
+// import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Vuex)
 // Vue.use(VModal)
 // Vue.use(VueAMap)
-Vue.use(ElementUI)
+// Vue.use(ElementUI)
 // Vue.use(mavonEditor)
 // Vue.use(VueVideoPlayer)
 // Vue.use(Vue2TouchEvents)

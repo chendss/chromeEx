@@ -1,8 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
+const happyPackLoder = require('./happpyPack')
 const { resolve, page, assetsPath } = require('./util')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -31,44 +33,25 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-          },
-          'css-loader',
-          'sass-loader',
-          {
-            loader: path.resolve(__dirname, './important-loader.js'),
-          },
-        ],
+        use: 'happypack/loader?id=scss',
       },
       {
         test: /\.sass$/,
-        use: [
-          {
-            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-          },
-          'css-loader',
-          'sass-loader?indentedSyntax',
-        ],
+        use: 'happypack/loader?id=sass',
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
             scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
             sass: ['vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax'],
           },
-          // other vue-loader options go here
         },
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'happypack/loader?id=js',
         exclude: /node_modules/,
         include: [resolve('src'), resolve('node_modules/vue-echarts'), resolve('node_modules/resize-detector')],
       },
@@ -106,6 +89,7 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json'],
   },
   plugins: [
+    ...happyPackLoder(),
     page({
       title: 'popup title',
       name: 'popup',
