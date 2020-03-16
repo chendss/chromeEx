@@ -1,6 +1,6 @@
 import qs from 'qs'
 import axios from 'axios'
-import { set } from 'lodash'
+import { set, sortBy } from 'lodash'
 import Custom from '../../assets/custom'
 import { get, queryToObj } from '../../utils'
 
@@ -14,11 +14,11 @@ const priceDict = function () {
   return list
 }
 
-const 工资筛选 = function () {
+const 工资筛选 = function (actionKey, ) {
   const list = priceDict()
   const li = list.map(item => {
     const [price, text] = item.split('-')
-    return `<li><a rel="nofollow" href="javascript:;" onclick="changePrice(${Number(price)})">${text}</a></li>`
+    return `<li><a rel="nofollow" href="javascript:;" onclick="${actionKey}(${Number(price)})">${text}</a></li>`
   })
   return `<ul>${li.join('\n')}</ul>`
 }
@@ -28,7 +28,7 @@ const itemHtml = function (item, data) {
   const showId = get(data, 'showId', '')
   const priceList = get(item, 'salary', '').split('-').map(p => Number(p.replace('k', '')))
   return `
-    <li class="con_list_item first_row default_list my-item" price="${priceList.join('-')}">
+    <li class="con_list_item first_row default_list my-item" price="${priceList.join('-')}" minprice="${priceList[0]}" maxprice="${priceList[1]}">
     <span class="top_icon direct_recruitment"></span>
     <div class="list_item_top">
       <div class="position">
@@ -72,18 +72,18 @@ const itemHtml = function (item, data) {
       ${[item.secondType, ...get(item, 'skillLables', [])].map(label => (`<span>${label}</span>`)).join('\n')}
         <span>${item.secondType} </span>
       </div>
-      <div class="li_b_r">“${item.positionAdvantage}”</div>
+      <div class="li_b_r" title="${item.positionAdvantage}">“${item.positionAdvantage}”</div>
     </div>
     <div class="postation">
       <div class="line p-row">
         落点处：
-        ${get(item, 'linestaion', '无路线').split(';').map(l => (`<span title="${l}">${l}</span>`)).join('\n')}
+        ${get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n')}
       </div>
-      <div class="address p-row">经纬度：${item.longitude},${item.latitude}</div>
+      <div class="address p-row">经纬度：( ${item.longitude}, ${item.latitude} )</div>
       <span class="create-time p-row">发布时间：${item.createTime}</span>
       <div class="chuiniu p-row">
         公司标签：
-        ${get(item, 'companyLabelList', []).map(lable => (`<span title="${lable}">${lable}</span>`)).join('\n')}
+        ${get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n')}
       </div>
       </div>
   </li>
@@ -178,6 +178,27 @@ const changePrice = function (price) {
   })
 }
 
+const changeSort = function () {
+  const a_list = document.querySelectorAll('#order .item.order a')
+  a_list.forEach((a, index) => {
+    a.href = 'javascript:;'
+    a.innerHTML = index === 0 ? '从低到高' : '从高到低'
+    a.addEventListener('click', () => {
+      a_list.forEach(a => a.classList.remove('active'))
+      a.classList.add('active')
+      if (index === 0) {
+        const parent = document.querySelector('#s_position_list .item_con_list')
+        const items = parent.querySelectorAll('.my-item')
+        parent.innerHTML = sortBy([...items], o => Number(o.getAttribute('minprice'))).map(item => item.outerHTML).join('\n')
+      } else {
+        const parent = document.querySelector('#s_position_list .item_con_list')
+        const items = parent.querySelectorAll('.my-item')
+        parent.innerHTML = sortBy([...items], o => -1 * Number(o.getAttribute('minprice'))).map(item => item.outerHTML).join('\n')
+      }
+    })
+  })
+}
+
 export default function () {
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
@@ -185,5 +206,6 @@ export default function () {
   window.createContent = createContent
   window.changePrice = changePrice
   const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
-  drop.innerHTML = 工资筛选()
+  drop.innerHTML = 工资筛选('changePrice')
+  changeSort()
 }

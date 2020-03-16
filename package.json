@@ -20,6 +20,7 @@
     "darkmode-js": "^1.5.5",
     "echarts": "^4.2.1",
     "element-ui": "^2.11.1",
+    "happypack": "^5.0.1",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
     "mavon-editor": "^2.7.5",

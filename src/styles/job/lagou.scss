@@ -6,6 +6,8 @@
 
   .line,
   .chuiniu {
+    flex-wrap: wrap;
+
     span {
       display       : inline-block;
       max-width     : 108px;
@@ -23,6 +25,13 @@
       word-wrap     : normal;
     }
 
+    .line-box {
+      padding        : 8px 8px;
+      display        : inline-flex;
+      align-items    : center;
+      justify-content: center;
+    }
+
   }
 
   .p-row {
@@ -32,7 +41,43 @@
   }
 }
 
+#main_container {
+  width: calc(100% - 120px);
+
+  .content_left {
+    flex : 1 1 auto;
+    width: auto;
+  }
+}
+
+#s_position_list {
+  .item_con_list {
+    display  : flex;
+    flex-wrap: wrap;
+
+    .con_list_item {
+      position    : relative;
+      color       : #555;
+      width       : calc(50% - 16px);
+      overflow    : hidden;
+      border      : 1px solid #ededed;
+      margin-top  : 18px;
+      margin-right: 8px;
+
+      .li_b_r {
+        width: 200px;
+      }
+    }
+  }
+}
+
 .none,
+#backtop,
+.content_right,
 .item_con_pager {
+  display: none;
+}
+
+.item.page {
   display: none;
 }

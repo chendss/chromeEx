@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ChromeReloadPlugin = require('wcer')
+const happyPack = require('./happypack')
 const { resolve, page, assetsPath } = require('./util')
 
 module.exports = {
@@ -31,16 +32,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-          },
-          'css-loader',
-          'sass-loader',
-          {
-            loader: path.resolve(__dirname, './important-loader.js'),
-          },
-        ],
+        use: 'happypack/loader?id=scss',
       },
       {
         test: /\.sass$/,
@@ -68,7 +60,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        use: 'happypack/loader?id=js',
         exclude: /node_modules/,
         include: [resolve('src'), resolve('node_modules/vue-echarts'), resolve('node_modules/resize-detector')],
       },
@@ -106,6 +98,7 @@ module.exports = {
     extensions: ['*', '.js', '.vue', '.json'],
   },
   plugins: [
+    ...happyPack(),
     page({
       title: 'popup title',
       name: 'popup',
