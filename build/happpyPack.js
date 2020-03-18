@@ -3,7 +3,7 @@ const path = require('path')
 const os = require('os')
 const { assetsPath } = require('./util')
 
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const happyThreadPool = HappyPack.ThreadPool({ size: Math.floor(os.cpus().length / 2) })
 
 const baseParam = function (id) {
   return {
@@ -15,25 +15,11 @@ const baseParam = function (id) {
 
 module.exports = function () {
   return [
-    new HappyPack({
-      ...baseParam('js'),
-      loaders: [
-        {
-          loader: 'babel-loader?cacheDirectory=true',
-        },
-      ],
-    }),
     // new HappyPack({
-    //   ...baseParam('scss'),
+    //   ...baseParam('js'),
     //   loaders: [
     //     {
-    //       loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-    //       query: { cacheDirectory: '.webpack_cache', },
-    //     },
-    //     'css-loader',
-    //     'fast-sass-loader',
-    //     {
-    //       loader: path.resolve(__dirname, './important-loader.js'),
+    //       loader: 'babel-loader?cacheDirectory=true',
     //     },
     //   ],
     // }),

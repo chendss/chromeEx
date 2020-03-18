@@ -62,7 +62,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: 'happypack/loader?id=js',
+        loader: 'babel-loader?cacheDirectory=true',
         exclude: /node_modules/,
         include: [resolve('src'), resolve('node_modules/vue-echarts'), resolve('node_modules/resize-detector')],
       },
