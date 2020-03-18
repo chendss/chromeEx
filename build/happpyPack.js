@@ -23,21 +23,20 @@ module.exports = function () {
         },
       ],
     }),
-    new HappyPack({
-      ...baseParam('scss'),
-      loaders: [
-        {
-          loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-          query: { cacheDirectory: '.webpack_cache', },
-        },
-        'css-loader',
-        'sass-loader',
-        {
-          loader: path.resolve(__dirname, './important-loader.js'),
-          query: { cacheDirectory: '.webpack_cache', },
-        },
-      ],
-    }),
+    // new HappyPack({
+    //   ...baseParam('scss'),
+    //   loaders: [
+    //     {
+    //       loader: path.resolve(__dirname, './vue-style-loader/index.js'),
+    //       query: { cacheDirectory: '.webpack_cache', },
+    //     },
+    //     'css-loader',
+    //     'fast-sass-loader',
+    //     {
+    //       loader: path.resolve(__dirname, './important-loader.js'),
+    //     },
+    //   ],
+    // }),
     new HappyPack({
       ...baseParam('sass'),
       loaders: [
@@ -45,7 +44,7 @@ module.exports = function () {
           loader: path.resolve(__dirname, './vue-style-loader/index.js'),
         },
         'css-loader',
-        'sass-loader?indentedSyntax',
+        'fast-sass-loader?indentedSyntax',
       ],
     }),
     new HappyPack({

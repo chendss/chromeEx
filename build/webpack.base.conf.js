@@ -4,7 +4,6 @@ const ChromeReloadPlugin = require('wcer')
 const happyPackLoder = require('./happpyPack')
 const { resolve, page, assetsPath } = require('./util')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -33,19 +32,31 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: 'happypack/loader?id=scss',
+        exclude: /node_modules/,
+        loader: [
+          {
+            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
+            query: { cacheDirectory: '.webpack_cache', },
+          },
+          'css-loader',
+          'fast-sass-loader',
+          {
+            loader: path.resolve(__dirname, './important-loader.js'),
+          },
+        ]
       },
       {
         test: /\.sass$/,
         use: 'happypack/loader?id=sass',
+        exclude: /node_modules/,
       },
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
-            scss: ['vue-style-loader', 'css-loader', 'sass-loader'],
-            sass: ['vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax'],
+            scss: ['vue-style-loader', 'css-loader', 'fast-sass-loader'],
+            sass: ['vue-style-loader', 'css-loader', 'fast-sass-loader?indentedSyntax'],
           },
         },
       },

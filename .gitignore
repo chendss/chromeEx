@@ -12,3 +12,4 @@ yarn-error.log
 *.sln
 dist.pem
 src/assets/custom.js
+.cache/
