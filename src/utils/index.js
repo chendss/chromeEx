@@ -100,6 +100,24 @@ export const dpi = function (dom) {
   dom.setAttribute('style', style + `font-size:${size}px;`)
 }
 
+/**
+* 动态加载js
+*
+* @param {Object} srcDict src的字典
+*/
+export const createScriptFormRemote = function (srcDict) {
+  for (let key of Object.keys(srcDict)) {
+    if (document.querySelector(`#${key}`) == null) {
+      const src = srcDict[key]
+      const script = document.createElement("script")
+      script.type = "text/javascript"
+      script.src = src
+      script.id = key
+      document.head.appendChild(script)
+    }
+  }
+}
+
 
 export default function (handle) {
   const matching = {}
