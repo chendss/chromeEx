@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const baseConf = require('./webpack.base.conf')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 module.exports = merge(baseConf, {
   watch: true,

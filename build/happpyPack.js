@@ -1,8 +1,6 @@
-const HappyPack = require('happypack')
-const path = require('path')
 const os = require('os')
-const { assetsPath } = require('./util')
-
+const path = require('path')
+const HappyPack = require('happypack')
 const happyThreadPool = HappyPack.ThreadPool({ size: Math.floor(os.cpus().length / 2) })
 
 const baseParam = function (id) {
@@ -15,14 +13,6 @@ const baseParam = function (id) {
 
 module.exports = function () {
   return [
-    // new HappyPack({
-    //   ...baseParam('js'),
-    //   loaders: [
-    //     {
-    //       loader: 'babel-loader?cacheDirectory=true',
-    //     },
-    //   ],
-    // }),
     new HappyPack({
       ...baseParam('sass'),
       loaders: [
