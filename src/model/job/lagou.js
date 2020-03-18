@@ -48,7 +48,7 @@ const itemHtml = function (item, data) {
         </div>
       </div>
       <div class="company">
-        <div class="company_name">
+        <div class="company_name" title="${item.companyFullName}">
           <a href="https://www.lagou.com/gongsi/${item.companyId}.html" target="_blank">${item.companyFullName}</a
           ><i class="company_mark"><span>该企业已上传营业执照并通过资质验证审核</span></i>
         </div>
