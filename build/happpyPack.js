@@ -1,11 +1,15 @@
 const HappyPack = require('happypack')
 const path = require('path')
+const os = require('os')
+const { assetsPath } = require('./util')
+
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 const baseParam = function (id) {
   return {
     id,
-    threads: 2,
-    cache: true,
+    verbose: true,
+    threadPool: happyThreadPool,
   }
 }
 

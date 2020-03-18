@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import App from './App'
-import router from './router'
+// import Vue from 'vue'
+// import Vuex from 'vuex'
+// import App from './App'
+// import router from './router'
 // import VueAMap from 'vue-amap'
 // import ECharts from 'vue-echarts'
 // import VModal from 'vue-js-modal'
@@ -19,7 +19,7 @@ import router from './router'
 // import 'mavon-editor/dist/css/index.css'
 // import 'element-ui/lib/theme-chalk/index.css'
 
-Vue.use(Vuex)
+// Vue.use(Vuex)
 // Vue.use(VModal)
 // Vue.use(VueAMap)
 // Vue.use(ElementUI)
@@ -47,9 +47,9 @@ Vue.use(Vuex)
 
 // Vue.component('v-chart', ECharts)
 
-new Vue({
-  el: '#app',
-  router,
-  render: h => h(App),
-  template: '<App/>',
-})
+// new Vue({
+//   el: '#app',
+//   router,
+//   render: h => h(App),
+//   template: '<App/>',
+// })
