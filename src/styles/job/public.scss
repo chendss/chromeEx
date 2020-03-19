@@ -1,7 +1,6 @@
 .gaode-map {
-  height  : 600px;
-  position: fixed;
-  top     : 100px;
-  width   : 800px;
-  right   : 60px;
+  width     : 60vw;
+  max-width : 80vw;
+  height    : 75vh;
+  min-height: 300px;
 }

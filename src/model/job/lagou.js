@@ -1,8 +1,9 @@
 import qs from 'qs'
+import $ from 'jquery'
+import 'jquery-modal'
 import axios from 'axios'
 import AMap from './public'
 import { set, sortBy } from 'lodash'
-import Custom from '../../assets/custom'
 import { get, queryToObj } from '../../utils'
 
 const globalConfig = {
@@ -89,7 +90,7 @@ const itemHtml = function (item, data) {
       </div>
     </div>
     <div class="action-box">
-      <div class="btn map-postion">定位地图</div>
+      <div class="btn map-postion" onclick="postionMap(${item.longitude},${item.latitude})">定位地图</div>
     </div>
   </li>
 `
@@ -208,6 +209,12 @@ const createMap = async function () {
   const map = new AMap()
   await map.init('body')
   globalConfig.map = map
+  $().modal()
+}
+
+const postionMap = function (经度, 纬度) {
+  const id = globalConfig.map.id
+  $(`#${id}`).modal()
 }
 
 export default function () {
@@ -216,6 +223,7 @@ export default function () {
   insertData()
   window.createContent = createContent
   window.changePrice = changePrice
+  window.postionMap = postionMap
   const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
   drop.innerHTML = 工资筛选('changePrice')
   changeSort()
