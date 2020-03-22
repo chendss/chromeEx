@@ -16,7 +16,14 @@ const addId = function () {
 }
 
 const iocGlobalStyle = function () {
-  const styles = ['modal.css', 'lulu.css', 'global.css', 'animate.css']
+  const styles = [
+    'modal.css',
+    'lulu.css',
+    'global.css',
+    'animate.css',
+    // 'bootstrap-select.css',
+    // 'bootstrap.css'
+  ]
   for (let style of styles) {
     const link = document.createElement('link')
     link.rel = 'stylesheet'
@@ -26,12 +33,20 @@ const iocGlobalStyle = function () {
 }
 
 const iocScript = function (src) {
-  const content = chrome.extension.getURL(src)
-  const script = document.createElement('script')
-  script.setAttribute('type', 'text/javascript')
-  script.setAttribute('src', content)
-  script.charset = 'UTF-8'
-  document.documentElement.appendChild(script)
+  const scripts = [
+    'lulu.js',
+    'js/content.js',
+    // 'bootstrap.js',
+    // 'bootstrap-select.js',
+  ]
+  for (let src of scripts) {
+    const content = chrome.extension.getURL(src)
+    const script = document.createElement('script')
+    script.setAttribute('type', 'text/javascript')
+    script.setAttribute('src', content)
+    script.charset = 'UTF-8'
+    document.documentElement.appendChild(script)
+  }
 }
 
 const zoom = function () {
@@ -55,8 +70,7 @@ const iocStyle = function () {
 
 const main = function () {
   addId()
-  iocScript('lulu.js')
-  iocScript('js/content.js')
+  iocScript()
   iocGlobalStyle()
   zoom()
   iocStyle()

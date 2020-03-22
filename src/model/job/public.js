@@ -1,5 +1,6 @@
 import Config from '../../assets/custom'
 import '../../styles/job/public.scss'
+import $ from 'jquery'
 import { createScriptFormRemote, random, get } from '../../utils'
 
 class Map {
@@ -77,17 +78,12 @@ class Map {
 
   searchHtml () {
     const html = `
-    <div class="ui-input ui-input-search" align="right" style="width:268px;">
-        <input type="search" placeholder="输入关键字">
-        <a href="javascript:" class="ui-icon-search" role="button">搜索</a>
-        <select>
-          <option value="1">选项1</option>
-          <option value="2">选项2</option>
-          <option value="3">选项3</option>
-          <option value="4">选项4</option>
-          <option value="5">选项5</option>
-          <option value="6">选项6</option>
-      </select>
+    <div class="search-box">
+      <input class="ui-input " list="datalistPerson">
+      <datalist id="datalistPerson">
+          <option value="蔡世豪">
+          <option value="彭玉乐">
+      </datalist>
     </div>
    `
     return html
