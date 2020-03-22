@@ -3,18 +3,14 @@
  *
  */
 const clearCopy = function () {
-  document.addEventListener('copy', e => {
-    let copytext = window.getSelection()
-    if (typeof copytext.focusNode === 'string') {
-      e.preventDefault()
-      copytext = window.getSelection()
-      let pagelink = '\nRead more: ' + document.location.href
-      let clipdata = e.clipboardData || window.clipboardData
-      if (clipdata && copytext.focusNode) {
-        clipdata.setData('Text', copytext)
-      }
+  const current = document.addEventListener
+  document.addEventListener = function (type, ...args) {
+    if (type === 'copy') {
+      return
+    } else {
+      current.apply(type, ...args)
     }
-  })
+  }
 }
 
 /**
@@ -22,7 +18,7 @@ const clearCopy = function () {
  *
  */
 const backLink = function () {
-  function setcookie(name, domain) {
+  function setcookie (name, domain) {
     document.cookie = name + '=' + '' + ';path=/;domain=' + domain
   }
   var jdad = new Array(
@@ -158,7 +154,7 @@ const backLink = function () {
       false
     ) //亚马逊的cookies似乎是在加载完成后才写入，必须加延迟
   }
-  function zadkill() {
+  function zadkill () {
     for (i = 0; i < zad.length; i++) {
       setcookie(zad[i], zad[i + 1])
     }
@@ -205,7 +201,7 @@ const backLink = function () {
       false
     )
   }
-  function tbadkill() {
+  function tbadkill () {
     for (i = 0; i < tbad.length; i++) {
       setcookie(tbad[i], tbad[i + 1])
     }

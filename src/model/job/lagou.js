@@ -2,7 +2,7 @@ import qs from 'qs'
 import $ from 'jquery'
 import 'jquery-modal'
 import axios from 'axios'
-import AMap from './public'
+import GMap from './public'
 import { set, sortBy } from 'lodash'
 import { get, queryToObj } from '../../utils'
 
@@ -206,15 +206,15 @@ const changeSort = function () {
 }
 
 const createMap = async function () {
-  const map = new AMap()
+  const map = new GMap()
   await map.init('body')
   globalConfig.map = map
-  $().modal()
+  window.testSearch = (...args) => globalConfig.map.search(...args)
 }
 
-const postionMap = function (经度, 纬度) {
-  const id = globalConfig.map.id
-  $(`#${id}`).modal()
+const postionMap = async function (经度, 纬度) {
+  const id = `#${globalConfig.map.id}`
+  $(id).modal()
 }
 
 export default function () {

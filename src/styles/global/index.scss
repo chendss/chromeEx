@@ -12,6 +12,12 @@
       width: 0 !important;
     }
   }
+
+  .jquery-modal {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+  }
 }
 
 *:not(svg, i, use, path) {

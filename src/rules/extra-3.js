@@ -24,6 +24,10 @@ export default {
   jbzj: {
     css: () => require('../styles/jbzj.scss'),
   },
+  imooc_article: {
+    css: () => require('../styles/imooc_article.scss'),
+    js: () => require('../model/imooc_article.js').default(),
+  },
   'job-lagou': {
     js: () => require('../model/job/lagou.js').default(),
     css: () => require('../styles/job/lagou.scss'),

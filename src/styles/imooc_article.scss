@@ -1,0 +1,21 @@
+.detail-content.js-lookimg.long-content {
+  max-height: none;
+}
+
+.showMore,
+.active-box,
+.right_recommend .column_recommend {
+  display: none;
+}
+
+.main_con.clearfix {
+  margin : 0;
+  padding: 32px;
+  display: flex;
+  width  : calc(100% - 120px);
+
+  .left_essay.l {
+    margin-right: 32px;
+    width       : calc(100% - 300px);
+  }
+}

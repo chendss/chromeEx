@@ -1,22 +1,33 @@
 import Config from '../../assets/custom'
 import '../../styles/job/public.scss'
-import { createScriptFormRemote, random } from '../../utils'
+import { createScriptFormRemote, random, get } from '../../utils'
 
 class Map {
   constructor() {
     this.config = Config()
     this.id = random()
+    this.mapId = random()
     const url = `//webapi.amap.com/maps?v=1.4.15&key=${this.config.高德地图key}`
     createScriptFormRemote({ map: url })
     document.head.insertAdjacentHTML('beforeend', '<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> ')
+    this.浏览器定位信息 = {}
+    this.autocomplete = null
+    this.map = null
   }
 
-  onComplete (...args) {
-    console.log('定位信息', ...args)
+  onComplete (positionInfo) {
+    this.浏览器定位信息 = {
+      allInfo: positionInfo,
+      address: get(positionInfo, 'formattedAddress'),
+      position: get(positionInfo, 'position', {}),
+      经度: get(positionInfo, 'position.lng', 0),
+      纬度: get(positionInfo, 'position.lat', 0),
+    }
+    console.log('定位信息', this.浏览器定位信息)
   }
 
   onError (...args) {
-    console.log('定位信息', ...args)
+    console.log('定位报错信息', ...args)
   }
 
   postionSelf () {
@@ -41,14 +52,57 @@ class Map {
     })
   }
 
+  insertSearch () {
+    this.map.plugin('AMap.Autocomplete', () => {
+      const autoOptions = { city: '全国' }
+      this.autocomplete = new AMap.Autocomplete(autoOptions)
+    })
+  }
+
+  /**
+   * 查询关键字
+   *
+   * @param {*} keyword
+   * @returns
+   * @memberof Map
+   */
+  search (keyword) {
+    return new Promise((resolve) => {
+      this.autocomplete.search(keyword, (status, result) => {
+        console.log('搜索结果', status, result)
+        resolve({ status, result })
+      })
+    })
+  }
+
+  searchHtml () {
+    const html = `
+      <div class="info">
+        <div class="input-item">
+          <div class="input-item-prepend">
+            <span class="input-item-text" style="width:8rem;">请输入关键字</span>
+          </div>
+          <input id="tipinput" type="text">
+        </div>
+      </div>
+   `
+    return html
+  }
+
   init (selector) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
-        const html = `<div id=${this.id} class="modal gaode-map"></div> `
+        const html = `
+          <div class="modal gaode-map" id="${this.id}">
+            <div id="${this.mapId}" class="map-content"></div>
+            ${this.searchHtml()}
+          </div> 
+        `
         const parent = document.querySelector(selector)
         parent.insertAdjacentHTML('beforeend', html)
-        this.map = new AMap.Map(this.id)
+        this.map = new AMap.Map(this.mapId, { resizeEnable: true })
         this.postionSelf()
+        this.insertSearch()
         resolve()
       }
     })

@@ -4,6 +4,7 @@ const mathDict = {
   cto: ['blog.51cto.com'],
   zhihuHome: ['zhihu.com',],
   imooc: ['imooc.com/video'],
+  imooc_article: ['imooc.com/article'],
   ruan: ['www.ruanyifeng.com/'],
   baidu: ['baidu.com', 'baidu.com'],
   'zhihu-zhanlan': ['zhuanlan.zhihu.com',],
