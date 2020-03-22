@@ -77,17 +77,22 @@ class Map {
 
   searchHtml () {
     const html = `
-      <div class="info">
-        <div class="input-item">
-          <div class="input-item-prepend">
-            <span class="input-item-text" style="width:8rem;">请输入关键字</span>
-          </div>
-          <input id="tipinput" type="text">
-        </div>
-      </div>
+    <div class="ui-input ui-input-search" align="right" style="width:268px;">
+        <input type="search" placeholder="输入关键字">
+        <a href="javascript:" class="ui-icon-search" role="button">搜索</a>
+        <select>
+          <option value="1">选项1</option>
+          <option value="2">选项2</option>
+          <option value="3">选项3</option>
+          <option value="4">选项4</option>
+          <option value="5">选项5</option>
+          <option value="6">选项6</option>
+      </select>
+    </div>
    `
     return html
   }
+
 
   init (selector) {
     return new Promise((resolve, reject) => {

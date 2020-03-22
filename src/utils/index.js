@@ -118,7 +118,6 @@ export const createScriptFormRemote = function (srcDict) {
   }
 }
 
-
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

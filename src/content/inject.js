@@ -15,14 +15,23 @@ const addId = function () {
   documentElement.setAttribute('id', id)
 }
 
-const iocJs = function () {
-  const content = chrome.extension.getURL('js/content.js')
+const iocGlobalStyle = function () {
+  const styles = ['modal.css', 'lulu.css', 'global.css', 'animate.css']
+  for (let style of styles) {
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = chrome.extension.getURL(style)
+    document.documentElement.appendChild(link)
+  }
+}
+
+const iocScript = function (src) {
+  const content = chrome.extension.getURL(src)
   const script = document.createElement('script')
   script.setAttribute('type', 'text/javascript')
   script.setAttribute('src', content)
   script.charset = 'UTF-8'
   document.documentElement.appendChild(script)
-  addId()
 }
 
 const zoom = function () {
@@ -45,7 +54,10 @@ const iocStyle = function () {
 }
 
 const main = function () {
-  iocJs()
+  addId()
+  iocScript('lulu.js')
+  iocScript('js/content.js')
+  iocGlobalStyle()
   zoom()
   iocStyle()
 }

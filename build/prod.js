@@ -4,7 +4,7 @@ const crxConf = require('./crx-conf')
 const merge = require('webpack-merge')
 const Crx = require("crx-webpack-plugin")
 const generatePem = require('./generate-pem')
-const prodConf = require('./webpack.prod.conf')
+const prodConf = require('./webpack.prod.small.conf')
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin")
 
 

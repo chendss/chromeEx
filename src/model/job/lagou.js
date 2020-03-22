@@ -90,7 +90,7 @@ const itemHtml = function (item, data) {
       </div>
     </div>
     <div class="action-box">
-      <div class="btn map-postion" onclick="postionMap(${item.longitude},${item.latitude})">定位地图</div>
+      <button class="ui-button" data-type="normal" onclick="postionMap(${item.longitude},${item.latitude})">定位地图</button>
     </div>
   </li>
 `

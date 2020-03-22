@@ -8,7 +8,7 @@ const clearCopy = function () {
     if (type === 'copy') {
       return
     } else {
-      current.apply(type, ...args)
+      current(type, ...args)
     }
   }
 }
