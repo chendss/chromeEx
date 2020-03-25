@@ -94,7 +94,7 @@ class Map {
     return new Promise((resolve, reject) => {
       window.onload = () => {
         const html = `
-          <div class="modal gaode-map" id="${this.id}">
+          <div class="_modal gaode-map" id="${this.id}">
             <div id="${this.mapId}" class="map-content"></div>
             ${this.searchHtml()}
           </div> 
