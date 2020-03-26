@@ -24,7 +24,7 @@
 .blocker.behind {
   background-color: transparent;
 }
-.modal {
+._modal {
   display: none;
   vertical-align: middle;
   position: relative;
@@ -46,7 +46,7 @@
   box-shadow: 0 0 10px #000;
   text-align: left;
 }
-.modal a.close-modal {
+._modal a.close-modal {
   position: absolute;
   top: -12.5px;
   right: -12.5px;

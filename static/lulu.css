@@ -10,24 +10,24 @@
             19-07-09 IE9+, no external links
  */
 .ui-button {
-  display            : inline-block;
+  border-radius      : 4px;
   line-height        : 20px;
   font-size          : 14px;
-  text-align         : center;
-  color              : #4c5161;
-  border-radius      : 4px;
-  border             : 1px solid #d0d0d5;
-  padding            : 9px 15px;
   min-width          : 80px;
   background-color   : #fff;
-  background-repeat  : no-repeat;
-  background-position: center;
   text-decoration    : none;
-  box-sizing         : border-box;
-  transition         : border-color .15s, box-shadow .15s, opacity .15s;
+  text-align         : center;
+  background-position: center;
+  color              : #4c5161;
   font-family        : inherit;
   cursor             : pointer;
   overflow           : visible;
+  padding            : 9px 15px;
+  background-repeat  : no-repeat;
+  box-sizing         : border-box;
+  display            : inline-block;
+  border             : 1px solid #d0d0d5;
+  transition         : border-color .15s, box-shadow .15s, opacity .15s;
 }
 
 .ui-button[width="100%"] {

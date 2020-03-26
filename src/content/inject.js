@@ -18,7 +18,7 @@ const addId = function () {
 const iocGlobalStyle = function () {
   const styles = [
     'modal.css',
-    'lulu.css',
+    // 'lulu.css',
     'global.css',
     'animate.css',
   ]
