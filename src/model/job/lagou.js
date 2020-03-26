@@ -90,7 +90,7 @@ const itemHtml = function (item, data) {
       </div>
     </div>
     <div class="action-box">
-      <button class="ui-button" data-type="primary" onclick="postionMap(${item.longitude},${item.latitude})">地图定位</button>
+      <button class="_btn_p" type="b" onclick="postionMap(${item.longitude},${item.latitude},'${item.companyFullName}')">地图定位</button>
     </div>
   </li>
 `
@@ -212,9 +212,11 @@ const createMap = async function () {
   window.testSearch = (...args) => globalConfig.map.search(...args)
 }
 
-const postionMap = async function (经度, 纬度) {
+const postionMap = async function (经度, 纬度, name) {
   const id = `#${globalConfig.map.id}`
   $(id).modal()
+  const map = globalConfig.map
+  map.goPoint(经度, 纬度, name)
 }
 
 export default function () {

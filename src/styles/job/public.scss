@@ -14,14 +14,49 @@
   }
 
   .search-box {
-    width   : 268px;
-    position: absolute;
-    right   : 100px;
-    top     : 32px;
+    top               : 32px;
+    display           : flex;
+    width             : 320px;
+    right             : 100px;
+    position          : absolute;
+    width             : max-content;
+    -moz-box-shadow   : 2px 2px 20px #333333;
+    -webkit-box-shadow: 2px 2px 20px #333333;
+    box-shadow        : 2px 2px 20px #333333;
+  }
+
+  .luxian {
+    top       : 108px;
+    right     : 100px;
+    position  : absolute;
+    height    : calc(100% - 158px); // TODO:
+    background: #fff;
+    border    : 0;
+  }
+
+  .home-btn-box {
+    top           : 32px;
+    left          : 48px;
+    display       : flex;
+    width         : 120px;
+    flex-direction: column;
+    position      : absolute;
+
+    .home-btn {
+      width: 100px;
+    }
+
+    .home-btn+.home-btn {
+      margin-top: 8px;
+    }
   }
 
   .amap-geo {
     width : 80px;
     height: 80px;
+  }
+
+  ._input {
+    width: 300px;
   }
 }

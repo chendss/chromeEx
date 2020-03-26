@@ -1,6 +1,5 @@
 import clearBaidu from './baidu'
 import clearLink from './link'
-import ajaxHooks from './ajaxHooks'
 
 const addMeta = function () {
   window.addEventListener('load', () => {
@@ -20,5 +19,4 @@ export default function () {
   addMeta()
   clearBaidu()
   clearLink()
-  ajaxHooks()
 }

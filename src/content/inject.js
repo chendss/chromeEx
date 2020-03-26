@@ -1,5 +1,7 @@
 import iocHandle from '../utils/index'
 import excludes from '../rules/excludes'
+import autoHooks from '../utils/autoHooks'
+// import hookDebugger from '../utils/hookDebugger'
 
 console.log('插件加载')
 
@@ -18,9 +20,9 @@ const addId = function () {
 const iocGlobalStyle = function () {
   const styles = [
     'modal.css',
-    // 'lulu.css',
     'global.css',
     'animate.css',
+    'bootstrap.css',
   ]
   for (let style of styles) {
     const link = document.createElement('link')
@@ -34,6 +36,7 @@ const iocScript = function (src) {
   const scripts = [
     'lulu.js',
     'js/content.js',
+    'bootstrap.js',
   ]
   for (let src of scripts) {
     const content = chrome.extension.getURL(src)
@@ -70,6 +73,8 @@ const main = function () {
   iocGlobalStyle()
   zoom()
   iocStyle()
+  // autoHooks()
+  // hookDebugger()
 }
 
 main()

@@ -16,10 +16,29 @@ class Map {
     this.map = null
     window.searchInput = this.searchInput.bind(this)
     window.throttle = throttle
+    this.targetPoint = { name: '未知' }
+  }
+
+  addMark (point, name) {
+    const marker = new AMap.Marker({
+      position: new AMap.LngLat(...point),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+      title: name
+    })
+    this.map.add(marker)
+  }
+
+  goPoint (经度, 纬度, name) {
+    const point = [经度, 纬度]
+    this.map.panTo(point)
+    this.targetPoint.location = point
+    if (name != null) {
+      this.targetPoint.name = name
+      this.addMark(point, name)
+    }
   }
 
 
-  onComplete(positionInfo) {
+  onComplete (positionInfo) {
     this.浏览器定位信息 = {
       allInfo: positionInfo,
       address: get(positionInfo, 'formattedAddress'),
@@ -30,11 +49,11 @@ class Map {
     console.log('定位信息', this.浏览器定位信息)
   }
 
-  onError(...args) {
+  onError (...args) {
     console.log('定位报错信息', ...args)
   }
 
-  postionSelf() {
+  postionSelf () {
     this.map.plugin('AMap.Geolocation', () => {
       const geolocation = new AMap.Geolocation({
         maximumAge: 0,           //定位结果缓存0毫秒，默认：0
@@ -56,21 +75,24 @@ class Map {
     })
   }
 
-  insertSearch() {
+  insertSearch () {
     this.map.plugin('AMap.Autocomplete', () => {
       const autoOptions = { city: '全国' }
       this.autocomplete = new AMap.Autocomplete(autoOptions)
     })
   }
 
-  chooseOption(event) {
-    const code = get(event, 'target.value', '').split('||')[1]
+  chooseOption (keyword) {
+    const code = keyword.split('||')[1]
     const datalistDom = document.querySelector('#search-list')
     const datalist = JSON.parse(datalistDom.getAttribute('data'))
-    const target = datalist.find(d => d.adcode === code)
-    const location = get(target, 'location', [])
-    const point = [location.lng, location.lat]
-    this.map.panTo(point)
+    if (datalist instanceof Array) {
+      const target = datalist.find(d => d.adcode === code)
+      const location = get(target, 'location', [])
+      const point = [location.lng, location.lat]
+      this.map.panTo(point)
+      this.addMark(point, get(target, 'name', '不知道'))
+    }
   }
 
   /**
@@ -80,8 +102,10 @@ class Map {
    * @returns
    * @memberof Map
    */
-  search(keyword) {
-    return new Promise((resolve) => {
+  search (keyword) {
+    if (keyword.includes('||')) {
+      this.chooseOption(keyword)
+    } else {
       this.autocomplete.search(keyword, (status, result) => {
         console.log('搜索结果', status, result)
         if (status === 'complete') {
@@ -98,13 +122,13 @@ class Map {
           dom.innerHTML = list.join('\n')
           dom.setAttribute('data', JSON.stringify(titps))
         }
-        resolve({ status, result })
       })
-    })
+    }
+
   }
 
 
-  searchInput(event) {
+  searchInput (event) {
     const target = event.target
     const val = get(target, 'value', null)
     if (val === '' || val == null) {
@@ -114,37 +138,62 @@ class Map {
     }
   }
 
-  searchHtml() {
+  searchHtml () {
     const html = `
-    <div class="search-box">
-      <input class="ui-input" id="search-input" list="search-list" oninput="throttle((event)=>searchInput(event),300)(event)">
-      <datalist id="search-list">
-      </datalist>
-    </div>
+      <div class="search-box">
+        <input class="_input" id="search-input" list="search-list" oninput="throttle((event)=>searchInput(event),300)(event)">
+        <datalist id="search-list">
+        </datalist>
+      </div>
    `
     return html
   }
 
-  addListener() {
+  addHome () {
+    let btnList = Object.keys(this.config.homeDict).map(key => {
+      const point = this.config.homeDict[key]
+      const btnHtml = `<button class="_btn_p home-btn" name="${key}" point="${JSON.stringify(point)}">${key}路线</button>`
+      return btnHtml
+    })
+    const html = `
+    <div class="home-btn-box">
+      ${btnList.join('\n')}
+    </div>
+    `
+    return html
+  }
+
+  addListener () {
     const searchBox = document.querySelector('#search-input')
-    const fun = throttle(this.searchInput.bind(this), 300)
+    const fun = throttle(this.searchInput.bind(this), 500)
     searchBox.addEventListener('input', fun)
-    searchBox.addEventListener('blur', this.chooseOption.bind(this))
+    searchBox.addEventListener('focus', () => searchBox.value = '')
+    const homeBox = document.querySelector('.home-btn-box')
+    homeBox.addEventListener('click', event => {
+      const target = event.target
+      const point = JSON.parse(target.getAttribute('point'))
+      const src = `//m.amap.com/navi/?start=${point.join(',')}&dest=${this.targetPoint.location.join(',')}&destName=$${this.targetPoint.name}&naviBy=car&key=${this.config.高德地图key}`
+      const iframe = document.querySelector('#luxian')
+      iframe.classList.remove('none')
+      iframe.src = src
+    })
   }
 
 
-  init(selector) {
+  init (selector) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
         const html = `
           <div class="_modal gaode-map" id="${this.id}">
             <div id="${this.mapId}" class="map-content"></div>
             ${this.searchHtml()}
+            ${this.addHome()}
+            <iframe id="luxian" class="luxian none"></iframe>
           </div> 
         `
         const parent = document.querySelector(selector)
         parent.insertAdjacentHTML('beforeend', html)
-        this.map = new AMap.Map(this.mapId, { resizeEnable: true })
+        this.map = new AMap.Map(this.mapId, { resizeEnable: true, zoom: 10 })
         this.postionSelf()
         this.insertSearch()
         this.addListener()

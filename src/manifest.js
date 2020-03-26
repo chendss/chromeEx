@@ -50,12 +50,10 @@ module.exports = {
     'js/content.js',
     'lulu.js',
     'bootstrap.js',
-    'bootstrap-select.js',
     'modal.css',
     'lulu.css',
     'global.css',
     'animate.css',
     'bootstrap.css',
-    'bootstrap-select.css'
   ],
 }

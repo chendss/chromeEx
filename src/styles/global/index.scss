@@ -1,4 +1,5 @@
-@import "./collect.scss "; // TODO:
+@import "./collect.scss"; // TODO:
+@import "./the.scss"; // TODO:
 
 #__dashao {
   iframe {
@@ -15,6 +16,12 @@
     display        : flex;
     align-items    : center;
     justify-content: center;
+  }
+
+  #footer,
+  .footer,
+  footer {
+    display: none;
   }
 }
 
