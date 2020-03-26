@@ -1,6 +1,6 @@
-import Config from '../../assets/custom'
+import { throttle } from 'lodash'
 import '../../styles/job/public.scss'
-import $ from 'jquery'
+import Config from '../../assets/custom'
 import { createScriptFormRemote, random, get } from '../../utils'
 
 class Map {
@@ -14,9 +14,12 @@ class Map {
     this.浏览器定位信息 = {}
     this.autocomplete = null
     this.map = null
+    window.searchInput = this.searchInput.bind(this)
+    window.throttle = throttle
   }
 
-  onComplete (positionInfo) {
+
+  onComplete(positionInfo) {
     this.浏览器定位信息 = {
       allInfo: positionInfo,
       address: get(positionInfo, 'formattedAddress'),
@@ -27,11 +30,11 @@ class Map {
     console.log('定位信息', this.浏览器定位信息)
   }
 
-  onError (...args) {
+  onError(...args) {
     console.log('定位报错信息', ...args)
   }
 
-  postionSelf () {
+  postionSelf() {
     this.map.plugin('AMap.Geolocation', () => {
       const geolocation = new AMap.Geolocation({
         maximumAge: 0,           //定位结果缓存0毫秒，默认：0
@@ -53,11 +56,21 @@ class Map {
     })
   }
 
-  insertSearch () {
+  insertSearch() {
     this.map.plugin('AMap.Autocomplete', () => {
       const autoOptions = { city: '全国' }
       this.autocomplete = new AMap.Autocomplete(autoOptions)
     })
+  }
+
+  chooseOption(event) {
+    const code = get(event, 'target.value', '').split('||')[1]
+    const datalistDom = document.querySelector('#search-list')
+    const datalist = JSON.parse(datalistDom.getAttribute('data'))
+    const target = datalist.find(d => d.adcode === code)
+    const location = get(target, 'location', [])
+    const point = [location.lng, location.lat]
+    this.map.panTo(point)
   }
 
   /**
@@ -67,30 +80,60 @@ class Map {
    * @returns
    * @memberof Map
    */
-  search (keyword) {
+  search(keyword) {
     return new Promise((resolve) => {
       this.autocomplete.search(keyword, (status, result) => {
         console.log('搜索结果', status, result)
+        if (status === 'complete') {
+          const id = '#search-list'
+          const titps = get(result, 'tips', [])
+          const list = titps.map(item => {
+            const strList = [item.name, item.district, item.address]
+            const value = strList.join('-') + `||${item.adcode}`
+            const location = JSON.stringify(item.location)
+            const result = `<option title="${value}" value="${value}" adcode="${item.adcode}" location="${location}"/>`
+            return result
+          })
+          const dom = document.querySelector(id)
+          dom.innerHTML = list.join('\n')
+          dom.setAttribute('data', JSON.stringify(titps))
+        }
         resolve({ status, result })
       })
     })
   }
 
-  searchHtml () {
+
+  searchInput(event) {
+    const target = event.target
+    const val = get(target, 'value', null)
+    if (val === '' || val == null) {
+      return
+    } else {
+      this.search(val)
+    }
+  }
+
+  searchHtml() {
     const html = `
     <div class="search-box">
-      <input class="ui-input" id="search-input" list="earch-list">
+      <input class="ui-input" id="search-input" list="search-list" oninput="throttle((event)=>searchInput(event),300)(event)">
       <datalist id="search-list">
-          <option value="蔡世豪">
-          <option value="彭玉乐">
       </datalist>
     </div>
    `
     return html
   }
 
+  addListener() {
+    const searchBox = document.querySelector('#search-input')
+    const fun = throttle(this.searchInput.bind(this), 300)
+    searchBox.addEventListener('input', fun)
+    searchBox.addEventListener('blur', this.chooseOption.bind(this))
+  }
 
-  init (selector) {
+
+  init(selector) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
         const html = `
@@ -104,6 +147,7 @@ class Map {
         this.map = new AMap.Map(this.mapId, { resizeEnable: true })
         this.postionSelf()
         this.insertSearch()
+        this.addListener()
         resolve()
       }
     })
