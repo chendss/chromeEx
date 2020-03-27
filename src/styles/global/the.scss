@@ -25,16 +25,21 @@
     height             : 40px;
     background-color   : #2a80eb;
 
-    &[typ="g"] {
+    &[type="g"] {
       background-color: #1cad70;
     }
 
-    &[typ="r"] {
+    &[type="r"] {
       background-color: #eb4646;
     }
 
-    &[typ="o"] {
+    &[type="o"] {
       background-color: #f59b00;
+    }
+
+    &[type="b"] {
+      background-color: #fff;
+      color           : black;
     }
 
     &:hover {

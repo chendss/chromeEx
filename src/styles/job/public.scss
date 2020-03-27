@@ -26,12 +26,18 @@
   }
 
   .luxian {
-    top       : 108px;
-    right     : 100px;
-    position  : absolute;
-    height    : calc(100% - 158px); // TODO:
-    background: #fff;
-    border    : 0;
+    top           : 108px;
+    right         : 100px;
+    position      : absolute;
+    height        : calc(100% - 158px); // TODO:
+    background    : #fff;
+    display       : flex;
+    flex-direction: column;
+
+    .lu-iframe {
+      height: 100%;
+      border: 0;
+    }
   }
 
   .home-btn-box {

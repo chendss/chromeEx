@@ -27,6 +27,20 @@ class Map {
     this.map.add(marker)
   }
 
+  changeMapSrc (point_, name_) {
+    const key = get(Object.keys(this.config.homeDict), '[0]', '')
+    const value = this.config.homeDict[key] || [this.浏览器定位信息.纬度, this.浏览器定位信息.纬度]
+    const name = name_ || (this.config.homeDict[key] == null ? key : '浏览器定位')
+    const point = point_ || value
+    const src = `//m.amap.com/navi/?start=${point.join(',')}&dest=${this.targetPoint.location.join(',')}&destName=$${this.targetPoint.name}&naviBy=car&key=${this.config.高德地图key}`
+    const iframe = document.querySelector('#luxian')
+    iframe.classList.remove('none')
+    iframe.src = src
+    const iframeBox = document.querySelector('#id-luxian-box')
+    const h2 = iframeBox.querySelector('h2')
+    h2.innerHTML = name
+  }
+
   goPoint (经度, 纬度, name) {
     const point = [经度, 纬度]
     this.map.panTo(point)
@@ -35,8 +49,8 @@ class Map {
       this.targetPoint.name = name
       this.addMark(point, name)
     }
+    this.changeMapSrc()
   }
-
 
   onComplete (positionInfo) {
     this.浏览器定位信息 = {
@@ -152,7 +166,7 @@ class Map {
   addHome () {
     let btnList = Object.keys(this.config.homeDict).map(key => {
       const point = this.config.homeDict[key]
-      const btnHtml = `<button class="_btn_p home-btn" name="${key}" point="${JSON.stringify(point)}">${key}路线</button>`
+      const btnHtml = `<button class="_btn_p home-btn" type="b" name="${key}" point="${JSON.stringify(point)}">${key}路线</button>`
       return btnHtml
     })
     const html = `
@@ -172,10 +186,7 @@ class Map {
     homeBox.addEventListener('click', event => {
       const target = event.target
       const point = JSON.parse(target.getAttribute('point'))
-      const src = `//m.amap.com/navi/?start=${point.join(',')}&dest=${this.targetPoint.location.join(',')}&destName=$${this.targetPoint.name}&naviBy=car&key=${this.config.高德地图key}`
-      const iframe = document.querySelector('#luxian')
-      iframe.classList.remove('none')
-      iframe.src = src
+      this.changeMapSrc(point)
     })
   }
 
@@ -188,7 +199,10 @@ class Map {
             <div id="${this.mapId}" class="map-content"></div>
             ${this.searchHtml()}
             ${this.addHome()}
-            <iframe id="luxian" class="luxian none"></iframe>
+            <div class="luxian none" id="id-luxian-box">
+              <h5></h5>
+              <iframe id="luxian" class="lu-iframe"></iframe>
+            </div>
           </div> 
         `
         const parent = document.querySelector(selector)
