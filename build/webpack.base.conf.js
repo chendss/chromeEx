@@ -35,8 +35,8 @@ module.exports = {
         exclude: /node_modules/,
         loader: [
           {
-            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
             query: { cacheDirectory: '.webpack_cache', },
+            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
           },
           'css-loader',
           'fast-sass-loader',

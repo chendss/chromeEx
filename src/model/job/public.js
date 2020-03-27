@@ -19,7 +19,7 @@ class Map {
     this.targetPoint = { name: '未知' }
   }
 
-  addMark (point, name) {
+  addMark(point, name) {
     const marker = new AMap.Marker({
       position: new AMap.LngLat(...point),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
       title: name
@@ -27,7 +27,7 @@ class Map {
     this.map.add(marker)
   }
 
-  changeMapSrc (point_, name_) {
+  changeMapSrc(point_, name_) {
     const key = get(Object.keys(this.config.homeDict), '[0]', '')
     const value = this.config.homeDict[key] || [this.浏览器定位信息.纬度, this.浏览器定位信息.纬度]
     const name = name_ || (this.config.homeDict[key] == null ? key : '浏览器定位')
@@ -37,11 +37,11 @@ class Map {
     iframe.classList.remove('none')
     iframe.src = src
     const iframeBox = document.querySelector('#id-luxian-box')
-    const h2 = iframeBox.querySelector('h2')
-    h2.innerHTML = name
+    const h2 = iframeBox.querySelector('h5')
+    h5.innerHTML = name
   }
 
-  goPoint (经度, 纬度, name) {
+  goPoint(经度, 纬度, name) {
     const point = [经度, 纬度]
     this.map.panTo(point)
     this.targetPoint.location = point
@@ -52,7 +52,7 @@ class Map {
     this.changeMapSrc()
   }
 
-  onComplete (positionInfo) {
+  onComplete(positionInfo) {
     this.浏览器定位信息 = {
       allInfo: positionInfo,
       address: get(positionInfo, 'formattedAddress'),
@@ -63,11 +63,11 @@ class Map {
     console.log('定位信息', this.浏览器定位信息)
   }
 
-  onError (...args) {
+  onError(...args) {
     console.log('定位报错信息', ...args)
   }
 
-  postionSelf () {
+  postionSelf() {
     this.map.plugin('AMap.Geolocation', () => {
       const geolocation = new AMap.Geolocation({
         maximumAge: 0,           //定位结果缓存0毫秒，默认：0
@@ -89,14 +89,14 @@ class Map {
     })
   }
 
-  insertSearch () {
+  insertSearch() {
     this.map.plugin('AMap.Autocomplete', () => {
       const autoOptions = { city: '全国' }
       this.autocomplete = new AMap.Autocomplete(autoOptions)
     })
   }
 
-  chooseOption (keyword) {
+  chooseOption(keyword) {
     const code = keyword.split('||')[1]
     const datalistDom = document.querySelector('#search-list')
     const datalist = JSON.parse(datalistDom.getAttribute('data'))
@@ -116,7 +116,7 @@ class Map {
    * @returns
    * @memberof Map
    */
-  search (keyword) {
+  search(keyword) {
     if (keyword.includes('||')) {
       this.chooseOption(keyword)
     } else {
@@ -142,7 +142,7 @@ class Map {
   }
 
 
-  searchInput (event) {
+  searchInput(event) {
     const target = event.target
     const val = get(target, 'value', null)
     if (val === '' || val == null) {
@@ -152,7 +152,7 @@ class Map {
     }
   }
 
-  searchHtml () {
+  searchHtml() {
     const html = `
       <div class="search-box">
         <input class="_input" id="search-input" list="search-list" oninput="throttle((event)=>searchInput(event),300)(event)">
@@ -163,10 +163,10 @@ class Map {
     return html
   }
 
-  addHome () {
-    let btnList = Object.keys(this.config.homeDict).map(key => {
+  addHome() {
+    let btnList = Object.keys(this.config.homeDict || {}).map(key => {
       const point = this.config.homeDict[key]
-      const btnHtml = `<button class="_btn_p home-btn" type="b" name="${key}" point="${JSON.stringify(point)}">${key}路线</button>`
+      const btnHtml = `<button class="_btn home-btn" type="b" name="${key}" point="${JSON.stringify(point)}">${key}路线</button>`
       return btnHtml
     })
     const html = `
@@ -177,7 +177,7 @@ class Map {
     return html
   }
 
-  addListener () {
+  addListener() {
     const searchBox = document.querySelector('#search-input')
     const fun = throttle(this.searchInput.bind(this), 500)
     searchBox.addEventListener('input', fun)
@@ -191,7 +191,7 @@ class Map {
   }
 
 
-  init (selector) {
+  init(selector) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
         const html = `
@@ -200,7 +200,7 @@ class Map {
             ${this.searchHtml()}
             ${this.addHome()}
             <div class="luxian none" id="id-luxian-box">
-              <h5></h5>
+              <h5 class="title"></h5>
               <iframe id="luxian" class="lu-iframe"></iframe>
             </div>
           </div> 

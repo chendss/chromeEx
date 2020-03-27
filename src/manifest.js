@@ -11,6 +11,7 @@ module.exports = {
     '128': 'icons/main.png',
   },
   permissions: [
+    'cookies',
     '*://*/',
     'storage',
     'contextMenus',

@@ -1,9 +1,12 @@
 import iocHandle from '../utils/index'
 import excludes from '../rules/excludes'
 import autoHooks from '../utils/autoHooks'
+import $ from 'jquery'
+
+window.jQuery = $
 // import hookDebugger from '../utils/hookDebugger'
 
-console.log('插件加载')
+console.log('插件加载', chrome.cookies)
 
 const addId = function () {
   const documentElement = document.documentElement
@@ -36,7 +39,6 @@ const iocScript = function (src) {
   const scripts = [
     'lulu.js',
     'js/content.js',
-    'bootstrap.js',
   ]
   for (let src of scripts) {
     const content = chrome.extension.getURL(src)

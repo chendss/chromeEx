@@ -1,55 +1,43 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-// import App from './App'
-// import router from './router'
-// // import VueAMap from 'vue-amap'
-// // import ECharts from 'vue-echarts'
-// // import VModal from 'vue-js-modal'
-// import ElementUI from 'element-ui'
-// // import mavonEditor from 'mavon-editor'
-// // import VueVideoPlayer from 'vue-video-player'
-// // import Vue2TouchEvents from 'vue2-touch-events'
-// // import VueAwesomeSwiper from 'vue-awesome-swiper'
-// // import VueVirtualScroller from 'vue-virtual-scroller'
+import './index.scss'
 
-// // import 'echarts/lib/chart/bar'
-// // import 'video.js/dist/video-js.css'
-// // import 'swiper/dist/css/swiper.css'
-// // import 'echarts/lib/component/tooltip'
-// // import 'mavon-editor/dist/css/index.css'
-// import 'element-ui/lib/theme-chalk/index.css'
+const getCurrent = function () {
+  return new Promise((resolve, reject) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0]
+      resolve(activeTab)
+    })
+  })
+}
 
-// Vue.use(Vuex)
-// // Vue.use(VModal)
-// // Vue.use(VueAMap)
-// Vue.use(ElementUI)
-// // Vue.use(mavonEditor)
-// // Vue.use(VueVideoPlayer)
-// // Vue.use(Vue2TouchEvents)
-// // Vue.use(VueAwesomeSwiper)
-// // Vue.use(VueVirtualScroller)
+const getAllCookies = function (obj) {
+  return new Promise((resolve, reject) => {
+    let result = []
+    chrome.cookies.getAllCookieStores((storeList) => {
+      let n = storeList.length
+      for (let store of storeList) {
+        const storeId = store.id
+        chrome.cookies.getAll({ storeId, ...obj }, (res) => {
+          n -= 1
+          result.push(...res)
+          if (n <= 0) {
+            resolve(result)
+          }
+        })
+      }
+    })
+  })
+}
 
-// // VueAMap.initAMapApiLoader({
-// //   key: 'ea0a3afac3d92c5d88287f401d1ed076',
-// //   plugin: [
-// //     'AMap.Autocomplete',
-// //     'AMap.PlaceSearch',
-// //     'AMap.Scale',
-// //     'AMap.OverView',
-// //     'AMap.ToolBar',
-// //     'AMap.MapType',
-// //     'AMap.PolyEditor',
-// //     'AMap.CircleEditor',
-// //   ],
-// //   // 高德 sdk 版本，默认为 1.4.4
-// //   v: '1.4.4',
-// // })
-
-// // Vue.component('v-chart', ECharts)
-
-// new Vue({
-//   el: '#app',
-//   router,
-//   render: h => h(App),
-//   template: '<App/>',
-// })
+const body = document.querySelector('body')
+body.insertAdjacentHTML('beforeend', '<button id="clear">清空缓存</button>')
+const btn = document.querySelector('#clear')
+btn.addEventListener('click', async () => {
+  const that = await getCurrent()
+  console.log('当前标签', that)
+  const url = that.url
+  const items = await getAllCookies({ url })
+  console.log('得到元素', items)
+  for (let item of items) {
+    chrome.cookies.remove({ name: item.name, url, storeId: item.storeId }, (...args) => console.log('删除', ...args))
+  }
+})

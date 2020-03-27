@@ -50,14 +50,13 @@
 #main_container {
   width: calc(100% - 120px);
 
-  * {
-    box-sizing: content-box;
-  }
-
-
   .content_left {
     flex : 1 1 auto;
     width: auto;
+  }
+
+  .li_b_l {
+    width      : max-content;
   }
 }
 
@@ -84,7 +83,6 @@
   }
 }
 
-.none,
 #backtop,
 .content_right,
 .item_con_pager {
@@ -126,4 +124,8 @@
 .s_position_list .list_item_bot {
   display: flex;
   width  : auto;
+
+  .li_b_r {
+    margin-left: auto;
+  }
 }

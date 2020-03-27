@@ -1,4 +1,5 @@
 import qs from 'qs'
+import cookies from 'js-cookie'
 import $ from 'jquery'
 import 'jquery-modal'
 import axios from 'axios'
@@ -90,7 +91,7 @@ const itemHtml = function (item, data) {
       </div>
     </div>
     <div class="action-box">
-      <button class="_btn_p" onclick="postionMap(${item.longitude},${item.latitude},'${item.companyFullName}')">地图定位</button>
+      <button class="_btn" onclick="postionMap(${item.longitude},${item.latitude},'${item.companyFullName}')">地图定位</button>
     </div>
   </li>
 `
