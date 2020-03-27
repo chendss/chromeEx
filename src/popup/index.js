@@ -40,4 +40,7 @@ btn.addEventListener('click', async () => {
   for (let item of items) {
     chrome.cookies.remove({ name: item.name, url, storeId: item.storeId }, (...args) => console.log('删除', ...args))
   }
+  chrome.tabs.sendMessage(that.id, '清空缓存去', (...args) => {
+    console.log('..相应', ...args)
+  })
 })

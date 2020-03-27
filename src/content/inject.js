@@ -4,6 +4,9 @@ import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 
 window.jQuery = $
+chrome.runtime.onMessage.addListener((...args) => {
+  console.log('响应', ...args)
+})
 // import hookDebugger from '../utils/hookDebugger'
 
 console.log('插件加载', chrome.cookies)
