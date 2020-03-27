@@ -4,12 +4,12 @@ import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 
 window.jQuery = $
-chrome.runtime.onMessage.addListener((...args) => {
-  console.log('响应', ...args)
+chrome.runtime.onMessage.addListener(messageName => {
+  if (messageName === '清空缓存去') {
+    localStorage.clear()
+    sessionStorage.clear()
+  }
 })
-// import hookDebugger from '../utils/hookDebugger'
-
-console.log('插件加载', chrome.cookies)
 
 const addId = function () {
   const documentElement = document.documentElement
@@ -28,7 +28,6 @@ const iocGlobalStyle = function () {
     'modal.css',
     'global.css',
     'animate.css',
-    'bootstrap.css',
   ]
   for (let style of styles) {
     const link = document.createElement('link')
@@ -40,7 +39,7 @@ const iocGlobalStyle = function () {
 
 const iocScript = function (src) {
   const scripts = [
-    'lulu.js',
+    // 'lulu.js',
     'js/content.js',
   ]
   for (let src of scripts) {

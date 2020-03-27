@@ -33,10 +33,10 @@ class Map {
     const name = name_ || (this.config.homeDict[key] == null ? key : '浏览器定位')
     const point = point_ || value
     const src = `//m.amap.com/navi/?start=${point.join(',')}&dest=${this.targetPoint.location.join(',')}&destName=$${this.targetPoint.name}&naviBy=car&key=${this.config.高德地图key}`
-    const iframe = document.querySelector('#luxian')
-    iframe.classList.remove('none')
-    iframe.src = src
     const iframeBox = document.querySelector('#id-luxian-box')
+    const iframe = document.querySelector('#luxian')
+    iframeBox.classList.remove('none')
+    iframe.src = src
     const title = iframeBox.querySelector('.title')
     title.innerHTML = name
   }
