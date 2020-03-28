@@ -128,6 +128,36 @@ export const createScriptFormRemote = function (srcDict) {
   }
 }
 
+/**
+ * 字符串模板转换 ，将数据源对应{键}的值填入str
+ *
+ * @param {*} str 字符串
+ * @param {*} source 数据源
+ * @param {*} handle 处理函数
+ * @returns
+ */
+export const strFormat = function (str, source, handle = () => { }) {
+  if (str instanceof Function) {
+    return str(source)
+  } else if (!isObject(source)) {
+    return str
+  }
+  const data = { ...source }
+  const r = /{[^}]+}/
+  while (r.test(str)) {
+    const key = str
+      .match(r)
+      .toString()
+      .replace('{', '')
+      .replace('}', '')
+    const value = get(data, key, [])
+    const ids = toArray(value).filter(id => id != null)
+    str = str.replace(r, ids.join(','))
+    handle(key, value)
+  }
+  return str
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

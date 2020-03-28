@@ -4,6 +4,7 @@ import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 
 window.jQuery = $
+
 chrome.runtime.onMessage.addListener(messageName => {
   if (messageName === '清空缓存去') {
     localStorage.clear()
@@ -28,6 +29,7 @@ const iocGlobalStyle = function () {
     'modal.css',
     'global.css',
     'animate.css',
+    // 'materialize.min.css',
   ]
   for (let style of styles) {
     const link = document.createElement('link')
@@ -39,7 +41,8 @@ const iocGlobalStyle = function () {
 
 const iocScript = function (src) {
   const scripts = [
-    // 'lulu.js',
+    // 'js/materialize.min.js',
+    // 'js/vue.js',
     'js/content.js',
   ]
   for (let src of scripts) {
@@ -77,8 +80,6 @@ const main = function () {
   iocGlobalStyle()
   zoom()
   iocStyle()
-  // autoHooks()
-  // hookDebugger()
 }
 
 main()

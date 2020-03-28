@@ -7,9 +7,7 @@
   }
 
   .bar_empty {
-    &::-webkit-scrollbar {
-      width: 0 !important;
-    }
+    @include bar_empty;
   }
 
   .jquery-modal {

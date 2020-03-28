@@ -2,7 +2,6 @@ import clearBaidu from './baidu'
 import clearLink from './link'
 
 
-
 const addMeta = function () {
   window.addEventListener('load', () => {
     const head = document.querySelector('head')

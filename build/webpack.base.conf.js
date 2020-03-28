@@ -46,6 +46,15 @@ module.exports = {
         ]
       },
       {
+        test: /\.html$/,
+        include: /src/,
+        loader: [
+          {
+            loader: path.resolve(__dirname, './html-loader.js'),
+          },
+        ]
+      },
+      {
         test: /\.sass$/,
         use: 'happypack/loader?id=sass',
         exclude: /node_modules/,

@@ -2,25 +2,36 @@ const n = 0
 
 const open = window.open
 
-const killA = function () {
-  setInterval(() => {
-    try {
-      document.querySelectorAll('a').forEach(a => {
-        if (a.href.includes('https://links.jianshu.com/go?to=')) {
-          let href = a.href
-          let url = href.replace('https://links.jianshu.com/go?to=', '')
-          a.href = url
-          a.onclick = () => {
-            let win = open(decodeURIComponent(url))
-          }
-          a.target = null
-          a.href = 'javascript:void(0)'
-        }
-      })
-    } catch (error) {
-      console.log('过滤报错', error)
+const filterUrl = function (a, key) {
+  if (a.href.includes(key)) {
+    let href = a.href
+    let url = href.replace(key, '')
+    a.href = url
+    a.onclick = () => {
+      let win = open(decodeURIComponent(url))
     }
-  }, 100)
+    a.target = null
+    a.href = 'javascript:void(0)'
+  }
+}
+
+const main = function () {
+  try {
+    document.querySelectorAll('a').forEach(a => {
+      filterUrl(a, 'https://links.jianshu.com/go?to=')
+      filterUrl(a, 'https://link.jianshu.com?t=')
+      filterUrl(a, 'https://link.jianshu.com/?t=')
+    })
+  } catch (error) {
+    console.log('过滤报错', error)
+  }
+}
+
+const killA = function () {
+  main()
+  setTimeout(() => {
+    killA()
+  }, 300)
 }
 
 export default function () {

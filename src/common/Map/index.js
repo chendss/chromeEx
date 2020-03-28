@@ -1,14 +1,15 @@
+import './index.scss'
+import Html from './index.html'
 import { throttle } from 'lodash'
-import '../../styles/job/public.scss'
 import Config from '../../assets/custom'
-import { createScriptFormRemote, random, get } from '../../utils'
+import { createScriptFormRemote, random, get, strFormat } from '../../utils'
 
 class Map {
   constructor() {
     this.config = Config()
     this.id = random()
     this.mapId = random()
-    const url = `//webapi.amap.com/maps?v=1.4.15&key=${this.config.高德地图key}`
+    const url = `//webapi.amap.com/maps?v=1.4.15&key=${this.config.高德地图key}&plugin=AMap.Transfer`
     createScriptFormRemote({ map: url })
     document.head.insertAdjacentHTML('beforeend', '<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> ')
     this.浏览器定位信息 = {}
@@ -27,18 +28,36 @@ class Map {
     this.map.add(marker)
   }
 
-  changeMapSrc (point_, name_) {
-    const key = get(Object.keys(this.config.homeDict), '[0]', '')
-    const value = this.config.homeDict[key] || [this.浏览器定位信息.纬度, this.浏览器定位信息.纬度]
-    const name = name_ || (this.config.homeDict[key] == null ? key : '浏览器定位')
-    const point = point_ || value
-    const src = `//m.amap.com/navi/?start=${point.join(',')}&dest=${this.targetPoint.location.join(',')}&destName=$${this.targetPoint.name}&naviBy=car&key=${this.config.高德地图key}`
-    const iframeBox = document.querySelector('#id-luxian-box')
-    const iframe = document.querySelector('#luxian')
-    iframeBox.classList.remove('none')
-    iframe.src = src
-    const title = iframeBox.querySelector('.title')
-    title.innerHTML = name
+  transfer (point) {
+    const transOptions = {
+      map: this.map,
+      city: '广州市',
+      panel: 'lu-result',
+      nightflag: true,
+      policy: AMap.TransferPolicy.LEAST_TIME,
+      autoFitView: true
+    };
+    //构造公交换乘类
+    const transfer = new AMap.Transfer(transOptions);
+    //根据起、终点坐标查询公交换乘路线
+    transfer.search(new AMap.LngLat(...point), new AMap.LngLat(...this.targetPoint.location), function (status, result) {
+      // result即是对应的公交路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferResult
+      if (status === 'complete') {
+        console.log('绘制公交路线完成', result.plans.map(pObj => {
+          const result = { paths: pObj.segments.map(s => ({ time: s.time, text: s.instruction })), cost: pObj.cost, time: pObj.time }
+          return result
+        }))
+      } else {
+        console.log('公交路线数据查询失败', result)
+      }
+    })
+  }
+
+  changeMapSrc (point) {
+    const trBox = document.querySelector('.result-box')
+    trBox.classList.remove('none')
+    trBox.querySelector('#lu-result').innerHTML = ''
+    this.transfer(point)
   }
 
   goPoint (经度, 纬度, name) {
@@ -152,17 +171,6 @@ class Map {
     }
   }
 
-  searchHtml () {
-    const html = `
-      <div class="search-box">
-        <input class="_input" id="search-input" list="search-list" oninput="throttle((event)=>searchInput(event),300)(event)">
-        <datalist id="search-list">
-        </datalist>
-      </div>
-   `
-    return html
-  }
-
   addHome () {
     let btnList = Object.keys(this.config.homeDict || {}).map(key => {
       const point = this.config.homeDict[key]
@@ -179,6 +187,7 @@ class Map {
 
   addListener () {
     const searchBox = document.querySelector('#search-input')
+    const trTabBox = document.querySelector('.tr-btn-box')
     const fun = throttle(this.searchInput.bind(this), 500)
     searchBox.addEventListener('input', fun)
     searchBox.addEventListener('focus', () => searchBox.value = '')
@@ -188,23 +197,24 @@ class Map {
       const point = JSON.parse(target.getAttribute('point'))
       this.changeMapSrc(point)
     })
+    trTabBox.addEventListener('click', event => {
+      const target = event.target
+      const type = target.getAttribute('type')
+      trTabBox.querySelectorAll('.tr-tab').forEach(tab => tab.setAttribute('active', ''))
+      target.setAttribute('active', 'active')
+    })
   }
 
 
   init (selector) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
-        const html = `
-          <div class="_modal gaode-map" id="${this.id}">
-            <div id="${this.mapId}" class="map-content"></div>
-            ${this.searchHtml()}
-            ${this.addHome()}
-            <div class="luxian none" id="id-luxian-box">
-              <h5 class="title"></h5>
-              <iframe id="luxian" class="lu-iframe"></iframe>
-            </div>
-          </div> 
-        `
+        const html = strFormat(Html['gaode-map'], {
+          id: this.id,
+          mapId: this.mapId,
+          searchHtml: Html['search-box'],
+          addHome: this.addHome()
+        })
         const parent = document.querySelector(selector)
         parent.insertAdjacentHTML('beforeend', html)
         this.map = new AMap.Map(this.mapId, { resizeEnable: true, zoom: 10 })

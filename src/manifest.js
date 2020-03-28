@@ -49,10 +49,9 @@ module.exports = {
   content_security_policy: "script-src 'self' 'unsafe-eval'; object-src 'self'",
   web_accessible_resources: [
     'js/content.js',
+    'vue.js',
     'modal.css',
-    'lulu.css',
     'global.css',
     'animate.css',
-    'bootstrap.css',
   ],
 }

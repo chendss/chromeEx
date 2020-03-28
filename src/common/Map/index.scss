@@ -1,6 +1,9 @@
+@import "../../styles//global/collect.scss"; // TODO:
+
 .gaode-map {
-  max-width     : 80vw;
-  height        : 75vh;
+  width         : 85vw;
+  max-width     : 95vw;
+  height        : 90vh;
   padding       : 16px;
   display       : flex; // TODO:
   min-height    : 300px;
@@ -25,14 +28,55 @@
     box-shadow        : 2px 2px 20px #333333;
   }
 
-  .luxian {
-    top           : 108px;
-    right         : 100px;
-    position      : absolute;
-    height        : calc(100% - 158px); // TODO:
+  .result-box {
     background    : #fff;
     display       : flex;
+    top           : 108px;
+    right         : 100px;
+    width         : 340px;
     flex-direction: column;
+    position      : absolute;
+    transition    : all 0.3s;
+    height        : calc(100% - 158px); // TODO:
+
+    .tr-btn-box {
+      display        : flex;
+      align-items    : center;
+      justify-content: space-around;
+
+      .tr-tab {
+        padding        : 8px;
+        font-size      : 16px;
+        width          : 100%;
+        align-items    : center;
+        justify-content: center;
+        position       : relative;
+        display        : inline-flex;
+        background     : #1861f27a;
+        color          : rgba(255, 255, 255, 0.85);
+        cursor         : pointer;
+
+
+        &[active="active"] {
+          background: #1861F2;
+
+          &:hover {
+            background: #3071F2;
+          }
+        }
+      }
+
+    }
+
+    #lu-result {
+      @include bar_empty;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .amap-call {
+        display: none;
+      }
+    }
 
     .lu-iframe {
       height: 100%;

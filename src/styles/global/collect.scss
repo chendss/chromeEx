@@ -10,3 +10,9 @@
   background: transparent !important;
   color     : transparent !important;
 }
+
+@mixin bar_empty {
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+}

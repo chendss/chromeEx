@@ -3,7 +3,7 @@ import cookies from 'js-cookie'
 import $ from 'jquery'
 import 'jquery-modal'
 import axios from 'axios'
-import GMap from './public'
+import GMap from '../../common/Map'
 import { set, sortBy } from 'lodash'
 import { get, queryToObj } from '../../utils'
 

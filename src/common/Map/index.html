@@ -1,0 +1,24 @@
+search-box
+<div class="search-box">
+  <input
+    class="_input"
+    id="search-input"
+    list="search-list"
+    oninput="throttle((event)=>searchInput(event),300)(event)"
+  />
+  <datalist id="search-list"> </datalist>
+</div>
+<!>
+gaode-map
+<div class="_modal gaode-map" id="{id}">
+  <div id="{mapId}" class="map-content"></div>
+  {searchHtml} {addHome}
+  <div class="result-box none">
+    <div class="tr-btn-box ">
+      <div class="tr-tab" type="bus" active="active">公交</div>
+      <div class="tr-tab" type="drive">驾车</div>
+      <div class="tr-tab" type="walk">步行</div>
+    </div>
+    <div id="lu-result"></div>
+  </div>
+</div>
