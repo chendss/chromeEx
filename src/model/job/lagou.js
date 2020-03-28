@@ -207,10 +207,9 @@ const changeSort = function () {
 }
 
 const createMap = async function () {
-  const map = new GMap()
-  await map.init('body')
+  const map = new GMap('body')
+  await map.init()
   globalConfig.map = map
-  window.testSearch = (...args) => globalConfig.map.search(...args)
 }
 
 const postionMap = async function (经度, 纬度, name) {

@@ -18,7 +18,26 @@ gaode-map
       <div class="tr-tab" type="bus" active="active">公交</div>
       <div class="tr-tab" type="drive">驾车</div>
       <div class="tr-tab" type="walk">步行</div>
+      <div class="tr-tab" type="bike">骑行</div>
     </div>
     <div id="lu-result"></div>
   </div>
+</div>
+<!>
+option
+<option
+  title="{value}"
+  value="{value}"
+  adcode="{item.adcode}"
+  location="{location}"
+/>
+<!>
+button
+<button class="_btn home-btn" type="b" name="{key}" point="{point}">
+  {key}路线
+</button>
+<!>
+home-btn-box
+<div class="home-btn-box">
+  {btnList}
 </div>

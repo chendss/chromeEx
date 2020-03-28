@@ -41,6 +41,10 @@
   }
 }
 
+.subscribe-dn {
+  display: none;
+}
+
 #content-container {
   #keyword {
     box-sizing: content-box;
@@ -56,7 +60,7 @@
   }
 
   .li_b_l {
-    width      : max-content;
+    width: max-content;
   }
 }
 
