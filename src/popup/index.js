@@ -28,10 +28,7 @@ const getAllCookies = function (obj) {
   })
 }
 
-const body = document.querySelector('body')
-body.insertAdjacentHTML('beforeend', '<button id="clear">清空缓存</button>')
-const btn = document.querySelector('#clear')
-btn.addEventListener('click', async () => {
+const clearCookies = async function () {
   const that = await getCurrent()
   console.log('当前标签', that)
   const url = that.url
@@ -40,6 +37,13 @@ btn.addEventListener('click', async () => {
   for (let item of items) {
     chrome.cookies.remove({ name: item.name, url, storeId: item.storeId }, (...args) => console.log('删除', ...args))
   }
+}
+
+const body = document.querySelector('body')
+body.insertAdjacentHTML('beforeend', '<button id="clear">清空缓存</button>')
+const btn = document.querySelector('#clear')
+btn.addEventListener('click', async () => {
+  await clearCookies()
   chrome.tabs.sendMessage(that.id, '清空缓存去', (...args) => {
     console.log('..相应', ...args)
   })

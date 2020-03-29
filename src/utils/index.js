@@ -158,6 +158,24 @@ export const strFormat = function (str, source, handle = () => { }) {
   return str
 }
 
+/**
+* 等待一段时间
+*
+* @param {*} time
+* @returns
+*/
+export const sleep = async function (time) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
+}
+
+export const insertBody = function (html) {
+  document.querySelector('body').insertAdjacentHTML('beforeend', html)
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

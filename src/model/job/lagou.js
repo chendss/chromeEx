@@ -1,11 +1,13 @@
 import qs from 'qs'
-import cookies from 'js-cookie'
-import $ from 'jquery'
 import 'jquery-modal'
+import $ from 'jquery'
 import axios from 'axios'
+import cookies from 'js-cookie'
+import Html from './lagou.html'
 import GMap from '../../common/Map'
+import { transferDataProcess } from './tools'
 import { set, sortBy } from 'lodash'
-import { get, queryToObj } from '../../utils'
+import { get, queryToObj, strFormat, sleep } from '../../utils'
 
 const globalConfig = {
   pageIndex: 1,
@@ -31,70 +33,17 @@ const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
   const showId = get(data, 'showId', '')
   const priceList = get(item, 'salary', '').split('-').map(p => Number(p.replace('k', '')))
-  return `
-    <li class="con_list_item first_row default_list my-item" price="${priceList.join('-')}" minprice="${priceList[0]}" maxprice="${priceList[1]}">
-    <span class="top_icon direct_recruitment"></span>
-    <div class="list_item_top">
-      <div class="position">
-        <div class="p_top">
-          <a class="position_link" href="https://www.lagou.com/jobs/${positionId}.html?show=${showId}" target="_blank">
-            <h3 style="max-width: 180px;">${item.positionName}</h3>
-            <span class="add">[<em>${item.district}</em>]</span>
-          </a>
-          <span class="format-time">${item.formatCreateTime}</span>
-          <div class="chat_me"></div>
-        </div>
-        <div class="p_bot">
-          <div class="li_b_l">
-            <span class="money">${item.salary}</span>
-            <!--<i></i>-->${item.workYear} / ${item.education} / ${item.jobNature}
-          </div>
-        </div>
-      </div>
-      <div class="company">
-        <div class="company_name">
-          <a href="https://www.lagou.com/gongsi/${item.companyId}.html" target="_blank" title="${item.companyFullName}">${item.companyFullName}</a
-          ><i class="company_mark"><span>该企业已上传营业执照并通过资质验证审核</span></i>
-        </div>
-        <div class="industry">
-          ${item.industryField} / ${item.financeStage} / ${item.companySize}
-        </div>
-      </div>
-      <div class="com_logo">
-        <a href="https://www.lagou.com/gongsi/${item.companyId}.html" target="_blank">
-          <img
-            src="//www.lgstatic.com/thumbnail_120x120/${item.companyLogo}"
-            alt="${item.positionName}"
-            width="60"
-            height="60"
-          />
-        </a>
-      </div>
-    </div>
-    <div class="list_item_bot">
-      <div class="li_b_l">
-      ${[item.secondType, ...get(item, 'skillLables', [])].map(label => (`<span title="${label}">${label}</span>`)).join('\n')}
-        <span>${item.secondType} </span>
-      </div>
-      <div class="li_b_r" title="${item.positionAdvantage}">“${item.positionAdvantage}”</div>
-    </div>
-    <div class="postation">
-      <div class="line p-row">
-        落点处：
-        ${get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n')}
-      </div>
-      <div class="address p-row">经纬度：( ${item.longitude}, ${item.latitude} )</div>
-      <span class="create-time p-row">发布时间：${item.createTime}</span>
-      <div class="chuiniu p-row">
-        公司标签：
-        ${get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n')}
-      </div>
-    </div>
-    <div class="action-box">
-      <button class="_btn" onclick="postionMap(${item.longitude},${item.latitude},'${item.companyFullName}')">地图定位</button>
-    </div>
-  </li>
-`
+  return strFormat(Html['con_list_item'], {
+    showId,
+    ...item,
+    positionId,
+    minprice: priceList[0],
+    maxprice: priceList[1],
+    price: priceList.join('-'),
+    li_b_l: [item.secondType, ...get(item, 'skillLables', [])].map(label => (`<span title="${label}">${label}</span>`)).join('\n'),
+    line: get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n'),
+    companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
+  })
 }
 
 const searchText = function () {
@@ -137,9 +86,14 @@ const resultDataAction = function (res) {
   return data
 }
 
-const insertHtml = function (list, data) {
+const insertHtml = async function (list, data) {
   const ul = document.querySelector('#s_position_list .item_con_list')
-  let html = list.map(item => itemHtml(item, data))
+  let html = []
+  for (let item of list) {
+    let newItem = await transferDataProcess(item, globalConfig.map)
+    html.push(itemHtml(newItem, data))
+    await sleep(0.2)
+  }
   ul.insertAdjacentHTML('beforeend', html.join('\n'))
   const li = ul.querySelectorAll('li')
   li.forEach(item => {
@@ -219,7 +173,8 @@ const postionMap = async function (经度, 纬度, name) {
   map.goPoint(经度, 纬度, name)
 }
 
-export default function () {
+export default async function () {
+  await createMap()
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
   insertData()
@@ -229,5 +184,4 @@ export default function () {
   const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
   drop.innerHTML = 工资筛选('changePrice')
   changeSort()
-  createMap()
 }

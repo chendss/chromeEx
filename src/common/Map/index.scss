@@ -10,6 +10,10 @@
   flex-direction: column;
   position      : relative;
 
+  .amap-lib-marker-bus-subwayStop {
+    transform: scale(2.5);
+  }
+
   .map-content {
     width  : 100%;
     display: flex;
@@ -26,6 +30,15 @@
     -moz-box-shadow   : 2px 2px 20px #333333;
     -webkit-box-shadow: 2px 2px 20px #333333;
     box-shadow        : 2px 2px 20px #333333;
+  }
+
+  ._postion {
+    @extend .search-box;
+    right: (320+50+16)*1px;
+
+    ._input {
+      width: 150px;
+    }
   }
 
   .result-box {

@@ -1,0 +1,88 @@
+con_list_item
+<li
+  class="con_list_item first_row default_list my-item"
+  price="{price}"
+  minprice="{minprice}"
+  maxprice="{maxprice}"
+>
+  <span class="top_icon direct_recruitment"></span>
+  <div class="list_item_top">
+    <div class="position">
+      <div class="p_top">
+        <a
+          class="position_link"
+          href="https://www.lagou.com/jobs/{positionId}.html?show={showId}"
+          target="_blank"
+        >
+          <h3 style="max-width: 180px;">{positionName}</h3>
+          <span class="add">[<em>{district}</em>]</span>
+        </a>
+        <span class="format-time">{formatCreateTime}</span>
+        <div class="chat_me"></div>
+      </div>
+      <div class="p_bot">
+        <div class="li_b_l">
+          <span class="money">{salary}</span>
+          <!--<i></i>-->{workYear} / {education} / {jobNature}
+        </div>
+      </div>
+    </div>
+    <div class="company">
+      <div class="company_name">
+        <a
+          href="https://www.lagou.com/gongsi/{companyId}.html"
+          target="_blank"
+          title="{companyFullName}"
+          >{companyFullName}</a
+        ><i class="company_mark"
+          ><span>该企业已上传营业执照并通过资质验证审核</span></i
+        >
+      </div>
+      <div class="industry">
+        {industryField} / {financeStage} / {companySize}
+      </div>
+    </div>
+    <div class="com_logo">
+      <a href="https://www.lagou.com/gongsi/{companyId}.html" target="_blank">
+        <img
+          src="//www.lgstatic.com/thumbnail_120x120/{companyLogo}"
+          alt="{positionName}"
+          width="60"
+          height="60"
+        />
+      </a>
+    </div>
+  </div>
+  <div class="list_item_bot">
+    <div class="li_b_l">
+      {li_b_l}
+      <span>{secondType} </span>
+    </div>
+    <div class="li_b_r" title="{positionAdvantage}">
+      “{positionAdvantage}”
+    </div>
+  </div>
+  <div class="postation">
+    <div class="line p-row">
+      落点处： {line}
+    </div>
+    <div class="address p-row">
+      经纬度：( {longitude}, {latitude} )
+    </div>
+    <span class="create-time p-row">发布时间：{createTime}</span>
+    <div class="chuiniu p-row">
+      公司标签： {companyLabelList}
+    </div>
+  </div>
+  <div class="map-extra-info" postion="{longitude},{latitude}">
+    {transferListHtml}
+  </div>
+  <div class="action-box">
+    <button
+      class="_btn"
+      onclick="postionMap({longitude},{latitude},'{companyFullName}')"
+    >
+      地图定位
+    </button>
+  </div>
+</li>

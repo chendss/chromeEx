@@ -3,18 +3,21 @@ import Html from './index.html'
 import { throttle } from 'lodash'
 import Config from '../../assets/custom'
 import { createScriptFormRemote, random, get, strFormat } from '../../utils'
+import { transferProcess, homeClick, postionEnter } from './tools'
 
 class BaseMap {
   constructor(selector, id, mapId) {
     this.id = id
     this.mapId = mapId
+    this.mapCopyId = random()
     this.config = Config()
-    const url = `//webapi.amap.com/maps?v=1.4.15&key=${this.config.高德地图key}&plugin=AMap.Transfer,AMap.Driving`
+    const url = `//webapi.amap.com/maps?v=1.4.15&key=${this.config.高德地图key.jsApi}&plugin=AMap.Transfer,AMap.Driving`
     createScriptFormRemote({ map: url })
     document.head.insertAdjacentHTML('beforeend', '<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> ')
     this.浏览器定位信息 = {}
     this.autocomplete = null
     this.map = null
+    this.mapCopy = null
     window.searchInput = this.searchInput.bind(this)
     window.throttle = throttle
     this.targetPoint = { name: '未知' }
@@ -22,13 +25,26 @@ class BaseMap {
     this.当前坐标 = []
     this.当前坐标的名称 = '未知'
     this.transferObj = null
+    this.transferApi = null
     this.drivingObj = null
+    this.drivingObjApi = null
     this.keyword = ''
   }
 
   get 当前交通方式 () {
     const tabs = [...document.querySelectorAll(`#${this.id} .tr-btn-box .tr-tab`)]
     return tabs.find(tab => tab.getAttribute('active') === 'active').getAttribute('type')
+  }
+
+  /**
+   * 清空路线结果
+   *
+   * @memberof BaseMap
+   */
+  clearResult () {
+    this.map.clearMap()
+    const trBox = document.querySelector(`#${this.id} .result-box`)
+    trBox.querySelector('#lu-result').innerHTML = ''
   }
 
   /**
@@ -45,8 +61,18 @@ class BaseMap {
       panel: 'lu-result',
       policy: AMap.TransferPolicy.LEAST_TIME,
     }
+    const transApiOptions = {
+      city: '广州市',
+      map: this.mapCopy,
+      nightflag: true,
+      autoFitView: true,
+      panel: '_result-hiddle',
+      policy: AMap.TransferPolicy.LEAST_TIME,
+    }
     const transfer = new AMap.Transfer(transOptions)
+    const transferApi = new AMap.Transfer(transApiOptions)
     this.transferObj = transfer
+    this.transferApi = transferApi
   }
 
   /**
@@ -56,25 +82,29 @@ class BaseMap {
    * @param {*} targetPoint 起点
    * @memberof BaseMap
    */
-  transfer (point, targetPoint) {
-    this.map.clearMap()
-    this.transferObj.search(
-      new AMap.LngLat(...point),
-      new AMap.LngLat(...targetPoint),
-      function (status, result) {
-        if (status === 'complete') {
-          const res = result.plans.map(pObj => {
-            const resultList = {
-              paths: pObj.segments.map(s => ({ time: s.time, text: s.instruction })),
-              cost: pObj.cost, time: pObj.time
-            }
-            return resultList
-          })
-          console.log('绘制公交路线完成', res)
-        } else {
-          console.log('公交路线数据查询失败', result)
-        }
-      })
+  transfer (point, targetPoint, type = 'map') {
+    let transfer_ = null
+    if (type === 'map') {
+      this.map.clearMap()
+      transfer_ = this.transferObj
+    } else {
+      transfer_ = this.transferApi
+    }
+    return new Promise((resolve, reject) => {
+      transfer_.search(
+        new AMap.LngLat(...point),
+        new AMap.LngLat(...targetPoint),
+        function (status, result) {
+          if (status === 'complete') {
+            const res = transferProcess(result)
+            resolve({ result, res })
+            console.log('绘制公交路线完成', res, result)
+          } else {
+            reject()
+            console.log('公交路线数据查询失败', result)
+          }
+        })
+    })
   }
 
   driving (point, targetPoint) {
@@ -88,7 +118,7 @@ class BaseMap {
         } else {
           console.log('获取驾车数据失败：' + result)
         }
-      });
+      })
   }
 
   addMark (point, name) {
@@ -122,9 +152,12 @@ class BaseMap {
       const target = datalist.find(d => d.adcode === code)
       const location = get(target, 'location', [])
       const point = [location.lng, location.lat]
+      const name = get(target, 'name', '不知道')
       this.map.panTo(point)
+      this.clearResult()
       this.当前坐标 = point
-      this.addMark(point, get(target, 'name', '不知道'))
+      this.当前坐标的名称 = name
+      this.addMark(point, name)
     }
   }
 
@@ -234,14 +267,8 @@ class BaseMap {
 
     const homeBox = document.querySelector('.home-btn-box')
     homeBox.addEventListener('click', event => {
-      const target = event.target
-      const btns = [...homeBox.querySelectorAll('._btn')]
-      btns.forEach(btn => btn.setAttribute('type', 'b'))
-      target.setAttribute('type', 'p')
-      const point = JSON.parse(target.getAttribute('point'))
-      const trBox = document.querySelector(`#${this.id} .result-box`)
-      trBox.classList.remove('none')
-      trBox.querySelector('#lu-result').innerHTML = ''
+      const point = homeClick(homeBox, event, this.id, this.当前坐标的名称)
+      this.clearResult()
       eventConfig.homeBtnClickCallback(point, this.当前交通方式)
     })
 
@@ -255,6 +282,7 @@ class BaseMap {
         eventConfig.transferTabChange(target)
       }
     })
+    document.querySelector(`#${this.id} ._postion`).addEventListener('keydown', event => postionEnter(event, this.map, this.addMark.bind(this)))
   }
 
   /**
@@ -270,12 +298,14 @@ class BaseMap {
         const html = strFormat(Html['gaode-map'], {
           id: this.id,
           mapId: this.mapId,
+          copyId: this.mapCopyId,
+          addHome: this.addHome(),
           searchHtml: Html['search-box'],
-          addHome: this.addHome()
         })
         const parent = document.querySelector(this.selector)
         parent.insertAdjacentHTML('beforeend', html)
         this.map = new AMap.Map(this.mapId, { resizeEnable: true, zoom: 10 })
+        this.mapCopy = new AMap.Map(this.mapCopyId, { resizeEnable: true, zoom: 10 })
         this.postionSelf()
         this.mapSearchCreate()
         this.addListener(eventConfig)

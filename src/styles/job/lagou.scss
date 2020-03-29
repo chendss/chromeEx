@@ -1,3 +1,5 @@
+@import "./info.scss"; // TODO:
+
 .postation {
   display       : flex;
   flex-direction: column;
@@ -62,6 +64,11 @@
   .li_b_l {
     width: max-content;
   }
+}
+
+#searchBar {
+  width: calc(100% - 120px);
+
 }
 
 #s_position_list {
@@ -131,5 +138,13 @@
 
   .li_b_r {
     margin-left: auto;
+  }
+}
+
+.selectUI-text.text {
+  ul {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
