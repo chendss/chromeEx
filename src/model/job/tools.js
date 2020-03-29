@@ -45,11 +45,16 @@ export const transferDataProcess = async function (item, map) {
   let routes = await map.transfersPoint([longitude, latitude])
   let transferList = []
   for (let res of routes.map(r => r.res)) {
-    const sortData = sortBy(res, 'time')
-    const length = get(sortData, 'length', 1)
+    const sortData = sortBy(res, 'time').map(t => {
+      const result = { ...t }
+      result.busList = get(t, 'paths', []).filter(p => p.type !== 'WALK')
+      return result
+    })
+    console.log('什么啊', sortData)
+    const length = Math.max(1, get(sortData, 'length', 0))
     const averageTime = Math.floor(((sumBy(sortData, 'time') / length)) / 60)
     const averageCost = sumBy(sortData, 'cost') / length
-    const transferToNum = sumBy(sortData, d => d.paths.length) / length
+    const transferToNum = sumBy(sortData, d => d.busList.length) / length
     const minTime = sortData[0].time
     const maxTime = sortData[length - 1].time
     transferList.push([
@@ -74,8 +79,8 @@ export const transferDataProcess = async function (item, map) {
         value: Math.floor(maxTime / 60) + '分钟'
       },
     ])
-    const transferListHtml = transferInfoHtml(transferList)
-    set(result, 'transferListHtml', transferListHtml)
-    return result
   }
+  const transferListHtml = transferInfoHtml(transferList)
+  set(result, 'transferListHtml', transferListHtml)
+  return result
 }

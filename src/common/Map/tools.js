@@ -2,7 +2,7 @@ import { get } from "../../utils"
 
 export const transferProcess = function (mapData) {
   const res = get(mapData, 'plans', []).map(pObj => {
-    const paths = pObj.segments.map(s => ({ time: s.time, text: s.instruction }))
+    const paths = pObj.segments.map(s => ({ time: s.time, text: s.instruction, type: s.transit_mode }))
     const resultList = {
       paths: paths,
       cost: pObj.cost, time: pObj.time

@@ -98,7 +98,6 @@ class BaseMap {
           if (status === 'complete') {
             const res = transferProcess(result)
             resolve({ result, res })
-            console.log('绘制公交路线完成', res, result)
           } else {
             reject()
             console.log('公交路线数据查询失败', result)
