@@ -92,7 +92,10 @@ const insertHtml = async function (list, data) {
   for (let item of list) {
     let newItem = await transferDataProcess(item, globalConfig.map)
     html.push(itemHtml(newItem, data))
-    await sleep(0.2)
+    if (!window.keep) {
+      console.log('非缓存取值', newItem)
+      await sleep(0.2)
+    }
   }
   ul.insertAdjacentHTML('beforeend', html.join('\n'))
   const li = ul.querySelectorAll('li')

@@ -4,8 +4,8 @@ import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 
 window.jQuery = $
-
 chrome.runtime.onMessage.addListener(messageName => {
+  console.log('为什么', messageName)
   if (messageName === '清空缓存去') {
     console.log('接收到缓存清空')
     localStorage.clear()

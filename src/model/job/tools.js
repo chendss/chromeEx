@@ -50,7 +50,6 @@ export const transferDataProcess = async function (item, map) {
       result.busList = get(t, 'paths', []).filter(p => p.type !== 'WALK')
       return result
     })
-    console.log('什么啊', sortData)
     const length = Math.max(1, get(sortData, 'length', 0))
     const averageTime = Math.floor(((sumBy(sortData, 'time') / length)) / 60)
     const averageCost = sumBy(sortData, 'cost') / length
