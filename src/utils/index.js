@@ -1,5 +1,5 @@
 import { toArray } from './tools'
-import rules from '../rules/index'
+import rules from '../routers/index'
 import Nedb from 'nedb'
 import { isArray, pick, map, mergeWith, get as lodashGet, isEqual, isObject, set, isFunction } from 'lodash'
 
@@ -172,6 +172,11 @@ export const sleep = async function (time) {
   })
 }
 
+/**
+* 将html插入body
+*
+* @param {*} html
+*/
 export const insertBody = function (html) {
   document.querySelector('body').insertAdjacentHTML('beforeend', html)
 }

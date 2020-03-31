@@ -1,5 +1,5 @@
 import iocHandle from '../utils/index'
-import excludes from '../rules/excludes'
+import excludes from '../routers/excludes'
 import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 

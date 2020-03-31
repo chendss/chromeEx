@@ -6,28 +6,34 @@
       }
     }
   }
+
   #ProfileHeader {
     width: calc(100vw - 80px);
   }
+
   .Profile-main {
     width: calc(100vw - 80px);
+
     .Profile-mainColumn {
       margin-right: 20px;
-      width: max-content;
+      width       : max-content;
     }
+
     .Profile-sideColumn {
-      flex: 1 1 auto;
-      width: max-content;
+      flex       : 1 1 auto;
+      width      : max-content;
+      white-space: nowrap;
     }
   }
 }
 
 .ImageGallery.is-active {
-  display: flex;
-  align-items: center;
+  display        : flex;
+  align-items    : center;
   justify-content: center;
+
   .ImageGallery-Content {
-    top: auto;
+    top : auto;
     left: auto;
   }
 }

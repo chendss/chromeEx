@@ -1,4 +1,4 @@
-import excludes from '../rules/excludes'
+import excludes from '@/routers/excludes'
 
 /**
  * 自动缩放

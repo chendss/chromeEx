@@ -1,12 +1,10 @@
 export default {
   ip: {
-    css: () => require('../styles/ip.scss'),
+    css: () => require('../app/ip/index.scss'),
   },
   global: {
-    js: () => require('../model/global').default(),
-  },
-  auto: {
-    js: () => require('../model/auto').default(),
+    js: () => require('../app/global/index').default(),
+    css: () => require('../app/global/styles/index.scss')
   },
   cto: {
     js: () => require('../model/cto').default(),

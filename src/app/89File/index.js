@@ -1,6 +1,6 @@
-import { clearCookie } from '../utils/tools'
+import { clearCookie } from '@/utils/tools'
 
-export default function() {
+export default function () {
   clearCookie()
   const href = window.location.href
   window.location.href = href.replace('/file/', '/down/')

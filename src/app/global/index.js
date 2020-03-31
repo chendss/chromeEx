@@ -1,7 +1,8 @@
-import clearBaidu from './baidu'
 import clearLink from './link'
 import Html from './index.html'
-import { insertBody } from '../../utils'
+import clearBaidu from './baidu'
+import autoFun from './auto'
+import { insertBody } from '@/utils'
 
 
 const addMeta = function () {
@@ -33,5 +34,6 @@ export default function () {
   addMeta()
   clearBaidu()
   clearLink()
+  autoFun()
   // addClearBtn()
 }

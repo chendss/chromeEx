@@ -1,3 +1,6 @@
 {
-  "prettier.semi": true
+  "prettier.semi": true,
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src"
+  },
 }

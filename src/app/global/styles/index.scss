@@ -1,5 +1,5 @@
-@import "./collect.scss"; // TODO:
 @import "./the.scss"; // TODO:
+@import "./collect.scss"; // TODO:
 
 #__dashao {
   margin: 0;
@@ -27,6 +27,12 @@
 
   .none {
     display: none;
+  }
+
+  #clearBtn {
+    position: fixed;
+    left    : 50px;
+    top     : 50px;
   }
 }
 
