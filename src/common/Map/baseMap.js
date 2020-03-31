@@ -134,6 +134,7 @@ class BaseMap {
    * @memberof BaseMap
    */
   panTo (point, name) {
+    document.querySelector(`#${this.id}`).classList.remove('none')
     this.map.panTo(point)
     this.当前坐标 = point
     if (name != null) {

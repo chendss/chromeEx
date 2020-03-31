@@ -19,7 +19,7 @@ export const transferInfoHtml = function (transferList) {
     const trs = transferList[i]
     const itemHtml = trs.map(tr => {
       return `
-          <div class="tr-info-item">
+          <div class="tr-info-item" datavalue="${JSON.stringify(tr)}">
             <label>${tr.text}：</label>
             <div class="tr-content">${tr.value}</div>
           </div>
@@ -81,5 +81,6 @@ export const transferDataProcess = async function (item, map) {
   }
   const transferListHtml = transferInfoHtml(transferList)
   set(result, 'transferListHtml', transferListHtml)
+  set(result, 'transferList', transferList)
   return result
 }

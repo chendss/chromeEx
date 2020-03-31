@@ -33,7 +33,7 @@ const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
   const showId = get(data, 'showId', '')
   const priceList = get(item, 'salary', '').split('-').map(p => Number(p.replace('k', '')))
-  return strFormat(Html['con_list_item'], {
+  const result = strFormat(Html['con_list_item'], {
     showId,
     ...item,
     positionId,
@@ -44,6 +44,7 @@ const itemHtml = function (item, data) {
     line: get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n'),
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
   })
+  return result.replace('[transferList]', JSON.stringify(item.transferList))
 }
 
 const searchText = function () {
