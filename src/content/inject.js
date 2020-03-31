@@ -65,7 +65,7 @@ const zoom = function () {
 }
 
 const iocStyle = function () {
-  require('../styles/global/index.scss')
+  require('../app/global/styles/index.scss')
   const matching = []
   iocHandle((rule, r) => {
     const { css } = rule
