@@ -12,6 +12,7 @@
     "clear": "rm -rf chrome-ext.crx extension.zip dist",
     "start2": "pm2 start ./build/dev.js --name chromeEx",
     "dev": "webpack --config ./build/webpack.dev.conf.js",
+    "test": "webpack-dev-server --config ./build/webpack.test.js --open",
     "stop": "pm2 stop chromeEx"
   },
   "dependencies": {
@@ -75,6 +76,7 @@
     "request": "^2.82.0",
     "sass-loader": "^6.0.6",
     "speed-measure-webpack-plugin": "^1.3.1",
+    "style-loader": "^1.1.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.0.5",
