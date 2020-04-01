@@ -11,8 +11,8 @@ module.exports = {
     test: resolve('test'),
   },
   output: {
-    path: resolve('test-dist'),
-    publicPath: '/',
+    path: resolve('test/dist'),
+    publicPath: './',
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',
   },
@@ -50,7 +50,7 @@ module.exports = {
     hints: false,
   },
   devServer: {
-    contentBase: path.resolve(__dirname, 'test-dist'),
+    contentBase: path.resolve(__dirname, 'test/dist'),
     port: '8888',
     hot: true
   }
