@@ -12,6 +12,7 @@
     "clear": "rm -rf chrome-ext.crx extension.zip dist",
     "start2": "pm2 start ./build/dev.js --name chromeEx",
     "dev": "webpack --config ./build/webpack.dev.conf.js",
+    "test": "webpack-dev-server --config ./build/webpack.test.js --open",
     "stop": "pm2 stop chromeEx"
   },
   "dependencies": {
