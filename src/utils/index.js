@@ -172,6 +172,16 @@ export const sleep = async function (time) {
   })
 }
 
+export const openLoading = function () {
+  const loading = document.querySelector("#loading")
+  loading.classList.remove("none")
+}
+
+export const closeLoading = function () {
+  const loading = document.querySelector("#loading")
+  loading.classList.add("none")
+}
+
 /**
 * 将html插入body
 *

@@ -1,5 +1,6 @@
 import axios from "axios"
 import DB from '@/utils/DB'
+import { openLoading, closeLoading } from '@/utils/index'
 import { get, toNumber } from "lodash"
 
 const dxNumber = toNumber(get(DB.get("av"), "number", "8"))
@@ -21,20 +22,9 @@ const pageStart = function () {
 
 let pageIndex = pageStart()
 
-const openLoading = function () {
-  const loading = document.querySelector("#loading")
-  loading.classList.remove("none")
-}
-
-const closeLoading = function () {
-  const loading = document.querySelector("#loading")
-  loading.classList.add("none")
-}
-
 const addLoading = function () {
   const body = document.querySelector("body")
   const html = `
-  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>
   <div id="fiexd_btn"> </div>
   `
   body.insertAdjacentHTML("beforeend", html)
