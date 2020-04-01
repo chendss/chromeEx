@@ -1,5 +1,30 @@
 @import '~@/app/global/styles/index';
 
 .filter-row {
-  display: flex;
+  display    : flex;
+  align-items: center;
+  $m-w       : 16px; // TODO:
+
+  label {
+    margin-right: $m-w;
+  }
+
+  .custom_input {
+    display    : inline-flex;
+    align-items: center;
+    margin-left: $m-w;
+
+    input+input,
+    input+button {
+      margin-left: $m-w;
+    }
+
+    .cy_tag {
+      margin-right: $m-w;
+
+      &:first-child {
+        margin-right: $m-w;
+      }
+    }
+  }
 }
