@@ -27,7 +27,7 @@ module.exports = {
           {
             loader: path.resolve(__dirname, './vue-style-loader/index.js'),
           },
-          'css-loader',
+          'fast-css-loader',
         ],
       },
       {
@@ -38,7 +38,7 @@ module.exports = {
             query: { cacheDirectory: '.webpack_cache', },
             loader: path.resolve(__dirname, './vue-style-loader/index.js'),
           },
-          'css-loader',
+          'fast-css-loader',
           'fast-sass-loader',
           {
             loader: path.resolve(__dirname, './important-loader.js'),
@@ -64,8 +64,8 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loaders: {
-            scss: ['vue-style-loader', 'css-loader', 'fast-sass-loader'],
-            sass: ['vue-style-loader', 'css-loader', 'fast-sass-loader?indentedSyntax'],
+            scss: ['vue-style-loader', 'fast-css-loader', 'fast-sass-loader'],
+            sass: ['vue-style-loader', 'fast-css-loader', 'fast-sass-loader?indentedSyntax'],
           },
         },
       },

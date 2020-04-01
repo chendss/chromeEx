@@ -312,7 +312,7 @@ class BaseMap {
         this.transferInit()
         this.drivingObj = new AMap.Driving({ map: this.map, panel: 'lu-result' })
         eventConfig.init({
-          btns: [...document.querySelectorAll(`#${this.id} ._btn`)],
+          btns: [...document.querySelectorAll(`#${this.id} .cy_btn`)],
           tabs: [...document.querySelectorAll(`#${this.id} .tr-btn-box .tr-tab`)]
         })
         resolve(this)

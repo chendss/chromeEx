@@ -12,7 +12,7 @@ module.exports = merge(baseConf, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
     }),
-    new CleanWebpackPlugin(['test-dist/*.*']),
+    new CleanWebpackPlugin(['test/dist/*.*']),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
     }),

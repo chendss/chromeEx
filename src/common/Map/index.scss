@@ -36,7 +36,7 @@
     @extend .search-box;
     right: (320+50+16)*1px;
 
-    ._input {
+    .cy_input {
       width: 150px;
     }
   }
@@ -118,7 +118,7 @@
     height: 80px;
   }
 
-  ._input {
+  .cy_input {
     width: 300px;
   }
 }

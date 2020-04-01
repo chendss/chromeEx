@@ -1,5 +1,5 @@
 /**
- * Translates the list format produced by css-loader into something
+ * Translates the list format produced by fast-css-loader into something
  * easier to manipulate.
  */
 module.exports = function listToStyles (parentId, list) {

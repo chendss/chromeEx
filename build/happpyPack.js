@@ -19,7 +19,7 @@ module.exports = function () {
         {
           loader: path.resolve(__dirname, './vue-style-loader/index.js'),
         },
-        'css-loader',
+        'fast-css-loader',
         'fast-sass-loader?indentedSyntax',
       ],
     }),

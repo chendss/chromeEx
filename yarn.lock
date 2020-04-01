@@ -2111,9 +2111,9 @@ css-color-names@0.0.4:
   resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
   integrity sha1-gIrcLnnPhHOAabZGyyDsJ762KeA=
 
-css-loader@^0.28.7:
+fast-css-loader@^0.28.7:
   version "0.28.11"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-0.28.11.tgz#c3f9864a700be2711bb5a2462b2389b1a392dab7"
+  resolved "https://registry.yarnpkg.com/fast-css-loader/-/fast-css-loader-0.28.11.tgz#c3f9864a700be2711bb5a2462b2389b1a392dab7"
   integrity sha512-wovHgjAx8ZIMGSL8pTys7edA1ClmzxHeY6n/d97gg5odgsxEgKjULPR0viqyC+FWMCL9sfqoC/QCUBo62tLvPg==
   dependencies:
     babel-code-frame "^6.26.0"
@@ -3012,6 +3012,14 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+fast-fast-css-loader@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fast-fast-css-loader/-/fast-fast-css-loader-1.0.2.tgz#6cf24ffbbea4ecb24bb599d603533f1a7d17a243"
+  integrity sha1-bPJP+76k7LJLtZnWA1M/Gn0XokM=
+  dependencies:
+    loader-utils "^1.1.0"
+    parse-import "^2.0.0"
+
 fast-deep-equal@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
@@ -3344,6 +3352,14 @@ get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
+
+get-imports@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/get-imports/-/get-imports-1.0.0.tgz#47c0b4ee989351642c54977193bf4fcaabf5378f"
+  integrity sha1-R8C07piTUWQsVJdxk79Pyqv1N48=
+  dependencies:
+    array-uniq "^1.0.1"
+    import-regex "^1.1.0"
 
 get-stdin@^4.0.1:
   version "4.0.1"
@@ -3849,6 +3865,11 @@ import-local@^1.0.0:
   dependencies:
     pkg-dir "^2.0.0"
     resolve-cwd "^2.0.0"
+
+import-regex@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/import-regex/-/import-regex-1.1.0.tgz#a55c52e4c705c765ca210e9242a06bbcc8aa7f66"
+  integrity sha1-pVxS5McFx2XKIQ6SQqBrvMiqf2Y=
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -5487,6 +5508,13 @@ parse-headers@^2.0.0:
   dependencies:
     for-each "^0.3.3"
     string.prototype.trim "^1.1.2"
+
+parse-import@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/parse-import/-/parse-import-2.0.0.tgz#2b2474030e008ab98db76c4bcbf4db5ae7306f5f"
+  integrity sha1-KyR0Aw4AirmNt2xLy/TbWucwb18=
+  dependencies:
+    get-imports "^1.0.0"
 
 parse-json@^2.2.0:
   version "2.2.0"

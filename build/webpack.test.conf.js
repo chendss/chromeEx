@@ -11,8 +11,8 @@ module.exports = {
     test: resolve('test'),
   },
   output: {
-    path: resolve('test/dist'),
-    publicPath: './',
+    path: resolve('/test/dist'),
+    publicPath: '/',
     filename: 'js/[name].js',
     chunkFilename: 'js/[name].js',
   },
@@ -22,7 +22,7 @@ module.exports = {
         test: /\.css$/,
         use: [
           { loader: "style-loader" },
-          { loader: "css-loader" },
+          { loader: "fast-css-loader" },
         ],
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: [
           { loader: "style-loader" },
-          'css-loader',
+          'fast-css-loader',
           'fast-sass-loader',
           {
             loader: path.resolve(__dirname, './important-loader.js'),
@@ -46,12 +46,20 @@ module.exports = {
       template: 'test/index.html', //本地自定义模板
     })
   ],
+  resolve: {
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      'app': resolve('src/app'),
+    },
+    extensions: ['*', '.js', '.vue', '.json'],
+  },
   performance: {
     hints: false,
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'test/dist'),
     port: '8888',
-    hot: true
+    hot: true,
   }
 }

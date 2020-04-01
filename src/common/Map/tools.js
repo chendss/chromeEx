@@ -14,7 +14,7 @@ export const transferProcess = function (mapData) {
 
 export const homeClick = function (homeBox, event, id, value) {
   const target = event.target
-  const btns = [...homeBox.querySelectorAll('._btn')]
+  const btns = [...homeBox.querySelectorAll('cy_btn')]
   btns.forEach(btn => btn.setAttribute('type', 'b'))
   target.setAttribute('type', 'p')
   const point = JSON.parse(target.getAttribute('point'))

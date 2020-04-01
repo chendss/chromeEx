@@ -1,6 +1,6 @@
 # vue-style-loader [![Build Status](https://circleci.com/gh/vuejs/vue-style-loader/tree/master.svg?style=shield)](https://circleci.com/gh/vuejs/vue-loader/tree/master) [![npm package](https://img.shields.io/npm/v/vue-style-loader.svg)](https://www.npmjs.com/package/vue-style-loader)
 
-This is a fork based on [style-loader](https://github.com/webpack/style-loader). Similar to `style-loader`, you can chain it after `css-loader` to dynamically inject CSS into the document as style tags. However, since this is included as a dependency and used by default in `vue-loader`, in most cases you don't need to configure this loader yourself.
+This is a fork based on [style-loader](https://github.com/webpack/style-loader). Similar to `style-loader`, you can chain it after `fast-css-loader` to dynamically inject CSS into the document as style tags. However, since this is included as a dependency and used by default in `vue-loader`, in most cases you don't need to configure this loader yourself.
 
 ## Options
 
@@ -8,7 +8,7 @@ This is a fork based on [style-loader](https://github.com/webpack/style-loader).
 
   Type: `boolean`. When importing the style from a non-vue-file, by default the style is injected as a side effect of the import. When `manualInject` is true, the imported style object exposes a `__inject__` method, which can then be called manually at appropriate timing. If called on the server, the method expects one argument which is the `ssrContext` to attach styles to.
 
-  ``` js
+  ```js
   import styles from 'styles.scss'
 
   export default {

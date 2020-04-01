@@ -172,7 +172,7 @@ const addBtn = function () {
   const container = document.querySelector("#content")
   const html = `
     <div class="btn_box">
-      <div class="more_btn _btn">
+      <div class="more_btn cy_btn">
         加载更多
       </div>
     </div>
