@@ -21,16 +21,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: path.resolve(__dirname, './vue-style-loader/index.js'),
-          },
-          'css-loader',
+          { loader: "style-loader" },
+          { loader: "css-loader" },
         ],
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
         loader: [
+          { loader: "style-loader" },
           'css-loader',
           'fast-sass-loader',
           {
@@ -45,7 +44,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'test/index.html', //本地自定义模板
-      inject: true
     })
   ],
   performance: {
