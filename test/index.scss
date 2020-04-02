@@ -1,39 +1,51 @@
 @import '~@/app/global/styles/index';
 
-._search_fitler {
-  $m-w          : 16px; // TODO:
-  padding       : 8px 16px;
-  border        : 1px rgba(0, 0, 0, .1) solid;
-  display       : flex;
-  flex-direction: column;
+#__dashao {
 
-  .filter-row {
+  ._search_fitler {
+    $m-w          : 16px; // TODO:
+    padding       : 8px 16px;
+    border        : 1px rgba(0, 0, 0, .3) solid;
+    display       : flex;
+    flex-direction: column;
 
-    display    : flex;
-    align-items: center;
+    .filter-row {
 
-    label {
-      margin-right: $m-w;
-    }
-
-    .custom_input {
-      display    : inline-flex;
+      display    : flex;
       align-items: center;
-      margin-left: $m-w;
 
-      input+input,
-      input+button {
+
+      label {
+        margin-right: $m-w;
+      }
+
+      .custom_input {
+        display    : inline-flex;
+        align-items: center;
+        margin-left: $m-w;
+
+        input+input,
+        input+button {
+          margin-left: $m-w;
+        }
+
+      }
+
+      .cy_tag {
+        font-size: 12px;
+      }
+
+      .cy_tag+.cy_tag {
         margin-left: $m-w;
       }
 
+      .cy_input {
+        width: 120px;
+      }
     }
 
-    .cy_tag+.cy_tag {
-      margin-left: $m-w;
+    .filter-row+.filter-row {
+      margin-top: $m-w;
     }
-  }
-
-  .filter-row+.filter-row {
-    margin-top: $m-w;
   }
 }
