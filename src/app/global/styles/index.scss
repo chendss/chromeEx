@@ -35,6 +35,10 @@
     left    : 50px;
     top     : 50px;
   }
+
+  body {
+    filter: grayscale(0);
+  }
 }
 
 *:not(svg, i, use, path) {

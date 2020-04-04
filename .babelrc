@@ -11,6 +11,7 @@
   "plugins": [
     "syntax-dynamic-import",
     "syntax-async-generators",
+    "transform-class-properties",
     [
       "transform-runtime",
       {
