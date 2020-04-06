@@ -11,7 +11,13 @@ content
       <div class="panel_header">排序</div>
       <div class="panel_content">
         <div class="content_row" key="type">
-          <label>类型</label>
+          <label>{extraTitle}</label>
+          <div class="tags">
+            {extraTags}
+          </div>
+        </div>
+        <div class="content_row" key="type">
+          <label>指标</label>
           <div class="tags">
             <div class="cy_tag _sort" value='"工资"'>工资</div>
             <div class="cy_tag _sort" value='"通勤时间"'>通勤时间</div>
@@ -94,7 +100,7 @@ content
             <label>自定义</label>
             <input key="start" class="cy_input" placeholder="请输入最小换乘" />
             <input key="end" class="cy_input" placeholder="请输入最大换乘" />
-            <button class="cy_btn ">确定</button>
+            <button class="cy_btn">确定</button>
           </div>
         </div>
       </div>

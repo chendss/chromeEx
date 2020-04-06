@@ -7,7 +7,7 @@ import Html from './lagou.html'
 import SearchFilter from './searchFilter'
 import GMap from '@/common/Map'
 import { transferDataProcess } from './tools'
-import { set, sortBy } from 'lodash'
+import { set, sortBy, sum } from 'lodash'
 import { get, queryToObj, strFormat, sleep } from '@/utils'
 
 const globalConfig = {
@@ -16,19 +16,6 @@ const globalConfig = {
   map: null
 }
 
-const priceDict = function () {
-  const list = ['0-不限', ... new Array(22).fill('0')].map((_, index) => `${index + 3}-${index + 3}k以上`)
-  return list
-}
-
-const 工资筛选 = function (actionKey, ) {
-  const list = priceDict()
-  const li = list.map(item => {
-    const [price, text] = item.split('-')
-    return `<li><a rel="nofollow" href="javascript:;" onclick="${actionKey}(${Number(price)})">${text}</a></li>`
-  })
-  return `<ul>${li.join('\n')}</ul>`
-}
 
 const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
@@ -40,7 +27,8 @@ const itemHtml = function (item, data) {
     positionId,
     minprice: priceList[0],
     maxprice: priceList[1],
-    price: priceList.join('-'),
+    price: JSON.stringify(priceList),
+    averageprice: Math.floor(sum(priceList) / priceList.length),
     li_b_l: [item.secondType, ...get(item, 'skillLables', [])].map(label => (`<span title="${label}">${label}</span>`)).join('\n'),
     line: get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n'),
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
@@ -128,43 +116,6 @@ const insertData = function () {
   }, 1.5 * 1000)
 }
 
-const changePrice = function (price) {
-  const textDom = document.querySelector('#order .item.salary.selectUI .selectUI-text.text>span')
-  const list = document.querySelectorAll('.my-item')
-  const priceList = priceDict()
-  const text = priceList.find(item => item.split('-')[0] === price + '').split('-')[1]
-  textDom.innerHTML = text
-  list.forEach(item => {
-    const minPrice = item.getAttribute('price').split('-')[0]
-    if (Number(minPrice) < price) {
-      item.classList.add('none')
-    } else {
-      item.classList.remove('none')
-    }
-  })
-}
-
-const changeSort = function () {
-  const a_list = document.querySelectorAll('#order .item.order a')
-  a_list.forEach((a, index) => {
-    a.href = 'javascript:;'
-    a.innerHTML = index === 0 ? '从低到高' : '从高到低'
-    a.addEventListener('click', () => {
-      a_list.forEach(a => a.classList.remove('active'))
-      a.classList.add('active')
-      if (index === 0) {
-        const parent = document.querySelector('#s_position_list .item_con_list')
-        const items = parent.querySelectorAll('.my-item')
-        parent.innerHTML = sortBy([...items], o => Number(o.getAttribute('minprice'))).map(item => item.outerHTML).join('\n')
-      } else {
-        const parent = document.querySelector('#s_position_list .item_con_list')
-        const items = parent.querySelectorAll('.my-item')
-        parent.innerHTML = sortBy([...items], o => -1 * Number(o.getAttribute('minprice'))).map(item => item.outerHTML).join('\n')
-      }
-    })
-  })
-}
-
 const createMap = async function () {
   const map = new GMap('body')
   await map.init()
@@ -184,10 +135,6 @@ export default async function () {
   ul.innerHTML = ''
   insertData()
   window.createContent = createContent
-  window.changePrice = changePrice
   window.postionMap = postionMap
-  const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
-  drop.innerHTML = 工资筛选('changePrice')
-  changeSort()
   globalConfig.searchFilter = SearchFilter.new({ selector: '#filterBox' })
 }

@@ -1,5 +1,5 @@
 import './index.scss'
-import { get } from '@/utils'
+import { get, strFormat } from '@/utils'
 import Html from './index.html'
 import { set, cloneDeep } from 'lodash'
 import { es, q, e, toArray } from '@/utils/tools'
@@ -26,11 +26,12 @@ const baseDict = function (panels) {
 class SearchFilter {
   constructor(props) {
     this.props = props
-    const { selector } = this.props
+    const { selector, extra = {} } = this.props
     this.selector = selector
     this.parent = q(selector)
-    console.log('zzz', this.parent)
-    this.parent.innerHTML = Html['content']
+    this.parent.innerHTML = strFormat(Html['content'], {
+      ...extra
+    })
     this.filterRows = es(this.parent, '._search_fitler .filter-row')
     this.panels = es(this.parent, '._search_filter_box .cy_panel')
     this.stateCopy = baseDict(this.panels)
