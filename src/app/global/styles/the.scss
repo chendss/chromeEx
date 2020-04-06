@@ -1,94 +1,223 @@
+@import './basic.scss'; // TODO:
+
 #__dashao {
+  *[class^="cy_"] {
+    box-sizing: border-box;
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+  }
+
+  * {
+
+    &::selection {
+      background: $cy_cyColor_brand_1;
+      color     : #fff;
+    }
+
+    &::-webkit-selection {
+      background: $cy_cyColor_brand_1;
+      color     : #fff;
+    }
+
+    &::-moz-selection {
+      background: $cy_cyColor_brand_1;
+      color     : #fff;
+    }
+  }
+
   .cy_btn {
-    white-space           : nowrap;
-    border-radius         : 4px;
-    display               : inline-flex;
-    align-items           : center;
-    justify-content       : center;
-    font-size             : 12px;
-    min-width             : 80px;
-    text-decoration       : none;
-    min-height            : 30px;
-    color                 : #fff;
-    // color              : #4c5161;
-    cursor                : pointer;
-    background-color      : #2a80eb;
-    background-repeat     : no-repeat;
-    border                : 1px solid #d0d0d5;
-    box-sizing            : border-box;
-    transition            : border-color .15s, box-shadow .15s, opacity .15s;
-
-    &[type="g"] {
-      background-color: #1cad70;
-    }
-
-    &[type="r"] {
-      background-color: #eb4646;
-    }
-
-    &[type="o"] {
-      background-color: #f59b00;
-    }
-
-    &[type="b"] {
-      background-color: #9e9e9ec7;
-      color           : black;
-    }
+    white-space: nowrap;
+    @include cy_cyFont_base();
+    padding        : 0 16px;
+    align-items    : center;
+    justify-content: center;
+    cursor         : pointer;
+    border-radius  : 2*$cy_cyHd;
+    height         : 16*$cy_cyHd;
+    display        : inline-flex;
+    color          : $cy_cyColor_neutral_2;
+    background     : $cy_cyColor_neutral_8;
+    border         : 1px solid $cy_cyColor_neutral_5;
 
     &:hover {
-      border-color: #ababaf;
-      box-shadow  : inset 0 1px 2px rgba(0, 0, 0, .01), inset 0 0 0 100px rgba(0, 0, 0, .05);
+      color : $cy_cyColor_brand_1;
+      border: 1px solid $cy_cyColor_brand_1;
+    }
+
+    &[d="true"] {
+      cursor    : not-allowed;
+      color     : $cy_cyColor_neutral_4;
+      background: $cy_cyColor_neutral_7;
+      border    : 1px solid $cy_cyColor_neutral_5;
+    }
+
+    &[type="p"] {
+      background: $cy_cyColor_brand_1;
+      color     : $cy_cyColor_neutral_8;
+      border    : 0;
+
+      &:hover {
+        background: $cy_cyColor_brand_5;
+      }
+
+      &[d="true"] {
+        background: $cy_cyColor_neutral_5;
+      }
+    }
+
+    &[size="sm"] {
+      padding: 0 8px;
+      height : 12*$cy_cyHd;
+
     }
   }
 
   .cy_input {
-    box-sizing      : border-box;
-    border-radius   : 0;
-    height          : 34px;
-    padding         : 6px 12px;
-    font-size       : 14px;
-    line-height     : 1.42857143;
-    color           : #555;
-    background-color: #fff;
-    background-image: none;
-    border          : 1px solid #ccc;
-    border-radius   : 4px;
-    box-shadow      : inset 0 1px 1px rgba(0, 0, 0, .075);
-    transition      : border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    border-radius: 4px;
+    height       : 16*$cy_cyHd;
+    outline-color: transparent;
+    padding      : 0 6*$cy_cyHd;
+    width        : 112*$cy_cyHd;
+    color        : $cy_cyColor_neutral_2;
+    background   : $cy_cyColor_neutral_8;
+    border       : 1px solid $cy_cyColor_neutral_5;
+
+    &::placeholder {
+      margin-left: 6*$cy_cyHd;
+      color      : rgba(0, 0, 0, 0.15);
+    }
 
     &:focus {
-      border-color: #66afe9;
+      border-color: $cy_cyColor_neutral_5;
+    }
+
+    &:hover {
+      border-color: $cy_cyColor_neutral_4;
     }
   }
 
   .cy_tag {
-    line-height     : 1;
-    font-size       : 14px;
-    font-weight     : 700;
-    height          : 30px;
-    border-radius   : 5px;
-    color           : #fff;
-    background-color: #777;
-    align-items     : center;
-    justify-content : center;
-    text-align      : center;
-    white-space     : nowrap;
-    padding         : 2px 8px;
-    cursor          : pointer;
-    vertical-align  : baseline;
-    display         : inline-flex;
+    @include cy_cyFont_caption();
+    height         : 20px;
+    align-items    : center;
+    justify-content: center;
+    cursor         : pointer;
+    border-radius  : 2*$cy_cyHd;
+    display        : inline-flex;
+    padding        : 0 4*$cy_cyHd;
+    color          : $cy_cyColor_neutral_2;
+    background     : $cy_cyColor_neutral_8;
+    border         : $cy_cyBorder_width_sm solid $cy_cyColor_neutral_5;
 
     &[size="sm"] {
       font-size: 12px;
     }
 
     &:hover {
-      border-color: #ababaf;
-      box-shadow  : inset 0 1px 2px rgba(0, 0, 0, .01), inset 0 0 0 100px rgba(0, 0, 0, .05);
+      color : $cy_cyColor_brand_1;
+      border: $cy_cyBorder_width_sm solid $cy_cyColor_brand_1;
     }
 
     &[type="p"] {
-      background-color: #337ab7;
+      background: $cy_cyColor_brand_1;
+      color     : $cy_cyColor_neutral_8;
+      border    : $cy_cyBorder_width_sm solid $cy_cyColor_brand_1;
     }
+  }
+
+  .cy_titps {
+    color    : rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+  }
+
+  .cy_label {
+    @include cy_cyFont_base();
+    color       : $cy_cyColor_neutral_1;
+    margin-right: 8*$cy_cyHd;
+
+    &::after {
+      content    : ':';
+      margin-left: 16px;
+    }
+  }
+
+
+  .cy_panel {
+    padding       : 0px;
+    display       : flex;
+    flex-direction: column;
+    border        : 1px solid rgba(0, 0, 0, 0.1);
+
+    .panel_header {
+      height         : 38px;
+      display        : flex;
+      font-size      : 14px;
+      align-items    : center;
+      padding        : 4px 16px;
+      justify-content: flex-start;
+      color          : rgba(0, 0, 0, 0.85);
+      border-bottom  : 1px solid rgba(0, 0, 0, 0.1);
+      font-weight    : 400;
+
+      &[type="main"] {
+        font-size    : 16px;
+        color        : #000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+      }
+
+      .header_title {}
+
+      .header_right {
+        margin-left: auto;
+
+        &[position="left"] {
+          margin-right: auto;
+        }
+      }
+
+      .header_title+.header_right {
+        margin-left: 16px;
+      }
+    }
+
+    .panel_content {
+      padding: 16px;
+
+      .content_row {
+        display    : flex;
+        align-items: center;
+      }
+
+      .content_row+.content_row {
+        margin-top: 8px;
+      }
+    }
+
+    .cy_panel+.cy_panel {
+      margin-top: 12px;
+    }
+
+    &[type="main"] {
+      border: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    label {
+      @extend .cy_label;
+    }
+  }
+
+  .cy_tag+.cy_tag {
+    margin-left: 8*$cy_cyHd;
+  }
+
+  .cy_tag+.cy_input,
+  .cy_input+.cy_titps,
+  .cy_input+.cy_btn,
+  .cy_btn+.cy_titps {
+    margin-left: 8*$cy_cyHd;
   }
 }

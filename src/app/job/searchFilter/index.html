@@ -1,0 +1,103 @@
+content
+<div class="_search_filter_box cy_panel" type="main">
+  <div class="panel_header" type="main">
+    <div class="header_title">筛选器</div>
+    <div class="header_right" position="left">
+      <div class="cy_btn confirm" type="p">确定</div>
+    </div>
+  </div>
+  <div class="panel_content">
+    <div class="_sort_box cy_panel" key="sort">
+      <div class="panel_header">排序</div>
+      <div class="panel_content">
+        <div class="content_row" key="type">
+          <label>类型</label>
+          <div class="tags">
+            <div class="cy_tag _sort" value='"工资"'>工资</div>
+            <div class="cy_tag _sort" value='"通勤时间"'>通勤时间</div>
+            <div class="cy_tag _sort" value='"换乘次数"'>换乘次数</div>
+          </div>
+        </div>
+        <div class="content_row" key="sortType">
+          <label>排序类型</label>
+          <div class="tags">
+            <div class="cy_tag _sort" value="-1">升序</div>
+            <div class="cy_tag _sort" value="1">降序</div>
+          </div>
+        </div>
+        <div class="content_row least_box" key="comprehensive">
+          <label>综合排序</label>
+          <div class="tags">
+            <div class="cy_tag least" value='"综合"'>综合排序</div>
+            <div class="cy_tag least" value='"工资"'>工资</div>
+            <div class="cy_tag least" value='"通勤时间"'>通勤时间</div>
+            <div class="cy_tag least" value='"换乘"'>换乘</div>
+          </div>
+          <input
+            class="cy_input"
+            size="large"
+            value="20,35,2"
+            title="请输入完美值,坐标逗号隔开(工资,通勤时间,换乘次数)"
+          />
+          <button class="cy_btn">确定</button>
+          <div class="cy_titps">
+            ( 工资/千, 通勤时间/分钟, 换乘次数/次 )
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="_search_fitler cy_panel" key="filter">
+      <div class="panel_header">筛选</div>
+      <div class="panel_content">
+        <div class="content_row" key="price">
+          <label>工资筛选</label>
+          <div class="tags">
+            <div class="cy_tag" value="[3,0]">3k以上</div>
+            <div class="cy_tag" value="[8,0]">8k以上</div>
+            <div class="cy_tag" value="[10,0]">10k以上</div>
+            <div class="cy_tag" value="[12,0]">12k以上</div>
+            <div class="cy_tag" value="[15,0]">15k以上</div>
+            <div class="cy_tag" value="[18,0]">18k以上</div>
+            <div class="cy_tag" value="[20,0]">20k以上</div>
+            <div class="cy_tag" value="[23,0]">23k以上</div>
+          </div>
+          <div class="custom_input">
+            <label>自定义</label>
+            <input key="start" class="cy_input" placeholder="请输入最小值" />
+            <input key="end" class="cy_input" placeholder="请输入最大值" />
+            <button class="cy_btn">确定</button>
+          </div>
+        </div>
+        <div class="content_row" key="time">
+          <label>通行时间</label>
+          <div class="tags">
+            <div class="cy_tag" value="[0,60]">60分钟内</div>
+            <div class="cy_tag" value="[0,45]">45分钟内</div>
+            <div class="cy_tag" value="[0,30]">30分钟内</div>
+            <div class="cy_tag" value="[0,90]">90分钟内</div>
+          </div>
+          <div class="custom_input">
+            <label>自定义</label>
+            <input key="start" class="cy_input" placeholder="请输入最小值" />
+            <input key="end" class="cy_input" placeholder="请输入最大值" />
+            <button class="cy_btn">确定</button>
+          </div>
+        </div>
+        <div class="content_row" key="transferNum">
+          <label>换乘次数</label>
+          <div class="tags">
+            <div class="cy_tag" value="[0,2]">2次内</div>
+            <div class="cy_tag" value="[0,3]">3次内</div>
+            <div class="cy_tag" value="[0,4]">4次内</div>
+          </div>
+          <div class="custom_input">
+            <label>自定义</label>
+            <input key="start" class="cy_input" placeholder="请输入最小换乘" />
+            <input key="end" class="cy_input" placeholder="请输入最大换乘" />
+            <button class="cy_btn ">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

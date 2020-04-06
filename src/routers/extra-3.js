@@ -29,7 +29,7 @@ export default {
     js: () => require('../model/imooc_article.js').default(),
   },
   'job-lagou': {
-    js: () => require('../model/job/lagou.js').default(),
-    css: () => require('../styles/job/lagou.scss'),
+    js: () => require('@/app/job/lagou').default(),
+    css: () => require('@/app/job/lagou.scss'),
   },
 }

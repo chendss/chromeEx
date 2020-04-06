@@ -6,7 +6,18 @@ export const log = function (...args) {
 
 export const q = s => document.querySelector(s)
 
-export const qs = s => document.querySelectorAll(s)
+export const qs = s => [...document.querySelectorAll(s)]
+
+export const e = (dom, selector) => dom.querySelector(selector)
+
+/**
+* 相当于dom.querySelectorAll
+*
+* @param {*} dom
+* @returns {Array<HTMLElementTagNameMap>}
+* @param {*} selector
+*/
+export const es = (dom, selector) => [...dom.querySelectorAll(selector)]
 
 export const toArray = function (source) {
   let result = []

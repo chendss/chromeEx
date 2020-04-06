@@ -18,6 +18,8 @@
     align-items    : center;
     justify-content: center;
     z-index        : 99;
+    width          : 100vw;
+    height         : 100vh;
   }
 
   #footer,
@@ -37,7 +39,7 @@
   }
 
   body {
-    filter: grayscale(0);
+    // filter: grayscale(0);
   }
 }
 

@@ -4,10 +4,11 @@ import $ from 'jquery'
 import axios from 'axios'
 import cookies from 'js-cookie'
 import Html from './lagou.html'
-import GMap from '../../common/Map'
+import SearchFilter from './searchFilter'
+import GMap from '@/common/Map'
 import { transferDataProcess } from './tools'
 import { set, sortBy } from 'lodash'
-import { get, queryToObj, strFormat, sleep } from '../../utils'
+import { get, queryToObj, strFormat, sleep } from '@/utils'
 
 const globalConfig = {
   pageIndex: 1,
@@ -188,4 +189,5 @@ export default async function () {
   const drop = document.querySelector('#order .item.salary.selectUI .selectUI-text.text ul')
   drop.innerHTML = 工资筛选('changePrice')
   changeSort()
+  globalConfig.searchFilter = SearchFilter.new({ selector: '#filterBox' })
 }

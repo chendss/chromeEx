@@ -1,5 +1,7 @@
 import './index.scss'
-import { get, set, cloneDeep } from 'lodash'
+import { get } from '@/utils'
+import Html from './index.html'
+import { set, cloneDeep } from 'lodash'
 import { es, q, e, toArray } from '@/utils/tools'
 
 const forEachPanel = function (panels, callback) {
@@ -27,6 +29,8 @@ class SearchFilter {
     const { selector } = this.props
     this.selector = selector
     this.parent = q(selector)
+    console.log('zzz', this.parent)
+    this.parent.innerHTML = Html['content']
     this.filterRows = es(this.parent, '._search_fitler .filter-row')
     this.panels = es(this.parent, '._search_filter_box .cy_panel')
     this.stateCopy = baseDict(this.panels)
@@ -132,8 +136,4 @@ class SearchFilter {
   }
 }
 
-window.searchObj = SearchFilter.new({ selector: 'body' })
-
-if (module.hot) {
-  module.hot.accept()
-}
+export default SearchFilter

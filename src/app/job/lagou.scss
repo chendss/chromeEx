@@ -51,6 +51,21 @@
   #keyword {
     box-sizing: content-box;
   }
+
+  #order {
+    display: none;
+  }
+
+  #filterBox {
+    background-color: transparent;
+    min-height      : auto;
+    padding         : 0;
+    border          : 0;
+  }
+
+  .btn-collapse-wrapper {
+    display: none;
+  }
 }
 
 #main_container {
