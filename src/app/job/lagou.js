@@ -9,6 +9,7 @@ import GMap from '@/common/Map'
 import { transferDataProcess } from './tools'
 import { set, sortBy, sum } from 'lodash'
 import { get, queryToObj, strFormat, sleep } from '@/utils'
+import { qs as toolsQs, es, q } from '@/utils/tools'
 
 const globalConfig = {
   pageIndex: 1,
@@ -16,12 +17,26 @@ const globalConfig = {
   map: null
 }
 
+const getItemDataValue = function (priceList, item, data) {
+  const transfer = item.transferList[0]
+  const time = Number(transfer.find(t => t.text === '最短时间').value.replace('分钟', ''))
+  const number = transfer.find(t => t.text === '换乘次数').value
+  const price = priceList[0]
+  const result = {
+    price,
+    time,
+    number,
+    综合值: [price, time, number],
+  }
+  return JSON.stringify(result)
+}
+
 
 const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
   const showId = get(data, 'showId', '')
   const priceList = get(item, 'salary', '').split('-').map(p => Number(p.replace('k', '')))
-  const result = strFormat(Html['con_list_item'], {
+  let result = strFormat(Html['con_list_item'], {
     showId,
     ...item,
     positionId,
@@ -33,7 +48,9 @@ const itemHtml = function (item, data) {
     line: get(item, 'linestaion', '无路线').split(';').map(l => (`<div class="line-box"><span title="${l}">${l}</span></div>`)).join('\n'),
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
   })
-  return result.replace('[transferList]', JSON.stringify(item.transferList))
+  result = result.replace('"[transferList]"', JSON.stringify(item.transferList))
+  return result.replace('"[appdata]"', getItemDataValue(priceList, item))
+
 }
 
 const searchText = function () {
@@ -129,6 +146,42 @@ const postionMap = async function (经度, 纬度, name) {
   map.goPoint(经度, 纬度, name)
 }
 
+const sortItem = function (sortDict, perfect, o) {
+  const appData = JSON.parse(o.getAttribute('appdata'))
+  const type = get(sortDict, 'type', null)
+  const sortType = sortDict.sortType === -1 ? 1 : -1
+  const comprehensive = get(sortDict, 'comprehensive', null)
+  let value = 0
+  if (type === '工资') {
+    value = appData.price
+  } else if (type === '通勤时间') {
+    value = appData.time
+  } else if (type === '换乘次数') {
+    value = appData.number
+  } else if (comprehensive === '综合') {
+    const point = perfect.split(',').map(i => Number(i))
+    const [x, y, z] = appData.综合值
+    const x2 = Math.pow((x - point[0]), 2)
+    const y2 = Math.pow((y - point[1]), 2)
+    const z2 = Math.pow((z - point[2]), 2)
+    value = -1 * Math.sqrt(x2 + y2 + z2)
+  }
+  return sortType * value
+}
+
+const onConfirm = function (data, ul) {
+  const list = es(ul, '.con_list_item')
+  const sortDict = get(data, 'sort', {})
+  console.log('ookkk', data)
+  const perfect = q('#filterBox').querySelector('.content_row.least_box .cy_input').value
+  let result = [...list]
+  if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
+    result = sortBy(list, (o) => sortItem(sortDict, perfect, o))
+  }
+  ul.innerHTML = ''
+  result.forEach(item => ul.appendChild(item))
+}
+
 export default async function () {
   await createMap()
   const ul = document.querySelector('#s_position_list .item_con_list')
@@ -136,5 +189,8 @@ export default async function () {
   insertData()
   window.createContent = createContent
   window.postionMap = postionMap
-  globalConfig.searchFilter = SearchFilter.new({ selector: '#filterBox' })
+  globalConfig.searchFilter = SearchFilter.new({
+    selector: '#filterBox',
+    onConfirm: (data) => onConfirm(data, ul)
+  })
 }

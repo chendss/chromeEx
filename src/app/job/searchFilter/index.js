@@ -112,6 +112,11 @@ class SearchFilter {
     tags.addEventListener('click', event => {
       const target = event.target
       if (target === tags) return
+      if (target.classList.contains('least')) {
+        this.state[key].type = null
+      } else if (target.classList.contains('indicators')) {
+        this.state[key].comprehensive = null
+      }
       const values = this.stateCopy[key]
       const targetValues = JSON.parse(target.getAttribute('value'))
       values[rowKey] = targetValues
