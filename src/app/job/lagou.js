@@ -165,6 +165,13 @@ const sortItem = function (sortDict, perfect, o) {
     const y2 = Math.pow((y - point[1]), 2)
     const z2 = Math.pow((z - point[2]), 2)
     value = -1 * Math.sqrt(x2 + y2 + z2)
+  } else if (comprehensive === '工资') {
+    const point = perfect.split(',').map(i => Number(i))
+    const [x, y, z] = appData.综合值
+    const x2 = Math.pow((x - point[0] - 3000), 2)
+    const y2 = Math.pow((y - point[1]), 2)
+    const z2 = Math.pow((z - point[2]), 2)
+    value = -1 * Math.sqrt(x2 + y2 + z2)
   }
   return sortType * value
 }
