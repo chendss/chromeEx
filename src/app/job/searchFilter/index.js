@@ -1,5 +1,5 @@
 import './index.scss'
-import { get, strFormat } from '@/utils'
+import { get, strFormat, merge } from '@/utils'
 import Html from './index.html'
 import { set, cloneDeep } from 'lodash'
 import { es, q, e, toArray } from '@/utils/tools'
@@ -42,6 +42,13 @@ class SearchFilter {
     const searchObj = new this(props)
     searchObj.watch()
     searchObj.bindEvent()
+    const sort = {
+      sortType: 1,
+      comprehensive: '综合',
+      type: null,
+    }
+    const stateSort = searchObj.state.sort
+    searchObj.state.sort = merge(stateSort, sort)
     return searchObj
   }
 
@@ -130,14 +137,21 @@ class SearchFilter {
     forEachPanel(panels, ({ key, rowKey, panel, row }) => {
       const tags = e(row, '.tags')
       this.bindTag(tags, key, row, rowKey)
-      if (key !== 'sort') {
-        const btn = e(row, '.cy_btn')
-        this.bindInputConfirm(btn, row, key, rowKey)
-      }
     })
     const btn = e(this.parent, '.confirm')
     btn.addEventListener('click', () => {
-      get(this.props, 'onConfirm', () => { })(this.stateCopy)
+      const priceRow = e(this.parent, '.cy_panel[key="filter"] .content_row[key="price"]')
+      const timeRow = e(this.parent, '.cy_panel[key="filter"] .content_row[key="time"]')
+      const transferNumRow = e(this.parent, '.cy_panel[key="filter"] .content_row[key="transferNum"]')
+      const param = {
+        filter: {
+          time: es(timeRow, '.cy_input').map(input => Number(input.value)),
+          price: es(priceRow, '.cy_input').map(input => Number(input.value)),
+          transferNum: es(transferNumRow, '.cy_input').map(input => Number(input.value)),
+        }
+      }
+      const values = merge(cloneDeep(this.stateCopy), param)
+      get(this.props, 'onConfirm', () => { })(values)
     })
   }
 }

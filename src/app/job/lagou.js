@@ -4,12 +4,12 @@ import $ from 'jquery'
 import axios from 'axios'
 import cookies from 'js-cookie'
 import Html from './lagou.html'
-import SearchFilter from './searchFilter'
 import GMap from '@/common/Map'
-import { transferDataProcess } from './tools'
+import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
-import { get, queryToObj, strFormat, sleep } from '@/utils'
 import { qs as toolsQs, es, q } from '@/utils/tools'
+import { transferDataProcess, sortItem, filterItem } from './tools'
+import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading } from '@/utils'
 
 const globalConfig = {
   pageIndex: 1,
@@ -146,50 +146,30 @@ const postionMap = async function (经度, 纬度, name) {
   map.goPoint(经度, 纬度, name)
 }
 
-const sortItem = function (sortDict, perfect, o) {
-  const appData = JSON.parse(o.getAttribute('appdata'))
-  const type = get(sortDict, 'type', null)
-  const sortType = sortDict.sortType === -1 ? 1 : -1
-  const comprehensive = get(sortDict, 'comprehensive', null)
-  let value = 0
-  if (type === '工资') {
-    value = appData.price
-  } else if (type === '通勤时间') {
-    value = appData.time
-  } else if (type === '换乘次数') {
-    value = appData.number
-  } else if (comprehensive === '综合') {
-    const point = perfect.split(',').map(i => Number(i))
-    const [x, y, z] = appData.综合值
-    const x2 = Math.pow((x - point[0]), 2)
-    const y2 = Math.pow((y - point[1]), 2)
-    const z2 = Math.pow((z - point[2]), 2)
-    value = -1 * Math.sqrt(x2 + y2 + z2)
-  } else if (comprehensive === '工资') {
-    const point = perfect.split(',').map(i => Number(i))
-    const [x, y, z] = appData.综合值
-    const x2 = Math.pow((x - point[0] - 3000), 2)
-    const y2 = Math.pow((y - point[1]), 2)
-    const z2 = Math.pow((z - point[2]), 2)
-    value = -1 * Math.sqrt(x2 + y2 + z2)
-  }
-  return sortType * value
-}
-
 const onConfirm = function (data, ul) {
+  openLoading()
+  console.log('数据', data)
   const list = es(ul, '.con_list_item')
   const sortDict = get(data, 'sort', {})
-  console.log('ookkk', data)
+  const filterDict = get(data, 'filter', {})
   const perfect = q('#filterBox').querySelector('.content_row.least_box .cy_input').value
   let result = [...list]
   if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
-    result = sortBy(list, (o) => sortItem(sortDict, perfect, o))
+    result = sortBy(list, (o) => {
+      const appdata = JSON.parse(o.getAttribute('appdata'))
+      return sortItem(sortDict, perfect, appdata)
+    })
+  }
+  if (!Object.values(filterDict).every(item => JSON.stringify(item) === JSON.stringify([0, 0]))) {
+    filterItem(result, filterDict)
   }
   ul.innerHTML = ''
   result.forEach(item => ul.appendChild(item))
+  closeLoading()
 }
 
 export default async function () {
+  openLoading()
   await createMap()
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
@@ -200,4 +180,5 @@ export default async function () {
     selector: '#filterBox',
     onConfirm: (data) => onConfirm(data, ul)
   })
+  closeLoading()
 }

@@ -1,4 +1,5 @@
 import { get } from "../../utils"
+import { es } from "@/utils/tools"
 
 export const transferProcess = function (mapData) {
   const res = get(mapData, 'plans', []).map(pObj => {
@@ -14,8 +15,8 @@ export const transferProcess = function (mapData) {
 
 export const homeClick = function (homeBox, event, id, value) {
   const target = event.target
-  const btns = [...homeBox.querySelectorAll('cy_btn')]
-  btns.forEach(btn => btn.setAttribute('type', 'b'))
+  const btns = es(homeBox, '.cy_btn')
+  btns.forEach(btn => btn.setAttribute('type', ''))
   target.setAttribute('type', 'p')
   const point = JSON.parse(target.getAttribute('point'))
   const trBox = document.querySelector(`#${id} .result-box`)

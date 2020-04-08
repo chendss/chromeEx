@@ -191,6 +191,44 @@ export const insertBody = function (html) {
   document.querySelector('body').insertAdjacentHTML('beforeend', html)
 }
 
+/**
+* 空间两点之间的距离
+*
+* @param {*} [point1=[]]
+* @param {*} [point2=[]]
+* @returns
+*/
+export const pointDistance = function (point1 = [], point2 = []) {
+  let result = 0
+  for (let i = 0; i < point1.length; i++) {
+    const x1 = point1[i]
+    const x2 = point2[i]
+    const x = x2 - x1
+    const value = Math.pow(x, 2)
+    result += value
+  }
+  return Math.sqrt(result)
+}
+
+/**
+ * lodash 的 mergeRight 改造，将会选择为null，undefined的值
+ *
+ * @returns
+ */
+export const merge = function () {
+  return mergeWith(...arguments, (obj, source) => {
+    if ([obj, source].some(item => [null, undefined].includes(item))) {
+      return obj || source
+    } else if ([obj, source].every(item => item instanceof Array)) {
+      const objLen = get(obj, 'length', 0)
+      const sourceLen = get(source, 'length', 0)
+      if (objLen !== sourceLen) {
+        return source
+      }
+    }
+  })
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

@@ -1,6 +1,6 @@
-import { get } from "../../utils"
 import Config from '../../assets/custom'
-import { set, sumBy, sortBy } from 'lodash'
+import { set, sumBy, sortBy, cloneDeep } from 'lodash'
+import { get, pointDistance } from "../../utils"
 
 /**
 * transferInfo html代码生成
@@ -83,4 +83,82 @@ export const transferDataProcess = async function (item, map) {
   set(result, 'transferListHtml', transferListHtml)
   set(result, 'transferList', transferList)
   return result
+}
+
+/**
+ * 指标排序
+ *
+ * @param {*} type
+ * @param {*} appData
+ * @returns
+ */
+const indicatorsSort = function (type, appData) {
+  let result = 0
+  const dict = {
+    price: '工资',
+    time: '通勤时间',
+    number: '换乘次数'
+  }
+  for (let key of Object.keys(dict)) {
+    const value = dict[key]
+    if (type === value) {
+      return appData[key]
+    }
+  }
+  return result
+}
+
+/**
+ * 综合排序
+ *
+ * @param {*} perfect
+ * @param {*} appData
+ * @returns
+ */
+const comprehensiveSort = function (comprehensive, perfect, appData) {
+  const point = perfect.split(',').map(i => Number(i))
+  if (comprehensive === '工资') {
+    point[0] += 3000
+  } else if (comprehensive === '通勤时间') {
+    point[1] -= 15
+  } else if (comprehensive === '换乘') {
+    point[2] -= 1
+  }
+  const result = -1 * pointDistance(point, appData.综合值)
+  return result
+}
+
+
+export const sortItem = function (sortDict, perfect, appData) {
+  const type = get(sortDict, 'type', null)
+  const sortType = sortDict.sortType === -1 ? 1 : -1
+  const comprehensive = get(sortDict, 'comprehensive', null)
+  let value = 0
+  if (['工资', '通勤时间', '换乘次数'].includes(type)) {
+    value = indicatorsSort(type, appData)
+  } else if (['综合', '工资', '换乘', 'point'].includes(comprehensive)) {
+    value = comprehensiveSort(comprehensive, perfect, appData)
+  }
+  return sortType * value
+}
+
+/**
+* 过滤item
+*
+* @param {*} [list=[]]
+* @param {*} [filterDict=[]]
+*/
+export const filterItem = function (list = [], filterDict_ = {}) {
+  const filterDict = cloneDeep(filterDict_)
+  delete filterDict.综合值
+  for (let item of list) {
+    const appdata = JSON.parse(item.getAttribute('appdata'))
+    for (let key of Object.keys(filterDict)) {
+      const [x1, x2] = filterDict[key]
+      const value = appdata[key]
+      if (x1 > value || x2 < value) {
+        item.classList.add('none')
+      }
+    }
+  }
 }

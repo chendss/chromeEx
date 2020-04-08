@@ -3,6 +3,7 @@ import Html from './index.html'
 import clearBaidu from './baidu'
 import autoFun from './auto'
 import { insertBody } from '@/utils'
+import addLoading from './loading'
 
 
 const addMeta = function () {
@@ -11,17 +12,6 @@ const addMeta = function () {
     const metaUTF8 = document.createElement('meta')
     metaUTF8.setAttribute('charset', 'utf-8')
     head.appendChild(metaUTF8)
-  })
-}
-
-const addClearBtn = function () {
-  window.addEventListener('load', () => {
-    insertBody(Html['clearBtn'])
-    const doc = document.querySelector('#clearBtn')
-    doc.addEventListener('click', () => {
-      chrome.runtime.sendMessage('clearStore')
-    })
-
   })
 }
 
@@ -35,5 +25,5 @@ export default function () {
   clearBaidu()
   clearLink()
   autoFun()
-  // addClearBtn()
+  addLoading()
 }
