@@ -1,8 +1,8 @@
 import './index.scss'
-import { get, strFormat, merge } from '@/utils'
 import Html from './index.html'
 import { set, cloneDeep } from 'lodash'
 import { es, q, e, toArray } from '@/utils/tools'
+import { get, strFormat, merge, jsonParse } from '@/utils'
 
 const forEachPanel = function (panels, callback) {
   panels.forEach((panel, i) => {
@@ -59,7 +59,7 @@ class SearchFilter {
       const tags = es(panel, `.content_row[key="${itemKey}"] .tags .cy_tag`)
       tags.forEach(tag => tag.setAttribute('type', ''))
       if (val != null) {
-        const tag = tags.find(tag => tag.getAttribute('value') === JSON.stringify(val))
+        const tag = tags.find(tag => [JSON.stringify(val), val].includes(tag.getAttribute('value')))
         if (tag != null) {
           tag.setAttribute('type', 'p')
         }
@@ -125,7 +125,7 @@ class SearchFilter {
         this.state[key].comprehensive = null
       }
       const values = this.stateCopy[key]
-      const targetValues = JSON.parse(target.getAttribute('value'))
+      const targetValues = jsonParse(target.getAttribute('value'))
       values[rowKey] = targetValues
       this.state[key] = values
       this.inputFormTag(key, row, targetValues)

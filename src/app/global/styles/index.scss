@@ -29,7 +29,11 @@
   }
 
   .none {
-    display: none;
+    opacity   : 0;
+    height    : 0;
+    width     : 0;
+    visibility: hidden;
+    display   : none !important;
   }
 
   #clearBtn {

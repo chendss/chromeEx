@@ -229,6 +229,14 @@ export const merge = function () {
   })
 }
 
+export const jsonParse = function (obj) {
+  try {
+    return JSON.parse(obj)
+  } catch (error) {
+    return obj
+  }
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {

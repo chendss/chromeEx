@@ -1,6 +1,6 @@
 import Config from '../../assets/custom'
 import { set, sumBy, sortBy, cloneDeep } from 'lodash'
-import { get, pointDistance } from "../../utils"
+import { get, pointDistance, jsonParse } from "../../utils"
 
 /**
 * transferInfo html代码生成
@@ -146,7 +146,9 @@ const addNone = function (appdata, filterDict) {
   for (let key of Object.keys(filterDict)) {
     const [x1, x2] = filterDict[key]
     const value = appdata[key]
-    if (x1 > value || x2 < value) {
+    if ([x1, x2].every(i => i == 0)) {
+      continue
+    } else if (value < x1 || value > x2) {
       return true
     }
   }
@@ -163,7 +165,7 @@ export const filterItem = function (list = [], filterDict_ = {}) {
   const filterDict = cloneDeep(filterDict_)
   delete filterDict.综合值
   for (let item of list) {
-    const appdata = JSON.parse(item.getAttribute('appdata'))
+    const appdata = jsonParse(item.getAttribute('appdata'))
     if (addNone(appdata, filterDict)) {
       item.classList.add('none')
     } else {

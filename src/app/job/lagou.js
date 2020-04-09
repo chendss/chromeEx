@@ -9,7 +9,7 @@ import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q } from '@/utils/tools'
 import { transferDataProcess, sortItem, filterItem } from './tools'
-import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading } from '@/utils'
+import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
 
 const globalConfig = {
   pageIndex: 1,
@@ -124,13 +124,16 @@ const createContent = async function () {
 }
 
 const insertData = function () {
-  const k = setInterval(async () => {
-    if (globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total) {
-      clearInterval(k)
-    } else {
-      createContent()
-    }
-  }, 1.5 * 1000)
+  return new Promise((resolve) => {
+    const k = setInterval(() => {
+      if (globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total) {
+        clearInterval(k)
+        resolve()
+      } else {
+        createContent()
+      }
+    }, 1.5 * 1000)
+  })
 }
 
 const createMap = async function () {
@@ -156,7 +159,7 @@ const onConfirm = function (data, ul) {
   let result = [...list]
   if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
     result = sortBy(list, (o) => {
-      const appdata = JSON.parse(o.getAttribute('appdata'))
+      const appdata = jsonParse(o.getAttribute('appdata'))
       return sortItem(sortDict, perfect, appdata)
     })
   }
@@ -173,7 +176,7 @@ export default async function () {
   await createMap()
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
-  insertData()
+  await insertData()
   window.createContent = createContent
   window.postionMap = postionMap
   globalConfig.searchFilter = SearchFilter.new({
