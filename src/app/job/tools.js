@@ -142,6 +142,17 @@ export const sortItem = function (sortDict, perfect, appData) {
   return sortType * value
 }
 
+const addNone = function (appdata, filterDict) {
+  for (let key of Object.keys(filterDict)) {
+    const [x1, x2] = filterDict[key]
+    const value = appdata[key]
+    if (x1 > value || x2 < value) {
+      return true
+    }
+  }
+  return false
+}
+
 /**
 * 过滤item
 *
@@ -153,12 +164,10 @@ export const filterItem = function (list = [], filterDict_ = {}) {
   delete filterDict.综合值
   for (let item of list) {
     const appdata = JSON.parse(item.getAttribute('appdata'))
-    for (let key of Object.keys(filterDict)) {
-      const [x1, x2] = filterDict[key]
-      const value = appdata[key]
-      if (x1 > value || x2 < value) {
-        item.classList.add('none')
-      }
+    if (addNone(appdata, filterDict)) {
+      item.classList.add('none')
+    } else {
+      item.classList.remove('none')
     }
   }
 }

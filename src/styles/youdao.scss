@@ -3,6 +3,7 @@
 }
 
 #nav {
+
   .topnav[href="https://ke.youdao.com/?keyfrom=dict2.top"],
   .topnav[href="http://note.youdao.com/?keyfrom=dict2.top"],
   .topnav[href="http://www.huihui.cn/?keyfrom=dict2.top"] {
@@ -10,7 +11,11 @@
   }
 }
 
-#follow {
+#follow,
+.side__nav,
+.fanyi__footer,
+.inside__products,
+.fanyi__nav__list {
   display: none;
 }
 

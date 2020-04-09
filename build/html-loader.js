@@ -1,11 +1,14 @@
 
+const cheerio = require('cheerio')
+
 module.exports = function (source) {
-  const items = source.split('<!>')
+  const $ = cheerio.load(source, { decodeEntities: false })
   let result = {}
-  for (let item of items) {
-    const lines = item.split('\r\n').filter(line => line !== '')
-    const key = lines.shift()
-    result[key] = lines.join('\r\n')
-  }
+  $('body>*').each((index, ele) => {
+    let dom = $(ele)
+    let key = dom.attr('ident')
+    let html = dom.toString()
+    result[key] = html
+  })
   return `const result = ${JSON.stringify(result)}; export default result`
 }
