@@ -32,6 +32,7 @@
     opacity   : 0;
     height    : 0;
     width     : 0;
+    z-index   : -10;
     visibility: hidden;
     display   : none !important;
   }
@@ -40,6 +41,10 @@
     position: fixed;
     left    : 50px;
     top     : 50px;
+  }
+
+  .empty_box {
+    @include empty_element();
   }
 
   body {

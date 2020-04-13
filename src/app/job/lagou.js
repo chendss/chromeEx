@@ -7,9 +7,10 @@ import Html from './lagou.html'
 import GMap from '@/common/Map'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
-import { qs as toolsQs, es, q } from '@/utils/tools'
+import { qs as toolsQs, es, q, e } from '@/utils/tools'
 import { transferDataProcess, sortItem, filterItem } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
+import DB from '@/utils/DB'
 
 const globalConfig = {
   pageIndex: 1,
@@ -18,7 +19,12 @@ const globalConfig = {
 }
 
 const getItemDataValue = function (priceList, item, data) {
-  const transfer = item.transferList[0]
+  const transferList = item.transferList
+  const index = get(DB.get('lagou_'), 'index', 0)
+  const transfer = get(transferList, index, null)
+  if (transfer == null) {
+    return JSON.stringify(null)
+  }
   const time = Number(transfer.find(t => t.text === '最短时间').value.replace('分钟', ''))
   const number = transfer.find(t => t.text === '换乘次数').value
   const price = priceList[0]
@@ -55,7 +61,8 @@ const itemHtml = function (item, data) {
 
 const searchText = function () {
   const href = decodeURIComponent(window.location.href)
-  const listStr = href.split('//')[1].split('/').find(l => l.includes('list_'))
+  const href_ = href.split('?')[0]
+  const listStr = href_.split('//')[1].split('/').find(l => l.includes('list_'))
   const text = listStr.split('_')[1]
   return text
 }
@@ -120,26 +127,15 @@ const createContent = async function () {
   const res = await axios.post(...pageDataConfig())
   const data = resultDataAction(res)
   const list = get(data, 'result', [])
-  insertHtml(list, data)
+  return insertHtml(list, data)
 }
 
-const insertData = function () {
-  return new Promise((resolve) => {
-    const k = setInterval(() => {
-      if (globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total) {
-        clearInterval(k)
-        resolve()
-      } else {
-        createContent()
-      }
-    }, 1.5 * 1000)
-  })
-}
-
-const createMap = async function () {
-  const map = new GMap('body')
-  await map.init()
-  globalConfig.map = map
+const insertData = async function () {
+  let status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
+  while (!status) {
+    await createContent()
+    status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
+  }
 }
 
 const postionMap = async function (经度, 纬度, name) {
@@ -160,6 +156,9 @@ const onConfirm = function (data, ul) {
   if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
     result = sortBy(list, (o) => {
       const appdata = jsonParse(o.getAttribute('appdata'))
+      if (appdata == null) {
+        return false
+      }
       return sortItem(sortDict, perfect, appdata)
     })
   }
@@ -169,19 +168,93 @@ const onConfirm = function (data, ul) {
   ul.innerHTML = ''
   result.forEach(item => ul.appendChild(item))
   closeLoading()
+
+}
+const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
+  const href = iframeWin.location.href
+  const check = function () {
+    return new Promise((resolve) => {
+      const k = setInterval(() => {
+        if (href !== iframeWin.location.href) {
+          clearInterval(k)
+          resolve()
+        }
+      }, 100)
+    })
+  }
+  btn.addEventListener('click', async () => {
+    setTimeout(() => {
+      body.removeChild(iframe)
+    }, 3000)
+    await check()
+    body.removeChild(iframe)
+    sendBtn.innerText = '已投递'
+  })
+
+}
+
+const sendDoc = function (target, positionId, showId) {
+  const parent = target.parentElement.parentElement
+  const iframe = document.createElement('iframe')
+  iframe.classList.add('empty_box')
+  iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
+  const body = q('body')
+  body.insertAdjacentElement('beforeend', iframe)
+  iframe.onload = () => {
+    try {
+      const iframeWin = iframe.contentWindow
+      const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
+      if (btn == null) return
+      const innerText = btn.innerText
+      const sendBtn = parent.querySelector('.send_doc')
+      sendBtn.innerText = innerText
+      iframeLoad(iframeWin, iframe, body, sendBtn, btn)
+      if (!innerText.includes('已投递')) {
+        btn.click()
+      }
+    } catch (error) {
+      console.log('报错哈', error)
+      window.open(iframe.src)
+      body.removeChild(iframe)
+    }
+  }
+}
+
+const batchClick = function (data, ul) {
+  const list = es(ul, '.con_list_item.my-item')
+  list.filter(item => !item.classList.contains('none')).forEach((div, i) => {
+    const btn = e(div, '.cy_btn.send_doc')
+    setTimeout(() => {
+      btn.click()
+    }, i * 0.1 * 300)
+  })
+}
+
+const check = function () {
+  const list = es(ul, '.con_list_item.my-item')
+  const div = list[0]
+  const btn = e(div, '.cy_btn.send_doc')
+  btn.click()
 }
 
 export default async function () {
+  const href = window.location.href
+  if (href.includes('sec.lagou')) {
+    return
+  }
   openLoading()
-  await createMap()
   const ul = document.querySelector('#s_position_list .item_con_list')
   ul.innerHTML = ''
-  await insertData()
+  globalConfig.map = await GMap.new('body')
   window.createContent = createContent
   window.postionMap = postionMap
+  window.sendDoc = sendDoc
   globalConfig.searchFilter = SearchFilter.new({
     selector: '#filterBox',
-    onConfirm: (data) => onConfirm(data, ul)
+    onConfirm: (data) => onConfirm(data, ul),
+    batchClick: (data) => batchClick(data, ul),
+    check: () => check(ul)
   })
+  await insertData()
   closeLoading()
 }

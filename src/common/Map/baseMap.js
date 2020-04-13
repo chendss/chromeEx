@@ -4,6 +4,7 @@ import { throttle } from 'lodash'
 import Config from '../../assets/custom'
 import { createScriptFormRemote, random, get, strFormat } from '../../utils'
 import { transferProcess, homeClick, postionEnter } from './tools'
+import { toArray } from '@/utils/tools'
 
 class BaseMap {
   constructor(selector, id, mapId) {
@@ -31,7 +32,7 @@ class BaseMap {
     this.keyword = ''
   }
 
-  get 当前交通方式() {
+  get 当前交通方式 () {
     const tabs = [...document.querySelectorAll(`#${this.id} .tr-btn-box .tr-tab`)]
     return tabs.find(tab => tab.getAttribute('active') === 'active').getAttribute('type')
   }
@@ -41,7 +42,7 @@ class BaseMap {
    *
    * @memberof BaseMap
    */
-  clearResult() {
+  clearResult () {
     this.map.clearMap()
     const trBox = document.querySelector(`#${this.id} .result-box`)
     trBox.querySelector('#lu-result').innerHTML = ''
@@ -52,7 +53,7 @@ class BaseMap {
    *
    * @memberof BaseMap
    */
-  transferInit() {
+  transferInit () {
     const transOptions = {
       city: '广州市',
       map: this.map,
@@ -82,7 +83,7 @@ class BaseMap {
    * @param {*} targetPoint 起点
    * @memberof BaseMap
    */
-  transfer(point, targetPoint, type = 'map') {
+  transfer (point, targetPoint, type = 'map') {
     let transfer_ = null
     if (type === 'map') {
       this.map.clearMap()
@@ -91,22 +92,23 @@ class BaseMap {
       transfer_ = this.transferApi
     }
     return new Promise((resolve, reject) => {
+      const targetPoint_ = toArray(targetPoint).map(i => Number(i))
       transfer_.search(
         new AMap.LngLat(...point),
-        new AMap.LngLat(...targetPoint),
+        new AMap.LngLat(...targetPoint_),
         function (status, result) {
           if (status === 'complete') {
             const res = transferProcess(result)
             resolve({ result, res })
           } else {
-            reject()
-            console.log('公交路线数据查询失败', result)
+            resolve()
+            console.log('公交路线数据查询失败', point, targetPoint_, result)
           }
         })
     })
   }
 
-  driving(point, targetPoint) {
+  driving (point, targetPoint) {
     this.map.clearMap()
     this.drivingObj.search(
       new AMap.LngLat(...point),
@@ -120,7 +122,7 @@ class BaseMap {
       })
   }
 
-  addMark(point, name) {
+  addMark (point, name) {
     const marker = new AMap.Marker({
       position: new AMap.LngLat(...point),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
       title: name
@@ -133,7 +135,7 @@ class BaseMap {
    *
    * @memberof BaseMap
    */
-  panTo(point, name) {
+  panTo (point, name) {
     document.querySelector(`#${this.id}`).classList.remove('none')
     this.map.panTo(point)
     this.当前坐标 = point
@@ -144,7 +146,7 @@ class BaseMap {
     this.map.setZoom(12)
   }
 
-  chooseOption(keyword) {
+  chooseOption (keyword) {
     const code = keyword.split('||')[1]
     const datalistDom = document.querySelector('#search-list')
     const datalist = JSON.parse(datalistDom.getAttribute('data'))
@@ -168,7 +170,7 @@ class BaseMap {
  * @returns
  * @memberof Map
  */
-  search(callback) {
+  search (callback) {
     const keyword = this.keyword
     if (keyword.includes('||')) {
       this.chooseOption(keyword)
@@ -193,7 +195,7 @@ class BaseMap {
     }
   }
 
-  onComplete(positionInfo) {
+  onComplete (positionInfo) {
     this.浏览器定位信息 = {
       allInfo: positionInfo,
       address: get(positionInfo, 'formattedAddress'),
@@ -204,11 +206,11 @@ class BaseMap {
     console.log('定位信息', this.浏览器定位信息)
   }
 
-  onError(...args) {
+  onError (...args) {
     console.log('定位报错信息', ...args)
   }
 
-  postionSelf() {
+  postionSelf () {
     this.map.plugin('AMap.Geolocation', () => {
       const geolocation = new AMap.Geolocation({
         maximumAge: 0,           //定位结果缓存0毫秒，默认：0
@@ -230,14 +232,14 @@ class BaseMap {
     })
   }
 
-  mapSearchCreate() {
+  mapSearchCreate () {
     this.map.plugin('AMap.Autocomplete', () => {
       const autoOptions = { city: '全国' }
       this.autocomplete = new AMap.Autocomplete(autoOptions)
     })
   }
 
-  addHome() {
+  addHome () {
     let btnList = Object.keys(this.config.homeDict || {}).map(key => {
       const point = this.config.homeDict[key]
       const btnHtml = strFormat(Html['button'], { key, point: JSON.stringify(point) })
@@ -247,7 +249,7 @@ class BaseMap {
     return html
   }
 
-  searchInput(event) {
+  searchInput (event) {
     const target = event.target
     const val = get(target, 'value', null)
     if (val === '' || val == null || this.keyword == val) {
@@ -258,7 +260,7 @@ class BaseMap {
     }
   }
 
-  addListener(eventConfig) {
+  addListener (eventConfig) {
     const searchBox = document.querySelector('#search-input')
     const trTabBox = document.querySelector('.tr-btn-box')
     const fun = throttle(this.searchInput.bind(this), 500)
@@ -292,7 +294,7 @@ class BaseMap {
    * @returns
    * @memberof BaseMap
    */
-  init(eventConfig) {
+  init (eventConfig) {
     return new Promise((resolve, reject) => {
       window.onload = () => {
         const html = strFormat(Html['gaode-map'], {

@@ -14,18 +14,31 @@ class Map {
     this.element = { btns: [], tabs: [] }
   }
 
-  async getMapData(point, targetPoint) {
+  static async new (selector) {
+    const map = new this(selector)
+    await map.init()
+    return map
+  }
+
+  async getMapData (point, targetPoint) {
     window.keep = false
     const routeId = [...point, ...targetPoint].map(p => (p + '').replace('.', '')).join('')
     const data = await datasetFind(this.DB, { routeId })
     if (data != null) {
       const result = { ...get(data, 'content', {}) }
-      set(result, 'keep', true)
       window.keep = true
+      if (Object.keys(result).length === 0) {
+        return true
+      }
+      set(result, 'keep', true)
       return result
     } else {
       window.keep = false
       let content = await this.Gmap.transfer(point, targetPoint, 'api')
+      if (content == null) {
+        await this.DB.insert({ routeId })
+        return
+      }
       const result = { content: { res: content.res, result: {} }, routeId }
       await this.DB.insert(result)
       return content
@@ -39,7 +52,7 @@ class Map {
    * @returns
    * @memberof Map
    */
-  async transfersPoint(targetPoint) {
+  async transfersPoint (targetPoint) {
     let promiseList = []
     const homeDict = this.Gmap.config.homeDict
     for (let key of Object.keys(homeDict)) {
@@ -48,14 +61,14 @@ class Map {
       promiseList.push(fun)
     }
     const result = await Promise.all(promiseList)
-    return result
+    return result.filter(item => item != null)
   }
 
-  changeMapSrc(point) {
+  changeMapSrc (point) {
     this.Gmap.transfer(point)
   }
 
-  goPoint(经度, 纬度, name) {
+  goPoint (经度, 纬度, name) {
     const point = [经度, 纬度]
     this.Gmap.panTo(point, name)
     const btn = this.element.btns[0]
@@ -64,7 +77,7 @@ class Map {
     tab.click()
   }
 
-  homeBtnClickCallback(point, type) {
+  homeBtnClickCallback (point, type) {
     if (type === 'bus') {
       this.Gmap.transfer(point, this.Gmap.当前坐标)
     } else if (type === 'drive') {
@@ -72,13 +85,13 @@ class Map {
     }
   }
 
-  transferTabChange(target) {
+  transferTabChange (target) {
     console.log('切换tab', target)
     const btn = this.element.btns.find(b => b.getAttribute('type') === 'p')
     btn.click()
   }
 
-  init() {
+  init () {
     const eventConfig = {
       init: (element) => this.element = element,
       transferTabChange: this.transferTabChange.bind(this),

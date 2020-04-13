@@ -153,6 +153,14 @@ class SearchFilter {
       const values = merge(cloneDeep(this.stateCopy), param)
       get(this.props, 'onConfirm', () => { })(values)
     })
+    const batch_btn = e(this.parent, '.batch_click')
+    const check_btn = e(this.parent, '.check')
+    batch_btn.addEventListener('click', () => {
+      get(this.props, 'batchClick', () => { })()
+    })
+    check_btn.addEventListener('click', () => {
+      get(this.props, 'check', () => { })()
+    })
   }
 }
 

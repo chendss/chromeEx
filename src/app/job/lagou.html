@@ -1,10 +1,21 @@
-<li class="con_list_item first_row default_list my-item" price="{price}" ident="con_list_item" minprice="{minprice}"
-  maxprice="{maxprice}" appdata="[appdata]" averageprice="{averageprice}">
+<li
+  class="con_list_item first_row default_list my-item"
+  price="{price}"
+  ident="con_list_item"
+  minprice="{minprice}"
+  maxprice="{maxprice}"
+  appdata="[appdata]"
+  averageprice="{averageprice}"
+>
   <span class="top_icon direct_recruitment"></span>
   <div class="list_item_top">
     <div class="position">
       <div class="p_top">
-        <a class="position_link" href="https://www.lagou.com/jobs/{positionId}.html?show={showId}" target="_blank">
+        <a
+          class="position_link"
+          href="https://www.lagou.com/jobs/{positionId}.html?show={showId}"
+          target="_blank"
+        >
           <h3 style="max-width: 180px;">{positionName}</h3>
           <span class="add">[<em>{district}</em>]</span>
         </a>
@@ -20,8 +31,14 @@
     </div>
     <div class="company">
       <div class="company_name">
-        <a href="https://www.lagou.com/gongsi/{companyId}.html" target="_blank"
-          title="{companyFullName}">{companyFullName}</a><i class="company_mark"><span>该企业已上传营业执照并通过资质验证审核</span></i>
+        <a
+          href="https://www.lagou.com/gongsi/{companyId}.html"
+          target="_blank"
+          title="{companyFullName}"
+          >{companyFullName}</a
+        ><i class="company_mark"
+          ><span>该企业已上传营业执照并通过资质验证审核</span></i
+        >
       </div>
       <div class="industry">
         {industryField} / {financeStage} / {companySize}
@@ -29,7 +46,12 @@
     </div>
     <div class="com_logo">
       <a href="https://www.lagou.com/gongsi/{companyId}.html" target="_blank">
-        <img src="//www.lgstatic.com/thumbnail_120x120/{companyLogo}" alt="{positionName}" width="60" height="60" />
+        <img
+          src="//www.lgstatic.com/thumbnail_120x120/{companyLogo}"
+          alt="{positionName}"
+          width="60"
+          height="60"
+        />
       </a>
     </div>
   </div>
@@ -54,12 +76,25 @@
       公司标签： {companyLabelList}
     </div>
   </div>
-  <div class="map-extra-info" postion="{longitude},{latitude}" datavalue="[transferList]">
+  <div
+    class="map-extra-info"
+    postion="{longitude},{latitude}"
+    datavalue="[transferList]"
+  >
     {transferListHtml}
   </div>
   <div class="action-box">
-    <button class="cy_btn" onclick="postionMap({longitude},{latitude},'{companyFullName}')">
+    <button
+      class="cy_btn"
+      onclick="postionMap({longitude},{latitude},'{companyFullName}')"
+    >
       地图定位
+    </button>
+    <button
+      class="cy_btn send_doc"
+      onclick="sendDoc(this,{positionId},{showId})"
+    >
+      投递简历
     </button>
   </div>
 </li>

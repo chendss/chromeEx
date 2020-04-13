@@ -54,8 +54,8 @@ export const transferDataProcess = async function (item, map) {
     const averageTime = Math.floor(((sumBy(sortData, 'time') / length)) / 60)
     const averageCost = sumBy(sortData, 'cost') / length
     const transferToNum = sumBy(sortData, d => d.busList.length) / length
-    const minTime = sortData[0].time
-    const maxTime = sortData[length - 1].time
+    const minTime = get(sortData, '[0].time', 0)
+    const maxTime = get(sortData, `[${length - 1}].time`, 0)
     transferList.push([
       {
         text: '平均时间',
@@ -63,11 +63,11 @@ export const transferDataProcess = async function (item, map) {
       },
       {
         text: '平均价格',
-        value: averageCost
+        value: averageCost.toFixed(2)
       },
       {
         text: '换乘次数',
-        value: transferToNum
+        value: transferToNum.toFixed(2)
       },
       {
         text: '最短时间',
