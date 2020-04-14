@@ -168,6 +168,21 @@ class BaseMap {
     }
   }
 
+  searchKeyword (keyword) {
+    return new Promise(resolve => {
+      this.autocomplete.search(keyword, (status, result) => {
+        console.log('搜索结果', status, result)
+        if (status === 'complete') {
+          const titps = get(result, 'tips', [])
+          const list = titps.map(item => {
+            return item
+          })
+          resolve(list)
+        }
+      })
+    })
+  }
+
   /**
  * 查询关键字
  *

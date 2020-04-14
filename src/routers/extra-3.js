@@ -36,4 +36,8 @@ export default {
     js: () => require('@/app/job/boss').default(),
     css: () => require('@/app/job/boss.scss'),
   },
+  'job-51job': {
+    js: () => require('@/app/job/51job').default(),
+    css: () => require('@/app/job/51job.scss'),
+  },
 }

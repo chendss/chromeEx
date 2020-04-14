@@ -20,6 +20,10 @@ class Map {
     return map
   }
 
+  searchKeyword (key) {
+    return this.Gmap.searchKeyword(key)
+  }
+
   async getMapData (point, targetPoint) {
     window.keep = false
     const routeId = [...point, ...targetPoint].map(p => (p + '').replace('.', '')).join('')
