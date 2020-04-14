@@ -92,7 +92,12 @@ class BaseMap {
       transfer_ = this.transferApi
     }
     return new Promise((resolve, reject) => {
-      const targetPoint_ = toArray(targetPoint).map(i => Number(i))
+      const targetPoint_ = toArray(targetPoint).map(i => Number(i)).filter(i => i != null)
+      if (targetPoint_.length <= 0) {
+        console.log('目的地坐标错误', targetPoint_)
+        resolve()
+        return
+      }
       transfer_.search(
         new AMap.LngLat(...point),
         new AMap.LngLat(...targetPoint_),

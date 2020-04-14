@@ -32,4 +32,8 @@ export default {
     js: () => require('@/app/job/lagou').default(),
     css: () => require('@/app/job/lagou.scss'),
   },
+  'job-boss': {
+    js: () => require('@/app/job/boss').default(),
+    css: () => require('@/app/job/boss.scss'),
+  },
 }

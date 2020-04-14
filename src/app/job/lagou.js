@@ -2,6 +2,7 @@ import qs from 'qs'
 import 'jquery-modal'
 import $ from 'jquery'
 import axios from 'axios'
+import DB from '@/utils/DB'
 import cookies from 'js-cookie'
 import Html from './lagou.html'
 import GMap from '@/common/Map'
@@ -10,7 +11,6 @@ import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q, e } from '@/utils/tools'
 import { transferDataProcess, sortItem, filterItem } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
-import DB from '@/utils/DB'
 
 const globalConfig = {
   pageIndex: 1,
@@ -37,6 +37,12 @@ const getItemDataValue = function (priceList, item, data) {
   return JSON.stringify(result)
 }
 
+const createAllData = function (item) {
+  const { positionId, showId } = item
+  const newItem = { positionId, showId }
+  delete newItem.transferListHtml
+  return JSON.stringify(newItem)
+}
 
 const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
@@ -55,7 +61,8 @@ const itemHtml = function (item, data) {
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
   })
   result = result.replace('"[transferList]"', JSON.stringify(item.transferList))
-  return result.replace('"[appdata]"', getItemDataValue(priceList, item))
+  result = result.replace('"[appdata]"', getItemDataValue(priceList, item))
+  return result.replace('"[alldata]"', createAllData(item))
 
 }
 
@@ -105,6 +112,9 @@ const insertHtml = async function (list, data) {
   let html = []
   for (let item of list) {
     let newItem = await transferDataProcess(item, globalConfig.map)
+    if (get(newItem, 'transferList.length', 0) <= 0) {
+      continue
+    }
     html.push(itemHtml(newItem, data))
     if (!window.keep) {
       console.log('非缓存取值', newItem)
@@ -134,6 +144,7 @@ const insertData = async function () {
   let status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
   while (!status) {
     await createContent()
+    await sleep(800)
     status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
   }
 }
@@ -170,9 +181,9 @@ const onConfirm = function (data, ul) {
   closeLoading()
 
 }
-const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
+const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, resolveParent) {
   const href = iframeWin.location.href
-  const check = function () {
+  const checkIframe = function () {
     return new Promise((resolve) => {
       const k = setInterval(() => {
         if (href !== iframeWin.location.href) {
@@ -185,8 +196,10 @@ const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
   btn.addEventListener('click', async () => {
     setTimeout(() => {
       body.removeChild(iframe)
+      resolveParent()
     }, 3000)
-    await check()
+    await checkIframe()
+    resolveParent()
     body.removeChild(iframe)
     sendBtn.innerText = '已投递'
   })
@@ -194,43 +207,50 @@ const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
 }
 
 const sendDoc = function (target, positionId, showId) {
-  const parent = target.parentElement.parentElement
-  const iframe = document.createElement('iframe')
-  iframe.classList.add('empty_box')
-  iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
-  const body = q('body')
-  body.insertAdjacentElement('beforeend', iframe)
-  iframe.onload = () => {
-    try {
-      const iframeWin = iframe.contentWindow
-      const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
-      if (btn == null) return
-      const innerText = btn.innerText
-      const sendBtn = parent.querySelector('.send_doc')
-      sendBtn.innerText = innerText
-      iframeLoad(iframeWin, iframe, body, sendBtn, btn)
-      if (!innerText.includes('已投递')) {
-        btn.click()
+  return new Promise((resolve) => {
+    const parent = target.parentElement.parentElement
+    const iframe = document.createElement('iframe')
+    iframe.classList.add('empty_box')
+    iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
+    const body = q('body')
+    body.insertAdjacentElement('beforeend', iframe)
+    iframe.onload = () => {
+      try {
+        const iframeWin = iframe.contentWindow
+        const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
+        if (btn == null) return
+        const innerText = btn.innerText
+        const sendBtn = parent.querySelector('.send_doc')
+        sendBtn.innerText = innerText
+        iframeLoad(iframeWin, iframe, body, sendBtn, btn, resolve)
+        if (!innerText.includes('已投递')) {
+          btn.click()
+        }
+      } catch (error) {
+        console.log('报错哈', error)
+        window.open(iframe.src)
+        body.removeChild(iframe)
+        resolve()
       }
-    } catch (error) {
-      console.log('报错哈', error)
-      window.open(iframe.src)
-      body.removeChild(iframe)
     }
-  }
-}
-
-const batchClick = function (data, ul) {
-  const list = es(ul, '.con_list_item.my-item')
-  list.filter(item => !item.classList.contains('none')).forEach((div, i) => {
-    const btn = e(div, '.cy_btn.send_doc')
-    setTimeout(() => {
-      btn.click()
-    }, i * 0.1 * 300)
   })
 }
 
-const check = function () {
+const batchClick = async function (ul) {
+  openLoading()
+  const list = es(ul, '.con_list_item.my-item')
+  const filterList = list.filter(item => !item.classList.contains('none')).slice(0, 40)
+  for (let div of filterList) {
+    const btn = e(div, '.cy_btn.send_doc')
+    const data = { ...jsonParse(div.getAttribute('alldata')) }
+    const { positionId, showId } = data
+    console.log('你有啥', data)
+    await sendDoc(btn, positionId, showId)
+  }
+  closeLoading()
+}
+
+const check = function (ul) {
   const list = es(ul, '.con_list_item.my-item')
   const div = list[0]
   const btn = e(div, '.cy_btn.send_doc')
@@ -252,7 +272,7 @@ export default async function () {
   globalConfig.searchFilter = SearchFilter.new({
     selector: '#filterBox',
     onConfirm: (data) => onConfirm(data, ul),
-    batchClick: (data) => batchClick(data, ul),
+    batchClick: (data) => batchClick(ul),
     check: () => check(ul)
   })
   await insertData()
