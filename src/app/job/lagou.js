@@ -2,6 +2,7 @@ import qs from 'qs'
 import 'jquery-modal'
 import $ from 'jquery'
 import axios from 'axios'
+import DB from '@/utils/DB'
 import cookies from 'js-cookie'
 import Html from './lagou.html'
 import GMap from '@/common/Map'
@@ -10,7 +11,6 @@ import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q, e } from '@/utils/tools'
 import { transferDataProcess, sortItem, filterItem, waitWindowClose } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
-import DB from '@/utils/DB'
 
 const globalConfig = {
   pageIndex: 1,
@@ -38,7 +38,8 @@ const getItemDataValue = function (priceList, item, data) {
 }
 
 const createAllData = function (item) {
-  const newItem = { ...item, transferListHtml: '' }
+  const { positionId, showId } = item
+  const newItem = { positionId, showId }
   delete newItem.transferListHtml
   return JSON.stringify(newItem)
 }
@@ -110,6 +111,9 @@ const insertHtml = async function (list, data) {
   let html = []
   for (let item of list) {
     let newItem = await transferDataProcess(item, globalConfig.map)
+    if (get(newItem, 'transferList.length', 0) <= 0) {
+      continue
+    }
     html.push(itemHtml(newItem, data))
     if (!window.keep) {
       console.log('非缓存取值', newItem)
@@ -175,10 +179,9 @@ const onConfirm = function (data, ul) {
   closeLoading()
 
 }
-
-const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, parentResolve) {
+const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, resolveParent) {
   const href = iframeWin.location.href
-  const checkWin = function () {
+  const checkIframe = function () {
     return new Promise((resolve) => {
       const k = setInterval(() => {
         if (href !== iframeWin.location.href) {
@@ -192,8 +195,11 @@ const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, parentResolv
     setTimeout(() => {
       parentResolve()
       body.removeChild(iframe)
+      resolveParent()
     }, 3000)
-    await checkWin()
+    await checkIframe()
+    resolveParent()
+    body.removeChild(iframe)
     sendBtn.innerText = '已投递'
     parentResolve()
     body.removeChild(iframe)
@@ -209,7 +215,7 @@ const sendDoc = function (target, positionId, showId) {
     iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
     const body = q('body')
     body.insertAdjacentElement('beforeend', iframe)
-    iframe.onload = async () => {
+    iframe.onload = () => {
       try {
         const iframeWin = iframe.contentWindow
         const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
@@ -223,8 +229,7 @@ const sendDoc = function (target, positionId, showId) {
         }
       } catch (error) {
         console.log('报错哈', error)
-        const win = window.open(iframe.src)
-        await waitWindowClose(win)
+        window.open(iframe.src)
         body.removeChild(iframe)
         resolve()
       }
@@ -232,16 +237,18 @@ const sendDoc = function (target, positionId, showId) {
   })
 }
 
-const batchClick = async function (data, ul) {
+const batchClick = async function (ul) {
+  openLoading()
   const list = es(ul, '.con_list_item.my-item')
-  const filterList = list.filter(item => !item.classList.contains('none')).slice(0, 30)
-  console.log('不服气', list.length, filterList.length)
+  const filterList = list.filter(item => !item.classList.contains('none')).slice(0, 40)
   for (let div of filterList) {
-    const alldata = jsonParse(div.getAttribute('alldata'))
     const btn = e(div, '.cy_btn.send_doc')
-    const { positionId, showId } = alldata
+    const data = { ...jsonParse(div.getAttribute('alldata')) }
+    const { positionId, showId } = data
+    console.log('你有啥', data)
     await sendDoc(btn, positionId, showId)
   }
+  closeLoading()
 }
 
 const check = function (ul) {
@@ -266,7 +273,7 @@ export default async function () {
   globalConfig.searchFilter = SearchFilter.new({
     selector: '#filterBox',
     onConfirm: (data) => onConfirm(data, ul),
-    batchClick: (data) => batchClick(data, ul),
+    batchClick: (data) => batchClick(ul),
     check: () => check(ul)
   })
   await insertData()

@@ -92,10 +92,10 @@ class BaseMap {
       transfer_ = this.transferApi
     }
     return new Promise((resolve, reject) => {
-      const targetPoint_ = toArray(targetPoint).map(i => Number(i))
+      const targetPoint_ = toArray(targetPoint).map(i => Number(i)).filter(i => i != null)
       if (targetPoint_.length <= 0) {
+        console.log('目的地坐标错误', targetPoint_)
         resolve()
-        console.log('缺失目标坐标', point, targetPoint_)
         return
       }
       transfer_.search(
@@ -166,6 +166,21 @@ class BaseMap {
       this.当前坐标的名称 = name
       this.addMark(point, name)
     }
+  }
+
+  searchKeyword (keyword) {
+    return new Promise(resolve => {
+      this.autocomplete.search(keyword, (status, result) => {
+        console.log('搜索结果', status, result)
+        if (status === 'complete') {
+          const titps = get(result, 'tips', [])
+          const list = titps.map(item => {
+            return item
+          })
+          resolve(list)
+        }
+      })
+    })
   }
 
   /**

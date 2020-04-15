@@ -52,6 +52,6 @@
   }
 }
 
-.anmi:not(svg, i, use, path) {
+.am*:not(svg, i, use, path) {
   transition: all 0.3s;
 }

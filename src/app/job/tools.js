@@ -145,7 +145,7 @@ export const sortItem = function (sortDict, perfect, appData) {
 const addNone = function (appdata, filterDict) {
   for (let key of Object.keys(filterDict)) {
     const [x1, x2] = filterDict[key]
-    const value = get(appdata, key)
+    const value = get(appdata, key, null)
     if (value == null || [x1, x2].every(i => i == 0)) {
       continue
     } else if (value < x1 || value > x2) {

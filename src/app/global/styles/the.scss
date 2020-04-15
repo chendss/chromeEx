@@ -30,6 +30,7 @@
   }
 
   .cy_btn {
+    min-width  : 50px;
     white-space: nowrap;
     @include cy_cyFont_base();
     padding        : 0 16px;
