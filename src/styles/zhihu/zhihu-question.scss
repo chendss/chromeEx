@@ -47,21 +47,27 @@ $width: calc(100% - 80px); // TODO:
             }
           }
         }
+
+
       }
 
       .Question-mainColumn {
-        width       : calc(100% - 300px);
-        margin-right: 10px;
+        width: auto;
       }
-    }
 
-    .Question-sideColumn.Question-sideColumn--sticky {
-      width: 296px;
+      .Question-sideColumn.Question-sideColumn--sticky {
+        width      : max-content;
+        white-space: nowrap;
 
-      .Sticky {
-        .Card[data-za-detail-view-path-module="ContentList"] {
-          display: none;
+        .Sticky {
+          .Card[data-za-detail-view-path-module="ContentList"] {
+            display: none;
+          }
         }
+      }
+
+      .Question-mainColumn+.Question-sideColumn.Question-sideColumn--sticky {
+        margin-left: 8px;
       }
     }
   }

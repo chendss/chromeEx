@@ -8,7 +8,7 @@ import GMap from '@/common/Map'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q, e } from '@/utils/tools'
-import { transferDataProcess, sortItem, filterItem } from './tools'
+import { transferDataProcess, sortItem, filterItem, waitWindowClose } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
 import DB from '@/utils/DB'
 
@@ -37,6 +37,11 @@ const getItemDataValue = function (priceList, item, data) {
   return JSON.stringify(result)
 }
 
+const createAllData = function (item) {
+  const newItem = { ...item, transferListHtml: '' }
+  delete newItem.transferListHtml
+  return JSON.stringify(newItem)
+}
 
 const itemHtml = function (item, data) {
   const positionId = get(item, 'positionId', '')
@@ -55,8 +60,8 @@ const itemHtml = function (item, data) {
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
   })
   result = result.replace('"[transferList]"', JSON.stringify(item.transferList))
-  return result.replace('"[appdata]"', getItemDataValue(priceList, item))
-
+  result = result.replace('"[appdata]"', getItemDataValue(priceList, item))
+  return result.replace('"[alldata]"', createAllData(item))
 }
 
 const searchText = function () {
@@ -134,6 +139,7 @@ const insertData = async function () {
   let status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
   while (!status) {
     await createContent()
+    await sleep(800)
     status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
   }
 }
@@ -147,7 +153,6 @@ const postionMap = async function (经度, 纬度, name) {
 
 const onConfirm = function (data, ul) {
   openLoading()
-  console.log('数据', data)
   const list = es(ul, '.con_list_item')
   const sortDict = get(data, 'sort', {})
   const filterDict = get(data, 'filter', {})
@@ -170,9 +175,10 @@ const onConfirm = function (data, ul) {
   closeLoading()
 
 }
-const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
+
+const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, parentResolve) {
   const href = iframeWin.location.href
-  const check = function () {
+  const checkWin = function () {
     return new Promise((resolve) => {
       const k = setInterval(() => {
         if (href !== iframeWin.location.href) {
@@ -184,53 +190,61 @@ const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn) {
   }
   btn.addEventListener('click', async () => {
     setTimeout(() => {
+      parentResolve()
       body.removeChild(iframe)
     }, 3000)
-    await check()
-    body.removeChild(iframe)
+    await checkWin()
     sendBtn.innerText = '已投递'
+    parentResolve()
+    body.removeChild(iframe)
   })
 
 }
 
 const sendDoc = function (target, positionId, showId) {
-  const parent = target.parentElement.parentElement
-  const iframe = document.createElement('iframe')
-  iframe.classList.add('empty_box')
-  iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
-  const body = q('body')
-  body.insertAdjacentElement('beforeend', iframe)
-  iframe.onload = () => {
-    try {
-      const iframeWin = iframe.contentWindow
-      const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
-      if (btn == null) return
-      const innerText = btn.innerText
-      const sendBtn = parent.querySelector('.send_doc')
-      sendBtn.innerText = innerText
-      iframeLoad(iframeWin, iframe, body, sendBtn, btn)
-      if (!innerText.includes('已投递')) {
-        btn.click()
+  return new Promise((resolve) => {
+    const parent = target.parentElement.parentElement
+    const iframe = document.createElement('iframe')
+    iframe.classList.add('empty_box')
+    iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
+    const body = q('body')
+    body.insertAdjacentElement('beforeend', iframe)
+    iframe.onload = async () => {
+      try {
+        const iframeWin = iframe.contentWindow
+        const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
+        if (btn == null) return
+        const innerText = btn.innerText
+        const sendBtn = parent.querySelector('.send_doc')
+        sendBtn.innerText = innerText
+        iframeLoad(iframeWin, iframe, body, sendBtn, btn, resolve)
+        if (!innerText.includes('已投递')) {
+          btn.click()
+        }
+      } catch (error) {
+        console.log('报错哈', error)
+        const win = window.open(iframe.src)
+        await waitWindowClose(win)
+        body.removeChild(iframe)
+        resolve()
       }
-    } catch (error) {
-      console.log('报错哈', error)
-      window.open(iframe.src)
-      body.removeChild(iframe)
     }
-  }
-}
-
-const batchClick = function (data, ul) {
-  const list = es(ul, '.con_list_item.my-item')
-  list.filter(item => !item.classList.contains('none')).forEach((div, i) => {
-    const btn = e(div, '.cy_btn.send_doc')
-    setTimeout(() => {
-      btn.click()
-    }, i * 0.1 * 300)
   })
 }
 
-const check = function () {
+const batchClick = async function (data, ul) {
+  const list = es(ul, '.con_list_item.my-item')
+  const filterList = list.filter(item => !item.classList.contains('none')).slice(0, 30)
+  console.log('不服气', list.length, filterList.length)
+  for (let div of filterList) {
+    const alldata = jsonParse(div.getAttribute('alldata'))
+    const btn = e(div, '.cy_btn.send_doc')
+    const { positionId, showId } = alldata
+    await sendDoc(btn, positionId, showId)
+  }
+}
+
+const check = function (ul) {
   const list = es(ul, '.con_list_item.my-item')
   const div = list[0]
   const btn = e(div, '.cy_btn.send_doc')

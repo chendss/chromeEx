@@ -2,39 +2,53 @@
   .Sticky.AppHeader.is-hidden.is-fixed {
     height: 80px;
   }
+
   .App-main {
-    display: flex;
+    display        : flex;
     justify-content: center;
+
     .Search-container {
-      width: calc(100vw - 80px);
-      max-width: 100vw;
-      > div {
+      width     : calc(100vw - 80px);
+      max-width : 100vw;
+      margin    : 0;
+      margin-top: 8px;
+      padding   : 0;
+
+      >div {
         &:not(.SearchMain) {
           display: none;
         }
       }
+
       .SearchMain {
-        width: 100%;
+        width : 100%;
         margin: 0;
       }
+
       .SearchSideBar {
         display: none;
       }
     }
   }
+
   .Tabs-item.Tabs-item--noMeta {
     padding: 0;
+
     .Tabs-link {
       margin: 10px;
     }
+
     a[href="/search?q=%E8%90%A7%E4%BA%95%E9%99%8C&type=album&utm_content=search_suggestion"] {
       display: none;
     }
   }
+
   header {
     $search-w: 600px; // TODO:
+
     .SearchBar-toolWrapper {
       width: $search-w;
+
       .SearchBar-input {
         width: $search-w;
       }
