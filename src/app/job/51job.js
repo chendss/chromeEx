@@ -27,9 +27,8 @@ const nextPageUrl = function (nextIndex) {
 }
 
 
-
-const requestData = async function (index) {
-  const res = await axios.get(nextPageUrl(index), {
+const getData = async function (url) {
+  const res = await axios.get(url, {
     responseType: 'blob',
     transformResponse: [
       (data) => {
@@ -44,6 +43,13 @@ const requestData = async function (index) {
     ]
   })
   const data = await res.data
+  return { ...res, data }
+}
+
+
+const requestData = async function (index) {
+  const res = await getData(nextPageUrl(index))
+  const data = await res.data
   const p = new DOMParser()
   const Html = p.parseFromString(data, "text/html")
   const list = [...Html.querySelectorAll('#resultList .el:not(.title)')].filter(item => item.querySelector('.t4').innerText != '')
@@ -55,6 +61,7 @@ const insertData = async function (ul) {
   let promiseList = []
   for (let i = (index + 1); i < total; i++) {
     promiseList.push(requestData(i))
+    globalConfig.index += 1
   }
   const res = await Promise.all(promiseList)
   const domList = flatten(res)
@@ -83,6 +90,8 @@ const init = function (ul) {
       item.classList.add('none')
     } else {
       const id = e(item, '.t1 input').value
+      const url = `https://search.51job.com/jobsearch/bmap/map.php?jobid=${id}`
+      const dom = getData(url).then(res => console.log('什么垃圾', res))
       const param = {
         price: parsePrice(e(item, '.t4').innerText),
         id
