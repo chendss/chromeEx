@@ -1,5 +1,10 @@
 @import "./info.scss"; // TODO:
 
-.dw_wp {
-  width: calc(100% - 300px);
+.dw_filter {
+  width      : 120%;
+  margin-left: -10%;
+}
+
+.dw_table .el {
+  height: 80px;
 }
