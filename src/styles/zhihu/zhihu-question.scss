@@ -52,12 +52,11 @@ $width: calc(100% - 80px); // TODO:
       }
 
       .Question-mainColumn {
-        width: auto;
+        flex: 1 1 auto;
       }
 
       .Question-sideColumn.Question-sideColumn--sticky {
-        width      : max-content;
-        white-space: nowrap;
+        width: 300px;
 
         .Sticky {
           .Card[data-za-detail-view-path-module="ContentList"] {
