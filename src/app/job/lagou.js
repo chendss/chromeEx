@@ -9,32 +9,13 @@ import GMap from '@/common/Map'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q, e } from '@/utils/tools'
-import { transferDataProcess, sortItem, filterItem, waitWindowClose } from './tools'
+import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
 
 const globalConfig = {
   pageIndex: 1,
   total: null,
   map: null
-}
-
-const getItemDataValue = function (priceList, item, data) {
-  const transferList = item.transferList
-  const index = get(DB.get('lagou_'), 'index', 0)
-  const transfer = get(transferList, index, null)
-  if (transfer == null) {
-    return JSON.stringify(null)
-  }
-  const time = Number(transfer.find(t => t.text === '最短时间').value.replace('分钟', ''))
-  const number = transfer.find(t => t.text === '换乘次数').value
-  const price = priceList[0]
-  const result = {
-    price,
-    time,
-    number,
-    综合值: [price, time, number],
-  }
-  return JSON.stringify(result)
 }
 
 const createAllData = function (item) {
@@ -61,7 +42,7 @@ const itemHtml = function (item, data) {
     companyLabelList: get(item, 'companyLabelList', []).map(lable => (`<div class="line-box"><span title="${lable}">${lable}</span></div>`)).join('\n'),
   })
   result = result.replace('"[transferList]"', JSON.stringify(item.transferList))
-  result = result.replace('"[appdata]"', getItemDataValue(priceList, item))
+  result = result.replace('"[appdata]"', getItemDataValue(priceList, item, 'lagou_'))
   return result.replace('"[alldata]"', createAllData(item))
 }
 

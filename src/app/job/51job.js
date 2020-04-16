@@ -2,8 +2,9 @@ import axios from 'axios'
 import GMap from '@/common/Map'
 import { q, e, es } from "@/utils/tools"
 import SearchFilter from './searchFilter'
-import { flatten, chunk, isEqual } from 'lodash'
-import { openLoading, closeLoading, textToDom, sleep, dataset, datasetFind } from "@/utils"
+import { transferDataProcess, sortItem, filterItem, getItemDataValue } from './tools'
+import { flatten, chunk, isEqual, sortBy } from 'lodash'
+import { openLoading, closeLoading, textToDom, sleep, dataset, datasetFind, get, jsonParse } from "@/utils"
 
 const DB = dataset('/path/51job.db')
 
@@ -81,34 +82,51 @@ const parsePrice = function (str) {
   return result
 }
 
+const getPosition = async function (id) {
+  const url = `https://search.51job.com/jobsearch/bmap/map.php?jobid=${id}`
+  const mapData = await axios.get(url)
+  const Html = textToDom(mapData.data)
+  const input = Html.querySelector('#end')
+  return [input.getAttribute('lng'), input.getAttribute('lat')].map(Number)
+}
+
+const mapFun = async function (id) {
+  const obj = await datasetFind(DB, { id })
+  let values = {}
+  if (obj != null) {
+    const { position } = obj
+    values = {
+      id,
+      position,
+      longitude: get(position, '[0]', 0),
+      latitude: get(position, '[1]', 0),
+    }
+  } else {
+    const position = await getPosition(id)
+    const readPosition = await globalConfig.map.convertFrom(position, 'baidu')
+    await DB.insert({ id, position: readPosition })
+    values = {
+      id,
+      position: readPosition,
+      longitude: get(readPosition, '[0]', 0),
+      latitude: get(readPosition, '[1]', 0),
+    }
+  }
+  let result = await transferDataProcess(values, globalConfig.map)
+  return result
+}
+
 const getMapDataAll = async function (ids) {
   let result = {}
-  let funList = []
-  for (let id of ids) {
-    const fun = async () => {
-      const obj = await datasetFind(DB, { id })
-      if (obj != null) {
-        return { id, position: obj.position }
-      } else {
-        const url = `https://search.51job.com/jobsearch/bmap/map.php?jobid=${id}`
-        const mapData = await axios.get(url)
-        const Html = textToDom(mapData.data)
-        const input = Html.querySelector('#end')
-        const position = [input.getAttribute('lng'), input.getAttribute('lat')].map(i => Number(i))
-        await DB.insert({ id, position })
-        return { position, id }
-      }
-    }
-    funList.push(fun)
-  }
+  let funList = ids.map(id => (() => mapFun(id)))
   const list = []
-  const chunkList = chunk(funList, 30)
+  const chunkList = chunk(funList, 50)
   for (let itemList of chunkList) {
     const res = await Promise.all(itemList.map(fun => fun()))
-    list.push(...res)
+    list.push(...res.filter(e => e != null))
     await sleep(50)
   }
-  list.forEach(item => result[item.id] = item.position)
+  list.forEach(item => result[item.id] = item)
   return result
 }
 
@@ -119,27 +137,57 @@ const init = async function (ul) {
   for (let i = 0; i < list.length; i++) {
     const item = list[i]
     const id = e(item, '.t1 input').value
-    if (item.querySelector('.t4').innerText === '' || isEqual(mapDict[id], [0, 0])) {
+    const dict = mapDict[id]
+    if (item.querySelector('.t4').innerText === '' || isEqual(get(dict, `position`, null), [0, 0]) || get(dict, 'transferList.length', 0) === 0 || get(dict, 'transferListHtml', '') == '') {
       item.classList.add('none')
     } else {
       const param = {
         price: parsePrice(e(item, '.t4').innerText),
         id,
-        position: mapDict[id]
+        item: dict
       }
+      item.insertAdjacentHTML('beforeend', get(dict, `transferListHtml`, ''))
+      const priceList = param.price
+      item.setAttribute('appdata', getItemDataValue(priceList, dict, '51job_'))
       globalStore[id] = param
     }
   }
 }
 
 const onConfirm = function (data, ul) {
-  console.log('是多么', data, globalStore)
+  const list = es(ul, '.el:not(.title)')
+  const sortDict = get(data, 'sort', {})
+  const filterDict = get(data, 'filter', {})
+  const perfect = q('.dw_filter').querySelector('.content_row.least_box .cy_input').value
+  let result = [...list]
+  if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
+    result = sortBy(list, (o) => {
+      const appdata = jsonParse(o.getAttribute('appdata'))
+      if (appdata == null) {
+        return false
+      }
+      return sortItem(sortDict, perfect, appdata)
+    })
+  }
+  if (!Object.values(filterDict).every(item => JSON.stringify(item) === JSON.stringify([0, 0]))) {
+    filterItem(result, filterDict)
+  }
+  list.forEach(ele => ul.removeChild(ele))
+  result.forEach(item => ul.appendChild(item))
+  closeLoading()
 }
 
-const batchClick = function (ul) {
-
+const selectItem = function () {
+  q('.dw_tlc .chall span .check').classList.toggle('on')
+  const ul = q('#resultList')
+  const list = es(ul, '.el:not(.title):not(.none)')
+  list.forEach(item => {
+    if (e(item, '.t3').innerText !== '异地招聘') {
+      const em = e(item, '.t1 em.check')
+      em.click()
+    }
+  })
 }
-
 
 export default async function () {
   openLoading()
@@ -149,9 +197,10 @@ export default async function () {
   globalConfig.searchFilter = SearchFilter.new({
     selector: '.dw_filter',
     onConfirm: (data) => onConfirm(data, ul),
-    batchClick: (data) => batchClick(ul),
   })
+  window.selectItem = selectItem
   await insertData(ul)
   await init(ul)
+  q('.dw_tlc .chall span .check').setAttribute('onclick', 'selectItem()')
   closeLoading()
 }

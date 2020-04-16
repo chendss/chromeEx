@@ -24,6 +24,23 @@ class Map {
     return this.Gmap.searchKeyword(key)
   }
 
+  convertFrom (position, type) {
+    return new Promise(resolve => {
+      const gps = position.map(i => Number(i))
+      AMap.convertFrom(gps, type, function (status, result) {
+        if (result.info === 'ok') {
+          const lnglats = get(result, 'locations[0]') // Array.<LngLat>
+          const gps_ = [lnglats.lng, lnglats.lat]
+          if (gps_.some(g => g < 0)) {
+            resolve([0, 0])
+          } else {
+            resolve(gps_)
+          }
+        }
+      })
+    })
+  }
+
   async getMapData (point, targetPoint) {
     window.keep = false
     const routeId = [...point, ...targetPoint].map(p => (p + '').replace('.', '')).join('')

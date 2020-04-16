@@ -1,3 +1,4 @@
+import DB from '@/utils/DB'
 import Config from '../../assets/custom'
 import { set, sumBy, sortBy, cloneDeep } from 'lodash'
 import { get, pointDistance, jsonParse } from "../../utils"
@@ -143,6 +144,7 @@ export const sortItem = function (sortDict, perfect, appData) {
 }
 
 const addNone = function (appdata, filterDict) {
+  if (appdata == null) return true
   for (let key of Object.keys(filterDict)) {
     const [x1, x2] = filterDict[key]
     const value = get(appdata, key, null)
@@ -161,11 +163,11 @@ const addNone = function (appdata, filterDict) {
 * @param {*} [list=[]]
 * @param {*} [filterDict=[]]
 */
-export const filterItem = function (list = [], filterDict_ = {}) {
+export const filterItem = function (list = [], filterDict_ = {}, appdata_ = null) {
   const filterDict = cloneDeep(filterDict_)
   delete filterDict.综合值
   for (let item of list) {
-    const appdata = jsonParse(item.getAttribute('appdata'))
+    const appdata = appdata_ || jsonParse(item.getAttribute('appdata'))
     if (addNone(appdata, filterDict)) {
       item.classList.add('none')
     } else {
@@ -183,4 +185,23 @@ export const waitWindowClose = function (win) {
       }
     }, 300)
   })
+}
+
+export const getItemDataValue = function (priceList, item, key) {
+  const transferList = item.transferList
+  const index = get(DB.get(key), 'index', 0)
+  const transfer = get(transferList, index, null)
+  if (transfer == null) {
+    return JSON.stringify(null)
+  }
+  const time = Number(transfer.find(t => t.text === '最短时间').value.replace('分钟', ''))
+  const number = transfer.find(t => t.text === '换乘次数').value
+  const price = priceList[0]
+  const result = {
+    price,
+    time,
+    number,
+    综合值: [price, time, number],
+  }
+  return JSON.stringify(result)
 }
