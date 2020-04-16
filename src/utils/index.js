@@ -1,6 +1,7 @@
 import { toArray } from './tools'
 import rules from '../routers/index'
 import Nedb from 'nedb'
+import axios from 'axios'
 import { isArray, pick, map, mergeWith, get as lodashGet, isEqual, isObject, set, isFunction } from 'lodash'
 
 const href = window.location.href
@@ -235,6 +236,18 @@ export const jsonParse = function (obj) {
   } catch (error) {
     return obj
   }
+}
+
+/**
+* 文本转dom树
+*
+* @param {*} data
+* @returns {Document}
+*/
+export const textToDom = function (data) {
+  const p = new DOMParser()
+  const Html = p.parseFromString(data, "text/html")
+  return Html
 }
 
 export default function (handle) {

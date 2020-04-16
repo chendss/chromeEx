@@ -2,8 +2,10 @@ import axios from 'axios'
 import GMap from '@/common/Map'
 import { q, e, es } from "@/utils/tools"
 import SearchFilter from './searchFilter'
-import { flatten } from 'lodash'
-import { openLoading, closeLoading } from "@/utils"
+import { flatten, chunk, isEqual } from 'lodash'
+import { openLoading, closeLoading, textToDom, sleep, dataset, datasetFind } from "@/utils"
+
+const DB = dataset('/path/51job.db')
 
 const pageConfig = function () {
   const rtPrev = q('#rtPrev')
@@ -13,9 +15,7 @@ const pageConfig = function () {
   return { index, total }
 }
 
-const globalConfig = {
-  index: pageConfig().index
-}
+const globalConfig = {}
 const globalStore = {}
 
 const nextPageUrl = function (nextIndex) {
@@ -50,8 +50,7 @@ const getData = async function (url) {
 const requestData = async function (index) {
   const res = await getData(nextPageUrl(index))
   const data = await res.data
-  const p = new DOMParser()
-  const Html = p.parseFromString(data, "text/html")
+  const Html = textToDom(data)
   const list = [...Html.querySelectorAll('#resultList .el:not(.title)')].filter(item => item.querySelector('.t4').innerText != '')
   return list
 }
@@ -61,7 +60,6 @@ const insertData = async function (ul) {
   let promiseList = []
   for (let i = (index + 1); i < total; i++) {
     promiseList.push(requestData(i))
-    globalConfig.index += 1
   }
   const res = await Promise.all(promiseList)
   const domList = flatten(res)
@@ -83,18 +81,51 @@ const parsePrice = function (str) {
   return result
 }
 
-const init = function (ul) {
+const getMapDataAll = async function (ids) {
+  let result = {}
+  let funList = []
+  for (let id of ids) {
+    const fun = async () => {
+      const obj = await datasetFind(DB, { id })
+      if (obj != null) {
+        return { id, position: obj.position }
+      } else {
+        const url = `https://search.51job.com/jobsearch/bmap/map.php?jobid=${id}`
+        const mapData = await axios.get(url)
+        const Html = textToDom(mapData.data)
+        const input = Html.querySelector('#end')
+        const position = [input.getAttribute('lng'), input.getAttribute('lat')].map(i => Number(i))
+        await DB.insert({ id, position })
+        return { position, id }
+      }
+    }
+    funList.push(fun)
+  }
+  const list = []
+  const chunkList = chunk(funList, 30)
+  for (let itemList of chunkList) {
+    const res = await Promise.all(itemList.map(fun => fun()))
+    list.push(...res)
+    await sleep(50)
+  }
+  list.forEach(item => result[item.id] = item.position)
+  return result
+}
+
+const init = async function (ul) {
   const list = es(ul, '.el:not(.title)')
-  for (let item of list) {
-    if (item.querySelector('.t4').innerText === '') {
+  const ids = list.filter(item => e(item, '.t4').innerText !== '').map(item => e(item, '.t1 input').value)
+  const mapDict = await getMapDataAll(ids)
+  for (let i = 0; i < list.length; i++) {
+    const item = list[i]
+    const id = e(item, '.t1 input').value
+    if (item.querySelector('.t4').innerText === '' || isEqual(mapDict[id], [0, 0])) {
       item.classList.add('none')
     } else {
-      const id = e(item, '.t1 input').value
-      const url = `https://search.51job.com/jobsearch/bmap/map.php?jobid=${id}`
-      const dom = getData(url).then(res => console.log('什么垃圾', res))
       const param = {
         price: parsePrice(e(item, '.t4').innerText),
-        id
+        id,
+        position: mapDict[id]
       }
       globalStore[id] = param
     }
@@ -102,7 +133,7 @@ const init = function (ul) {
 }
 
 const onConfirm = function (data, ul) {
-  console.log('是多么', data)
+  console.log('是多么', data, globalStore)
 }
 
 const batchClick = function (ul) {
@@ -112,6 +143,7 @@ const batchClick = function (ul) {
 
 export default async function () {
   openLoading()
+  globalConfig.index = pageConfig().index
   const ul = q('#resultList')
   globalConfig.map = await GMap.new('body')
   globalConfig.searchFilter = SearchFilter.new({
@@ -120,6 +152,6 @@ export default async function () {
     batchClick: (data) => batchClick(ul),
   })
   await insertData(ul)
-  init(ul)
+  await init(ul)
   closeLoading()
 }
