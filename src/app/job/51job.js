@@ -16,7 +16,7 @@ const pageConfig = function () {
   return { index, total }
 }
 
-const globalConfig = {}
+const globalConfig = { start: 0 }
 const globalStore = {}
 
 const nextPageUrl = function (nextIndex) {
@@ -49,10 +49,14 @@ const getData = async function (url) {
 
 
 const requestData = async function (index) {
+  const items = es(document, '#resultList .el:not(.title)')
+  if (items.length >= 500) {
+    return []
+  }
   const res = await getData(nextPageUrl(index))
   const data = await res.data
   const Html = textToDom(data)
-  const list = [...Html.querySelectorAll('#resultList .el:not(.title)')].filter(item => item.querySelector('.t4').innerText != '')
+  const list = es(Html, '#resultList .el:not(.title)').filter(item => e(item, '.t4').innerText != '')
   return list
 }
 
@@ -124,7 +128,6 @@ const getMapDataAll = async function (ids) {
   for (let itemList of chunkList) {
     const res = await Promise.all(itemList.map(fun => fun()))
     list.push(...res.filter(e => e != null))
-    await sleep(50)
   }
   list.forEach(item => result[item.id] = item)
   return result
@@ -138,7 +141,14 @@ const init = async function (ul) {
     const item = list[i]
     const id = e(item, '.t1 input').value
     const dict = mapDict[id]
-    if (item.querySelector('.t4').innerText === '' || isEqual(get(dict, `position`, null), [0, 0]) || get(dict, 'transferList.length', 0) === 0 || get(dict, 'transferListHtml', '') == '') {
+    const condictions = [
+      item.querySelector('.t4').innerText === '',
+      isEqual(get(dict, `position`, null), [0, 0]),
+      get(dict, 'transferList.length', 0) === 0,
+      get(dict, 'transferListHtml', '') == '',
+      get(dict, 'transferList[0][0].value', '0分钟') === '0分钟',
+    ]
+    if (condictions.some(c => c === true)) {
       item.classList.add('none')
     } else {
       const param = {
@@ -173,19 +183,22 @@ const onConfirm = function (data, ul) {
     filterItem(result, filterDict)
   }
   list.forEach(ele => ul.removeChild(ele))
-  result.forEach(item => ul.appendChild(item))
+  result.forEach(item => {
+    if (!e(item, '.t3').innerText.includes('异地招聘')) {
+      ul.appendChild(item)
+    }
+  })
   closeLoading()
 }
 
 const selectItem = function () {
   q('.dw_tlc .chall span .check').classList.toggle('on')
   const ul = q('#resultList')
-  const list = es(ul, '.el:not(.title):not(.none)')
+  const list = es(ul, '.el:not(.title):not(.none)').slice(globalConfig.start, globalConfig.start + 100)
+  globalConfig.start = 100
   list.forEach(item => {
-    if (e(item, '.t3').innerText !== '异地招聘') {
-      const em = e(item, '.t1 em.check')
-      em.click()
-    }
+    const em = e(item, '.t1 em.check')
+    em.click()
   })
 }
 

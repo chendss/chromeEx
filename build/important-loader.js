@@ -1,14 +1,20 @@
 const path = require('path')
 
+/**
+ * 返回true则替换import 
+ *
+ * @param {string} [code='']
+ * @returns
+ */
 const check = function (code = '') {
   if (code.includes(';')) {
-    if (['important', 'TODO:', '$:', '@import', '@extend', '@include'].every(k => !code.includes(k))) {
-      return true
+    if (['important', 'TODO:', '$:', '@import', '@extend', '@include'].some(k => code.includes(k))) {
+      return false
     } else if (code.includes('display')) {
       return code.includes('none')
     }
   }
-  return false
+  return true
 }
 
 module.exports = function (source) {

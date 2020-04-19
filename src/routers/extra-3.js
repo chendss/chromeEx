@@ -40,4 +40,8 @@ export default {
     js: () => require('@/app/job/51job').default(),
     css: () => require('@/app/job/51job.scss'),
   },
+  'lieping': {
+    js: () => require('@/app/job/lieping').default(),
+    css: () => require('@/app/job/lieping.scss'),
+  },
 }

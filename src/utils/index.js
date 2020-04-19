@@ -53,8 +53,8 @@ export const random = function (n = 32) {
   return result.substring(0, result.length - 1)
 }
 
-export const queryToObj = function () {
-  const url = window.location.href
+export const queryToObj = function (url_) {
+  const url = url_ || window.location.href
   let result = {}
   const urlSplit = url.split('?')
   const len = urlSplit.length - 1
@@ -67,6 +67,15 @@ export const queryToObj = function () {
       result[key] = value
     })
   return result
+}
+
+export const objToQuery = function (obj) {
+  let strList = []
+  Object.entries(obj).forEach(entries => {
+    const [key, value] = entries
+    strList.push(`${key}=${value}`)
+  })
+  return encodeURIComponent(strList.join('&'))
 }
 
 /**

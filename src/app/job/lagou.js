@@ -124,8 +124,14 @@ const insertData = async function () {
   let status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
   while (!status) {
     await createContent()
+    const ul = document.querySelector('#s_position_list .item_con_list')
+    const items = es(ul, '.con_list_item')
     await sleep(800)
-    status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
+    if (items.length >= 500) {
+      status = true
+    } else {
+      status = globalConfig.total != null && globalConfig.pageIndex >= globalConfig.total
+    }
   }
 }
 
@@ -160,54 +166,32 @@ const onConfirm = function (data, ul) {
   closeLoading()
 
 }
-const iframeLoad = function (iframeWin, iframe, body, sendBtn, btn, resolveParent) {
-  const href = iframeWin.location.href
-  const checkIframe = function () {
-    return new Promise((resolve) => {
-      const k = setInterval(() => {
-        if (href !== iframeWin.location.href) {
-          clearInterval(k)
-          resolve()
-        }
-      }, 100)
-    })
-  }
-  btn.addEventListener('click', async () => {
-    setTimeout(() => {
-      parentResolve()
-      body.removeChild(iframe)
-      resolveParent()
-    }, 3000)
-    await checkIframe()
-    resolveParent()
-    body.removeChild(iframe)
-    sendBtn.innerText = '已投递'
-    parentResolve()
-    body.removeChild(iframe)
-  })
 
+const removeChild = function (parent, dom) {
+  try {
+    parent.removeChild(dom)
+  } catch (error) {
+
+  }
 }
 
 const sendDoc = function (target, positionId, showId) {
   return new Promise((resolve) => {
-    const parent = target.parentElement.parentElement
     const iframe = document.createElement('iframe')
     iframe.classList.add('empty_box')
     iframe.src = `https://www.lagou.com/jobs/${positionId}.html?show=${showId}`
     const body = q('body')
     body.insertAdjacentElement('beforeend', iframe)
-    iframe.onload = () => {
+    iframe.onload = async () => {
       try {
         const iframeWin = iframe.contentWindow
-        const btn = iframeWin.document.querySelector('.resume-deliver .send-CV-btn')
-        if (btn == null) return
-        const innerText = btn.innerText
-        const sendBtn = parent.querySelector('.send_doc')
-        sendBtn.innerText = innerText
-        iframeLoad(iframeWin, iframe, body, sendBtn, btn, resolve)
-        if (!innerText.includes('已投递')) {
-          btn.click()
-        }
+        const doc = iframeWin.document
+        const scritp = doc.createElement('script')
+        const text = Html['iframe_script'].replace('<script ident="iframe_script">', '').replace('</script>', '')
+        scritp.text = text
+        doc.body.appendChild(scritp)
+        await sleep(3000)
+        removeChild(body, iframe)
       } catch (error) {
         console.log('报错哈', error)
         window.open(iframe.src)
@@ -226,7 +210,6 @@ const batchClick = async function (ul) {
     const btn = e(div, '.cy_btn.send_doc')
     const data = { ...jsonParse(div.getAttribute('alldata')) }
     const { positionId, showId } = data
-    console.log('你有啥', data)
     await sendDoc(btn, positionId, showId)
   }
   closeLoading()

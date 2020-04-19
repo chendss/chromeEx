@@ -99,3 +99,33 @@
     </button>
   </div>
 </li>
+<script ident="iframe_script">
+  const f = function () {
+    return new Promise((resolve) => {
+      const k = setInterval(() => {
+        const dom = document.querySelector(".resume-deliver .send-CV-btn");
+        if (dom != null) {
+          dom.click();
+          clearInterval(k);
+          resolve();
+        }
+      }, 300);
+    });
+  };
+  const q = function () {
+    const b = setInterval(() => {
+      const btn = document.querySelector(
+        "#cboxWrapper #cboxContent #delayConfirmDeliver"
+      );
+      if (btn != null) {
+        btn.click();
+        clearInterval(b);
+      }
+    }, 300);
+  };
+  const main = async function () {
+    await f();
+    q();
+  };
+  main();
+</script>
