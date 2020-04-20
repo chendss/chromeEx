@@ -48,8 +48,9 @@ const getData = async function (url) {
 }
 
 
-const requestData = async function (index) {
-  const items = es(document, '#resultList .el:not(.title)')
+const requestData = async function (index, ul) {
+  const items = es(ul, '.el:not(.title)')
+  console.log('为什么啊', items.length)
   if (items.length >= 500) {
     return []
   }
@@ -57,18 +58,24 @@ const requestData = async function (index) {
   const data = await res.data
   const Html = textToDom(data)
   const list = es(Html, '#resultList .el:not(.title)').filter(item => e(item, '.t4').innerText != '')
+  list.forEach(item => ul.appendChild(item))
   return list
 }
 
 const insertData = async function (ul) {
   const { total, index } = pageConfig()
-  let promiseList = []
+  let funList = []
   for (let i = (index + 1); i < total; i++) {
-    promiseList.push(requestData(i))
+    funList.push(() => requestData(i, ul))
   }
-  const res = await Promise.all(promiseList)
-  const domList = flatten(res)
-  domList.forEach(item => ul.appendChild(item))
+  const promises = chunk(funList, 5)
+  for (let promiseList of promises) {
+    const items = es(ul, '.el:not(.title)')
+    await Promise.all(promiseList.map(f => f()))
+    if (items.length < 500) {
+      await sleep(300)
+    }
+  }
 }
 
 const parsePrice = function (str) {
