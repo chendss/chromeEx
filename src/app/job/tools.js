@@ -2,6 +2,7 @@ import DB from '@/utils/DB'
 import Config from '../../assets/custom'
 import { set, sumBy, sortBy, cloneDeep } from 'lodash'
 import { get, pointDistance, jsonParse } from "../../utils"
+import { es, q } from '@/utils/tools'
 
 /**
 * transferInfo html代码生成
@@ -204,4 +205,27 @@ export const getItemDataValue = function (priceList, item, key) {
     综合值: [price, time, number],
   }
   return JSON.stringify(result)
+}
+
+export const onConfirmAction = function (data, list, ul) {
+  const sortDict = get(data, 'sort', {})
+  const filterDict = get(data, 'filter', {})
+  const perfect = q('._search_filter_box.cy_panel').querySelector('.content_row.least_box .cy_input').value
+  let result = [...list]
+  if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
+    result = sortBy(list, (o) => {
+      const appdata = jsonParse(o.getAttribute('appdata'))
+      if (appdata == null) {
+        return false
+      }
+      return sortItem(sortDict, perfect, appdata)
+    })
+  }
+  if (!Object.values(filterDict).every(item => JSON.stringify(item) === JSON.stringify([0, 0]))) {
+    filterItem(result, filterDict)
+  }
+  list.forEach(ele => ul.removeChild(ele))
+  result.forEach(item => {
+    ul.appendChild(item)
+  })
 }

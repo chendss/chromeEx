@@ -2,8 +2,8 @@ import qs from 'qs'
 import axios from 'axios'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum, chunk } from 'lodash'
-import { qs as toolsQs, es, q, e } from '@/utils/tools'
-import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue } from './tools'
+import { qs as toolsQs, es, q, e, average } from '@/utils/tools'
+import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue, onConfirmAction } from './tools'
 import { get, queryToObj, objToQuery, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse, textToDom } from '@/utils'
 
 const globalStore = {}
@@ -59,41 +59,22 @@ const initData = async function () {
 const init = function (ul) {
   const list = es(ul, 'li')
   list.forEach(item => {
-    const text = e(item, 'text-warning').innerText
+    const text = e(item, '.text-warning').innerText
     if (text.includes('面议')) {
       item.remove()
     } else {
       const jobInfo = e(item, '.job-info h3 a').href
       const id = jobInfo.split('?')[0].split('/').find(j => j.includes('html')).split('.')[0]
       const priceList = text.split('-').filter(t => !t.includes('薪')).map(t => Number(t.replace('k', '')))
-      globalStore[id] = { price: priceList }
-
+      globalStore[id] = { price: average(priceList), time: 0, number: 0, 综合值: [0, 0, 0] }
+      item.setAttribute('appdata', JSON.stringify(globalStore[id]))
     }
   })
 }
 
 const onConfirm = function (data, ul) {
   const list = es(ul, 'li')
-  const sortDict = get(data, 'sort', {})
-  const filterDict = get(data, 'filter', {})
-  const perfect = q('.dw_filter').querySelector('.content_row.least_box .cy_input').value
-  let result = [...list]
-  if ((sortDict.type != null || sortDict.comprehensive != null) && sortDict.sortType != null) {
-    result = sortBy(list, (o) => {
-      const appdata = jsonParse(o.getAttribute('appdata'))
-      if (appdata == null) {
-        return false
-      }
-      return sortItem(sortDict, perfect, appdata)
-    })
-  }
-  if (!Object.values(filterDict).every(item => JSON.stringify(item) === JSON.stringify([0, 0]))) {
-    filterItem(result, filterDict)
-  }
-  list.forEach(ele => ul.removeChild(ele))
-  result.forEach(item => {
-    ul.appendChild(item)
-  })
+  onConfirmAction(data, list, ul)
 }
 
 const batchClick = function (data, ul) {
@@ -108,7 +89,7 @@ export default async function () {
     onConfirm: (data) => onConfirm(data, ul),
     batchClick: (data) => batchClick(ul),
   })
-  init()
   await initData()
+  init(ul)
   closeLoading()
 }

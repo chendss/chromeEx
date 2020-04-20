@@ -1,4 +1,4 @@
-import { get } from 'lodash'
+import { get, sum } from 'lodash'
 
 export const log = function (...args) {
   console.log(...args)
@@ -44,5 +44,15 @@ export const clearCookie = function () {
         document.cookie = keys[i] + `=0;path=/;domain=${domain};expires=` + new Date(0).toUTCString()
       })
     }
+  }
+}
+
+export const average = function (list) {
+  if (list instanceof Array) {
+    const total = sum(list.map(i => typeof i === 'number' ? i : Number(i)))
+    const len = list.length
+    return Math.floor(total / len)
+  } else {
+    return 0
   }
 }
