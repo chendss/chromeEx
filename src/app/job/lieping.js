@@ -49,7 +49,7 @@ const initData = async function () {
   for (let url of urlList()) {
     promiseList.push(() => requestData(url))
   }
-  const promiseLists = chunk(promiseList, 20)
+  const promiseLists = chunk(promiseList, 10)
   for (let ps of promiseLists) {
     await Promise.all(ps.map(fun => fun()))
     await sleep(200)
