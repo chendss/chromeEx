@@ -15,6 +15,9 @@ export default {
   'zhihu-notifications': {
     css: () => require('../styles/zhihu/zhihu-notifications.scss'),
   },
+  'zhihu-collection': {
+    css: () => require('../styles/zhihu/zhihu-collection.scss'),
+  },
   'btdax': {
     css: () => require('../styles/btdx.scss'),
     js: () => require('../model/btdx.js').default(),

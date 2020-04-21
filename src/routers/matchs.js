@@ -10,6 +10,7 @@ const mathDict = {
   'zhihu-zhanlan': ['zhuanlan.zhihu.com',],
   'zhihu-zhanlan-p': ['zhuanlan.zhihu.com/p',],
   'zhihu-question': ['www.zhihu.com/question',],
+  'zhihu-collection': ['www.zhihu.com/collection',],
   'zhihu-notifications': ['zhihu.com/notifications',],
   youdao: ['dict.youdao.com', 'dict.youdao.com', 'fanyi.youdao.com', 'fanyi.youdao.com'],
   nga: ['nga.178.com', 'nga.178.com', 'bbs.ngacn.cc', 'bbs.ngacn.cc', 'bbs.nga.cn', 'bbs.nga.cn'],

@@ -17,7 +17,8 @@ $width: calc(100vw - 80px); // TODO:
           }
 
           .Post-RichTextContainer {
-            width: $width;
+            width    : $width;
+            max-width: 100%;
           }
 
           .ContentItem-time {
