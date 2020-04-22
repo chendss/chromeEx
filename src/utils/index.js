@@ -259,6 +259,33 @@ export const textToDom = function (data) {
   return Html
 }
 
+/**
+* iframe式请求
+*
+* @param {*} url
+* @param {*} callback
+* @returns
+*/
+export const iframeRequest = function (url, callback) {
+  const body = document.body
+  const iframe = document.createElement('iframe')
+  iframe.src = url
+  body.appendChild(iframe)
+  console.log('进入1')
+  return new Promise((resolve) => {
+    iframe.onload = () => {
+      console.log('进入2')
+      const win = iframe.contentWindow
+      win.onload = () => {
+        console.log('进入3', win.document)
+        const doc = win.document
+        resolve({ doc, win })
+        iframe.remove()
+      }
+    }
+  })
+}
+
 export default function (handle) {
   const matching = {}
   for (let ruleKey of Object.keys(rules)) {
