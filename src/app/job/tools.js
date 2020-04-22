@@ -196,7 +196,7 @@ export const getItemDataValue = function (priceList, item, key) {
     return JSON.stringify(null)
   }
   const time = Number(transfer.find(t => t.text === '最短时间').value.replace('分钟', ''))
-  const number = transfer.find(t => t.text === '换乘次数').value
+  const number = Number(transfer.find(t => t.text === '换乘次数').value)
   const price = priceList[0]
   const result = {
     price,

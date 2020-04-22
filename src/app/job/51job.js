@@ -51,7 +51,7 @@ const getData = async function (url) {
 const requestData = async function (index, ul) {
   const items = es(ul, '.el:not(.title)')
   console.log('为什么啊', items.length)
-  if (items.length >= 500) {
+  if (items.length >= 600) {
     return []
   }
   const res = await getData(nextPageUrl(index))

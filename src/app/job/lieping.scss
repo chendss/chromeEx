@@ -19,8 +19,9 @@
             flex-wrap: wrap;
 
             li {
-              width : 48%;
-              margin: 8px;
+              width     : 48%;
+              margin    : 8px;
+              box-sizing: border-box;
             }
           }
         }
@@ -45,5 +46,13 @@
 
   .fixed-aside {
     display: none;
+  }
+
+  .check_ {
+    border: 2px solid red;
+  }
+
+  .check_btn {
+    margin: 10px;
   }
 }

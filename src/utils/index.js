@@ -266,22 +266,24 @@ export const textToDom = function (data) {
 * @param {*} callback
 * @returns
 */
-export const iframeRequest = function (url, callback) {
+export const iframeRequest = function (url, wait) {
   const body = document.body
   const iframe = document.createElement('iframe')
   iframe.src = url
   body.appendChild(iframe)
-  console.log('进入1')
   return new Promise((resolve) => {
-    iframe.onload = () => {
-      console.log('进入2')
-      const win = iframe.contentWindow
-      win.onload = () => {
-        console.log('进入3', win.document)
+    iframe.onload = async () => {
+      try {
+        const win = iframe.contentWindow
         const doc = win.document
+        if (wait instanceof Function) {
+          await wait(doc)
+        }
         resolve({ doc, win })
-        iframe.remove()
+      } catch (error) {
+        resolve(null)
       }
+      setTimeout(() => iframe.remove(), 500)
     }
   })
 }
