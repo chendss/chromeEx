@@ -277,13 +277,17 @@ export const iframeRequest = function (url, wait) {
         const win = iframe.contentWindow
         const doc = win.document
         if (wait instanceof Function) {
-          await wait(doc)
+          await wait(doc, win)
         }
         resolve({ doc, win })
       } catch (error) {
+        console.log('报错了', error, url)
         resolve(null)
+      } finally {
+        setTimeout(() => {
+          iframe.remove()
+        }, 500)
       }
-      setTimeout(() => iframe.remove(), 500)
     }
   })
 }

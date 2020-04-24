@@ -155,11 +155,19 @@ class SearchFilter {
     })
     const batch_btn = e(this.parent, '.batch_click')
     const check_btn = e(this.parent, '.check')
+    const all_check = e(this.parent, '.all_check')
+    const filter_empty = e(this.parent, '.filter_empty')
     batch_btn.addEventListener('click', () => {
       get(this.props, 'batchClick', () => { })()
     })
     check_btn.addEventListener('click', () => {
       get(this.props, 'check', () => { })()
+    })
+    all_check.addEventListener('click', () => {
+      get(this.props, 'allCheck', () => { })()
+    })
+    filter_empty.addEventListener('click', () => {
+      get(this.props, 'filterEmpty', () => { })()
     })
   }
 }

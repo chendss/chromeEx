@@ -1,0 +1,15 @@
+<div ident="main"></div>
+<script ident="iframe_script">
+  console.log("iframe in");
+  const btn = document.querySelector(
+    ".main .right-control .job-intro.fix-stop a.btn-apply"
+  );
+  btn.click();
+  setTimeout(() => {
+    const submit = document.querySelector(
+      ".vdialog .vd-main .vd-content .dlg-actions .btn-primary"
+    );
+    submit.click();
+    console.log("简历发送", window.location.href);
+  }, 800);
+</script>

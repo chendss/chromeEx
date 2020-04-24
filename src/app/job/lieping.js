@@ -1,6 +1,7 @@
 import qs from 'qs'
 import axios from 'axios'
 import GMap from '@/common/Map'
+import Html from './lieping.html'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum, chunk } from 'lodash'
 import { qs as toolsQs, es, q, e, average } from '@/utils/tools'
@@ -10,11 +11,14 @@ import { get, queryToObj, objToQuery, strFormat, sleep, pointDistance, openLoadi
 const DB = dataset('/path/liepin_.db')
 const globalStore = {}
 const globalConfig = {
-  max: 100
+  max: 300
 }
 
 const total = function () {
   const lastDom = q('.pagerbar>a.last')
+  if (lastDom == null) {
+    return 1
+  }
   const url = lastDom.href
   const obj = queryToObj(url)
   return get(obj, 'curPage', 1)
@@ -84,6 +88,7 @@ const initData = async function () {
 
 const init = async function (ul) {
   const list = es(ul, 'li')
+  const oldList = []
   for (let i = 0; i < list.length; i++) {
     const item = list[i]
     if (i % 8 === 0) {
@@ -91,11 +96,16 @@ const init = async function (ul) {
     }
     const text = e(item, '.text-warning').innerText
     const icon = e(item, '.icon.icon-blue-triangle')
+    const jobInfo = e(item, '.job-info h3 a').href
+    const id = jobInfo.split('?')[0].split('/').find(j => j.includes('html')).split('.')[0]
+    if (oldList.includes(id)) {
+      item.remove()
+    } else {
+      oldList.push(id)
+    }
     if (text.includes('面议') || icon != null) {
       item.remove()
     } else {
-      const jobInfo = e(item, '.job-info h3 a').href
-      const id = jobInfo.split('?')[0].split('/').find(j => j.includes('html')).split('.')[0]
       const priceList = text.split('-').filter(t => !t.includes('薪')).map(t => Number(t.replace('k', '')))
       const values = await remoteLiProcess(jobInfo, id)
       if (values == null) {
@@ -125,8 +135,51 @@ const onConfirm = function (data, ul) {
   onConfirmAction(data, list, ul)
 }
 
-const batchClick = function (data, ul) {
+const insertScript = async function (doc) {
+  const scritp = doc.createElement('script')
+  const text = Html['iframe_script'].replace('<script ident="iframe_script">', '').replace('</script>', '')
+  scritp.text = text
+  doc.body.appendChild(scritp)
+  await sleep(3500)
+}
 
+const batchClick = async function (ul) {
+  openLoading()
+  const check_list = es(ul, 'li:not(.none) .check_')
+  let promiseList = []
+  for (let i = 0; i < check_list.length; i++) {
+    const item = check_list[i]
+    const jobInfo = e(item, '.job-info h3 a').href
+    promiseList.push(() => iframeRequest(jobInfo, insertScript))
+    if (i % 8 === 0 || i === check_list.length - 1) {
+      await Promise.all(promiseList.map(f => f()))
+      await sleep(1500)
+      promiseList = []
+    }
+    const btn = item.querySelector('.cy_btn.check_btn')
+    setTimeout(btn.click.bind(btn), 300)
+  }
+  closeLoading()
+}
+
+const allCheck = function (ul) {
+  const list = es(ul, 'li:not(.none) .check_btn')
+  list.forEach(item => {
+    const btn = e(item, '.check_btn')
+    setTimeout(() => {
+      btn.click()
+    }, 300)
+  })
+}
+
+const filterEmpty = function (ul) {
+  const list = es(ul, 'li')
+  list.forEach(item => {
+    const appdata = jsonParse(item.getAttribute('appdata'))
+    if ([0, '0'].includes(get(appdata, 'time', '0'))) {
+      item.remove()
+    }
+  })
 }
 
 export default async function () {
@@ -138,6 +191,8 @@ export default async function () {
     selector: '#sojob .sojob-search .search-condition-ex',
     onConfirm: (data) => onConfirm(data, ul),
     batchClick: (data) => batchClick(ul),
+    allCheck: () => allCheck(ul),
+    filterEmpty: () => filterEmpty(ul),
   })
   await initData()
   await init(ul)
