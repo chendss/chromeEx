@@ -45,6 +45,7 @@ const insertGlobalData = function () {
 }
 
 const initData = async function (ul) {
+  const nextBtn = q('#pagination_content .btn.soupager__btn.soupager__btn--disable')
 
 }
 
