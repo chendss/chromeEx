@@ -167,6 +167,13 @@ class SearchFilter {
       get(this.props, 'allCheck', () => { })()
     })
     filter_empty.addEventListener('click', () => {
+      const items = get(this.props, 'items', [])
+      items.forEach(item => {
+        const appdata = jsonParse(item.getAttribute('appdata'))
+        if ([0, '0'].includes(get(appdata, 'time', '0'))) {
+          item.remove()
+        }
+      })
       get(this.props, 'filterEmpty', () => { })()
     })
   }

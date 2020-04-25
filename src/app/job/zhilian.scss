@@ -1,0 +1,75 @@
+@import "./info.scss"; // TODO:
+
+#__dashao {
+  #root {
+
+    .c-chat-ads,
+    #rightAdbox,
+    .c-chat-ads img {
+      display: none;
+    }
+
+    .zp__container {
+      width: calc(100% - 100px);
+    }
+
+    .contentpile {
+      width: 100%;
+
+      #listContent {
+        background     : #f7f7f7;
+        margin         : 0;
+        display        : flex;
+        flex-wrap      : wrap;
+        align-items    : center;
+        justify-content: center;
+
+        .contentpile__content__wrapper {
+          width        : calc(50% - 40px);
+          height       : 200px;
+          margin-right : 8px;
+          margin-bottom: 8px;
+          padding      : 4px;
+          background   : #fff;
+
+          .contentpile__content__wrapper__item {
+            .contentpile__content__wrapper__item__info {
+              height: 100%;
+            }
+          }
+        }
+
+        #check_content {
+          width      : calc(100% - 100px);
+          margin-left: 0;
+          right      : 0;
+          left       : 0;
+          margin     : auto;
+        }
+      }
+    }
+
+    #search {
+      padding: 0;
+      width  : calc(100% - 100px);
+
+      ._search_filter_box.cy_panel {
+        border: 0;
+      }
+    }
+
+    #sou-listSortBox {
+      display: none;
+    }
+
+    .change_city {
+      position: absolute;
+      left    : 30px;
+      top     : 30px;
+    }
+
+    .a-center-layout.a-footer {
+      display: none;
+    }
+  }
+}

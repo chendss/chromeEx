@@ -44,4 +44,11 @@ export default {
     js: () => require('@/app/job/lieping').default(),
     css: () => require('@/app/job/lieping.scss'),
   },
+  'zhilian': {
+    js: () => require('@/app/job/zhilian').default(),
+    css: () => require('@/app/job/zhilian.scss'),
+  },
+  'zhilian-item': {
+    js: () => require('@/app/job/zhilian-item').default(),
+  },
 }

@@ -62,6 +62,8 @@ const mathDict = {
   'job-lagou': ['www.lagou.com/jobs/list_'],
   'job-51job': ['search.51job.com/list'],
   'lieping': ['https://www.liepin.com/zhaopin/'],
+  'zhilian': ['https://sou.zhaopin.com/'],
+  'zhilian-item': ['https://jobs.zhaopin.com/'],
   crsoso: ['www.crsoso.me/search.html?name', 'www.crsoso.me/hash'],
   'zhihu-people': ['www.zhihu.com/people', 'www.zhihu.com/people'],
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],

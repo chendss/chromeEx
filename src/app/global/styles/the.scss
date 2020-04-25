@@ -154,6 +154,7 @@
     border        : 1px solid rgba(0, 0, 0, 0.1);
 
     .panel_header {
+      font-weight    : 400;
       height         : 38px;
       display        : flex;
       font-size      : 14px;
@@ -162,11 +163,12 @@
       justify-content: flex-start;
       color          : rgba(0, 0, 0, 0.85);
       border-bottom  : 1px solid rgba(0, 0, 0, 0.1);
-      font-weight    : 400;
 
       &[type="main"] {
         font-size    : 16px;
         color        : #000;
+        padding      : 8px 16px;
+        height       : max-content;
         border-bottom: 1px solid rgba(0, 0, 0, 0.25);
       }
 

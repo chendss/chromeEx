@@ -14,27 +14,23 @@ const globalConfig = {
   max: 300
 }
 
-const total = function () {
+const maxPageDict = function () {
   const lastDom = q('.pagerbar>a.last')
   if (lastDom == null) {
     return 1
   }
   const url = lastDom.href
   const obj = queryToObj(url)
-  return get(obj, 'curPage', 1)
+  return { total: get(obj, 'curPage', 1), url }
 }
 
 const urlList = function () {
-  const href = window.location.href
-  const obj = queryToObj(href)
+  const { total, url } = maxPageDict()
+  const search = `curPage=${total}`
   let result = []
-  const total_ = total()
-  for (let i = 2; i <= total_; i++) {
-    const obj_ = { ...obj }
-    obj_.curPage = i
-    const search = decodeURIComponent(objToQuery(obj_))
-    const url = `${window.location.origin}${window.location.pathname}?${search}`
-    result.push(url)
+  for (let i = 1; i <= total; i++) {
+    const url_ = url.replace(search, `curPage=${i}`)
+    result.push(url_)
   }
   return result
 }
@@ -45,6 +41,7 @@ const remoteLiProcess = async function (url, id) {
   let value = null
   let locationDict = await datasetFind(DB, { id })
   if (locationDict != null) {
+    console.log('缓存取值')
     value = locationDict['value']
   } else {
     const iframeDict = await iframeRequest(url)
@@ -140,12 +137,12 @@ const insertScript = async function (doc) {
   const text = Html['iframe_script'].replace('<script ident="iframe_script">', '').replace('</script>', '')
   scritp.text = text
   doc.body.appendChild(scritp)
-  await sleep(3500)
+  await sleep(4500)
 }
 
 const batchClick = async function (ul) {
   openLoading()
-  const check_list = es(ul, 'li:not(.none) .check_')
+  const check_list = es(ul, 'li:not(.none).check_')
   let promiseList = []
   for (let i = 0; i < check_list.length; i++) {
     const item = check_list[i]
@@ -157,28 +154,17 @@ const batchClick = async function (ul) {
       promiseList = []
     }
     const btn = item.querySelector('.cy_btn.check_btn')
-    setTimeout(btn.click.bind(btn), 300)
+    setTimeout(() => btn.click(), 300)
   }
   closeLoading()
 }
 
 const allCheck = function (ul) {
   const list = es(ul, 'li:not(.none) .check_btn')
-  list.forEach(item => {
-    const btn = e(item, '.check_btn')
+  list.forEach(btn => {
     setTimeout(() => {
       btn.click()
     }, 300)
-  })
-}
-
-const filterEmpty = function (ul) {
-  const list = es(ul, 'li')
-  list.forEach(item => {
-    const appdata = jsonParse(item.getAttribute('appdata'))
-    if ([0, '0'].includes(get(appdata, 'time', '0'))) {
-      item.remove()
-    }
   })
 }
 
@@ -192,7 +178,7 @@ export default async function () {
     onConfirm: (data) => onConfirm(data, ul),
     batchClick: (data) => batchClick(ul),
     allCheck: () => allCheck(ul),
-    filterEmpty: () => filterEmpty(ul),
+    items: es(ul, 'li'),
   })
   await initData()
   await init(ul)
