@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { queryToObj, objToQuery } from '@/utils'
+import kills from './kill.list'
 
 const log = chrome.extension.getBackgroundPage().console.log
 
@@ -9,24 +11,18 @@ var pattern = [
   'https://wenku.baidu.com/common/fc/pc/pz_view?url*',
   'https://www.sojson.com/open/record.shtml',
   'https://wenku.baidu.com/xpage/interface/getadmanageconf?merge=1&end_type=1&ad_pos=11,12&t=1566591972100',
+  'https://fe-api.zhaopin.com/c/i/sou*'
 ]
-function redirect(requestDetails) {
-  log('不信', requestDetails)
+
+function redirect (requestDetails) {
+  log('requestDetails', requestDetails)
+  const { url } = requestDetails
+  console.log('生成的值', url)
   return {
-    cancel: true,
+    // cancel: true,
+    redirectUrl: url.replace('pageSize="90"', 'pageSize="180"')
   }
 }
 
 
 chrome.webRequest.onBeforeRequest.addListener(redirect, { urls: pattern }, ['blocking'])
-
-chrome.extension.onMessage.addListener(
-  function (request, sender, sendResponse) {
-    log('真的麻烦')
-    if (request.type == 'fetch') {
-      sendResponse('fffffdd多大但')
-
-      return true
-
-    }
-  })
