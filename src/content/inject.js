@@ -3,7 +3,7 @@ import excludes from '../routers/excludes'
 import autoHooks from '../utils/autoHooks'
 import $ from 'jquery'
 
-window.jQuery = $
+window.$ = $
 chrome.runtime.onMessage.addListener(messageName => {
   if (messageName === '清空缓存去') {
     console.log('接收到缓存清空')

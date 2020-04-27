@@ -14,6 +14,13 @@ const globalConfig = {
   max: 50
 }
 
+const send = XMLHttpRequest.prototype.send
+
+XMLHttpRequest.prototype.send = function (...args) {
+  console.log('发生数据', ...args)
+  return send(...args)
+}
+
 const waitResult = function () {
   return new Promise(resolve => {
     const k = setInterval(() => {
