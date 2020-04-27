@@ -16,6 +16,7 @@
     "stop": "pm2 stop chromeEx"
   },
   "dependencies": {
+    "ajax-hook": "^2.0.2",
     "axios": "^0.19.0",
     "chance": "^1.0.18",
     "cheerio": "^1.0.0-rc.3",

@@ -7,6 +7,7 @@ import { set, sortBy, sum, chunk, cloneDeep } from 'lodash'
 import { qs as toolsQs, es, q, e, average } from '@/utils/tools'
 import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue, onConfirmAction } from './tools'
 import { get, queryToObj, objToQuery, strFormat, sleep, pointDistance, openLoading, dataset, closeLoading, jsonParse, textToDom, iframeRequest, datasetFind } from '@/utils'
+import { proxy, unProxy } from "ajax-hook"
 
 const DB = dataset('/path/zhilian_.db')
 const globalStore = {}
@@ -14,12 +15,30 @@ const globalConfig = {
   max: 50
 }
 
-const send = XMLHttpRequest.prototype.send
-
-XMLHttpRequest.prototype.send = function (...args) {
-  console.log('发生数据', ...args)
-  return send(...args)
-}
+// proxy({
+//   //请求发起前进入
+//   onRequest: (config, handler) => {
+//     const { url } = config
+//     if (url.includes('fe-api.zhaopin.com/c/i/sou') && config.body != null) {
+//       const body = jsonParse(config.body)
+//       globalConfig.itemsConfig = { body, url }
+//     }
+//     handler.next(config)
+//   },
+//   //请求发生错误时进入，比如超时；注意，不包括http状态码错误，如404仍然会认为请求成功
+//   onError: (err, handler) => {
+//     console.log(err.type, 'onError')
+//     handler.next(err)
+//   },
+//   onResponse: (response, handler) => {
+//     const { config } = response
+//     const { url } = config
+//     if (url.includes('fe-api.zhaopin.com/c/i/sou') && config.body != null) {
+//       console.log('hah', response)
+//     }
+//     handler.next(response)
+//   }
+// })
 
 const waitResult = function () {
   return new Promise(resolve => {

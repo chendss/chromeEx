@@ -102,8 +102,8 @@ const intercept = function () {
   return false
 }
 
-export default function () {
-  if (intercept()) {
+export default function (status = false) {
+  if (status || intercept()) {
     console.log('拦截回调开始')
     hooks({
       onreadystatechange: function (xhr) {

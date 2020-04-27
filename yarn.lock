@@ -178,6 +178,11 @@ agent-base@~4.2.1:
   dependencies:
     es6-promisify "^5.0.0"
 
+ajax-hook@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ajax-hook/-/ajax-hook-2.0.2.tgz#8d78209bfad6a321e8059be72cf68b6cb370ec4f"
+  integrity sha512-Y5YCpT5/bP9+HoGd4/BRr5PyvCF/QPTsHET4WbFvCwP3X8AkEriE7Gc/0HCnVQMsFMHR5dBk7F1/87abImpM/g==
+
 ajv-errors@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
