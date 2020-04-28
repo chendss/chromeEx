@@ -1,4 +1,5 @@
 @import "./info.scss"; // TODO:
+@import "~@/app/global/styles/collect.scss"; // TODO:
 
 #__dashao {
   #root {
@@ -17,7 +18,7 @@
       width: 100%;
 
       #listContent {
-        background     : #f7f7f7;
+        background     : #ddd6d647;
         margin         : 0;
         display        : flex;
         flex-wrap      : wrap;
@@ -65,14 +66,25 @@
       display: none;
     }
 
-    .change_city {
-      position: absolute;
-      left    : 30px;
-      top     : 30px;
-    }
 
     .a-center-layout.a-footer {
       display: none;
     }
+  }
+
+  .change_city {
+    position: absolute;
+    left    : 30px;
+    top     : 30px;
+  }
+
+  .number_ {
+    padding     : 8px;
+    font-size   : 20px;
+    padding-left: 24px;
+  }
+
+  #pagination_content {
+    @include empty_element();
   }
 }

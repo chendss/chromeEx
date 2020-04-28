@@ -55,7 +55,7 @@ $width: calc(100% - 80px); // TODO:
       }
 
       .Question-sideColumn.Question-sideColumn--sticky {
-        width: 300px;
+        min-width: 300px;
 
         .Sticky {
           .Card[data-za-detail-view-path-module="ContentList"] {

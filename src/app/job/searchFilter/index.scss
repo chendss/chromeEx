@@ -12,7 +12,7 @@
 
     .content_row {
       label {
-        width: 80px;
+        width: 100px;
       }
 
     }
@@ -21,6 +21,7 @@
       .content_row {
         .tags {
           margin-right: 16px;
+          width       : auto;
         }
       }
     }
