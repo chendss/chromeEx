@@ -2,17 +2,17 @@
   header {
     .PageHeader.is-shownr {
       .ProfileMain-header {
-        width: calc(100vw - 80px);
+        width: calc(100% - 120px);
       }
     }
   }
 
   #ProfileHeader {
-    width: calc(100vw - 80px);
+    width: calc(100% - 120px);
   }
 
   .Profile-main {
-    width: calc(100vw - 80px);
+    width: calc(100% - 120px);
 
     .Profile-mainColumn {
       margin-right: 20px;

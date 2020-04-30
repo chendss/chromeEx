@@ -51,4 +51,9 @@ export default {
   'zhilian-item': {
     js: () => require('@/app/job/zhilian-item').default(),
   },
+  'kuaibiancheng-arena': {
+    js: () => require('@/app/kuaibiancheng/index').default(),
+    css: () => require('@/app/kuaibiancheng/kuaibiancheng.scss'),
+    load: true
+  },
 }
