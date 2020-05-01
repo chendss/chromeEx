@@ -50,6 +50,10 @@
   body {
     // filter: grayscale(0);
   }
+
+  * {
+    user-select: auto;
+  }
 }
 
 .am*:not(svg, i, use, path) {
