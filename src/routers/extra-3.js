@@ -56,4 +56,9 @@ export default {
     css: () => require('@/app/kuaibiancheng/kuaibiancheng.scss'),
     load: true
   },
+  'stackoverflow': {
+    js: () => require('@/app/stackoverflow/index').default(),
+    css: () => require('@/app/stackoverflow/stackoverflow.scss'),
+    load: true
+  },
 }
