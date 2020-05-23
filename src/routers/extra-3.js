@@ -59,6 +59,10 @@ export default {
   'jd_home': {
     js: () => require('@/app/jd_home/index').default(),
     css: () => require('@/app/jd_home/jd_home.scss'),
+  },
+  'stackoverflow': {
+    js: () => require('@/app/stackoverflow/index').default(),
+    css: () => require('@/app/stackoverflow/stackoverflow.scss'),
     load: true
   },
 }

@@ -69,6 +69,7 @@ const mathDict = {
   'zhihu-people': ['www.zhihu.com/people', 'www.zhihu.com/people'],
   'kuaibiancheng-arena': ['https://www.kuaibiancheng.com/arena'],
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
+  stackoverflow: ['stackoverflow.com'],
 }
 
 export default mathDict
