@@ -56,4 +56,9 @@ export default {
     css: () => require('@/app/kuaibiancheng/kuaibiancheng.scss'),
     load: true
   },
+  'jd_home': {
+    js: () => require('@/app/jd_home/index').default(),
+    css: () => require('@/app/jd_home/jd_home.scss'),
+    load: true
+  },
 }

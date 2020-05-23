@@ -35,6 +35,7 @@ const mathDict = {
   ],
   csdn: ['csdn.'],
   jd: ['item.jd.com'],
+  jd_home: ['www.jd.com'],
   'jbzj': ['www.jb51.net'],
   jianshu: ['.jianshu.com'],
   'xiaozong': ['appinn.com'],
