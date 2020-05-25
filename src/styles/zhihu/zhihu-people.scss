@@ -17,12 +17,13 @@
     .Profile-mainColumn {
       margin-right: 20px;
       width       : max-content;
+      flex        : 1 1 auto;
     }
 
     .Profile-sideColumn {
-      flex     : 1 1 auto;
       width    : 300px;
       min-width: 300px;
+      max-width: 300px;
     }
   }
 }
