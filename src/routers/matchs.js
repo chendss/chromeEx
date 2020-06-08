@@ -70,6 +70,7 @@ const mathDict = {
   'kuaibiancheng-arena': ['https://www.kuaibiancheng.com/arena'],
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
   stackoverflow: ['stackoverflow.com'],
+  czbk: ['yun.itheima.com'],
 }
 
 export default mathDict

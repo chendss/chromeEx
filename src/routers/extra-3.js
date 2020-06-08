@@ -65,4 +65,9 @@ export default {
     css: () => require('@/app/stackoverflow/stackoverflow.scss'),
     load: true
   },
+  'czbk': {
+    js: () => require('@/app/czbk/index').default(),
+    css: () => require('@/app/czbk/czbk.scss'),
+    load: true
+  },
 }
