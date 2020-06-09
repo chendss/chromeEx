@@ -48,7 +48,31 @@
   }
 
   body {
+
     // filter: grayscale(0);
+    #id-copy-btn {
+      display        : inline-flex;
+      width          : 50px;
+      height         : 50px;
+      align-items    : center;
+      justify-content: center;
+      font-size      : 16px;
+      background     : #03a9f4;
+      color          : #fff;
+      border-radius  : 100%;
+      position       : fixed;
+      right          : 30px;
+      bottom         : 50px;
+      opacity        : 0.2;
+      cursor         : pointer;
+      z-index        : 9999;
+      transition     : all 0.15s;
+
+      &:hover {
+        opacity  : 1;
+        transform: scale(1.5);
+      }
+    }
   }
 
   * {

@@ -4,6 +4,7 @@ import clearBaidu from './baidu'
 import autoFun from './auto'
 import { insertBody } from '@/utils'
 import addLoading from './loading'
+import copyHtml from './copyHtml'
 
 
 const addMeta = function () {
@@ -26,4 +27,5 @@ export default function () {
   clearLink()
   autoFun()
   addLoading()
+  copyHtml()
 }

@@ -4,9 +4,25 @@ export const log = function (...args) {
   console.log(...args)
 }
 
-export const q = s => document.querySelector(s)
+/**
+* document.querySelector简化
+*
+* @param {String} s
+* @returns {HTMLAreaElement}
+*/
+export const q = function (s) {
+  return document.querySelector(s)
+}
 
-export const qs = s => [...document.querySelectorAll(s)]
+/**
+* document.querySelectorAll简化
+*
+* @param {String} s
+* @returns {Array<Element>}
+*/
+export const qs = function (s) {
+  return [...document.querySelectorAll(s)]
+}
 
 export const e = (dom, selector) => dom.querySelector(selector)
 
