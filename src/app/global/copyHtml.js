@@ -1,7 +1,7 @@
 import Html from './index.html'
 import { q } from '@/utils/tools'
 import axios from 'axios'
-import { textToDom } from '../../utils'
+import { textToDom, get } from '../../utils'
 
 const btnClick = async function () {
   const context = document.documentElement.outerHTML
