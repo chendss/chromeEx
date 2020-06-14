@@ -35,8 +35,9 @@ const btnClick = async function () {
   const url = Config().copyUrl
   const title = document.title
   const cover = coverUrl()
+  const description = get(q('meta[name="description"]'), 'content', '')
   const href = window.location.href
-  const res = await axios.post(url, { html, title, href, cover }, { headers: { 'Content-Type': 'application/json' } })
+  const res = await axios.post(url, { html, title, href, cover, description }, { headers: { 'Content-Type': 'application/json' } })
   const code = get(res, 'data.code', null)
   if (code === '0') {
     alert('复刻成功')
