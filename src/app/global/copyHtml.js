@@ -7,18 +7,6 @@ import { qs } from '../../utils/tools'
 
 const coverUrl = function () {
   const imgs = qs('img').filter(img => get(img, 'src.length', 0) > 5)
-  imgs.sort((a, b) => {
-    const s1 = getComputedStyle(a)
-    const s2 = getComputedStyle(b)
-    const status = s2.width * s2.height - s1.width * s1.height
-    if (status > 0) {
-      return 1
-    } else if (status == 0) {
-      return 0
-    } else {
-      return -1
-    }
-  })
   return get(imgs, '[0].src', '')
 }
 
