@@ -1,10 +1,11 @@
+import lodash from 'lodash'
+import autoFun from './auto'
 import clearLink from './link'
 import Html from './index.html'
 import clearBaidu from './baidu'
-import autoFun from './auto'
-import { insertBody } from '@/utils'
-import addLoading from './loading'
 import copyHtml from './copyHtml'
+import addLoading from './loading'
+import { insertBody } from '@/utils'
 
 
 const addMeta = function () {
@@ -28,4 +29,5 @@ export default function () {
   autoFun()
   addLoading()
   copyHtml()
+  window.lodash_ = lodash
 }
