@@ -20,7 +20,7 @@ const btnClick = async function () {
   </script>`
   doc.head.insertAdjacentHTML('afterbegin', scriptHtml)
   const html = doc.documentElement.outerHTML
-  const url = Config().copyUrl
+  const url = Config().copyUrl + '/copy_html'
   const title = document.title
   const cover = coverUrl()
   const description = get(q('meta[name="description"]'), 'content', '')
