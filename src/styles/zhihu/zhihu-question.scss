@@ -35,7 +35,7 @@ $width: calc(100% - 80px); // TODO:
       padding        : 0;
 
       .ListShortcut {
-        width       : 100%;
+        flex        : 1 1 auto;
         margin-right: 10px;
 
         .ContentItem.AnswerItem {
@@ -50,8 +50,7 @@ $width: calc(100% - 80px); // TODO:
       }
 
       .Question-mainColumn {
-        flex : 1 1 auto;
-        width: 600px;
+        width: 100%;
       }
 
       .Question-sideColumn.Question-sideColumn--sticky {
