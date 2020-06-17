@@ -10,17 +10,11 @@ const coverUrl = function () {
   return get(imgs, '[0].src', '')
 }
 
-const btnClick = async function () {
+const postData = async function (url_) {
   const context = document.documentElement.outerHTML
   const doc = textToDom(context)
-  const scriptHtml = `<script>
-    window.onbeforeunload = function () {
-      return confirm('你确定要关闭吗？')
-    }
-  </script>`
-  doc.head.insertAdjacentHTML('afterbegin', scriptHtml)
   const html = doc.documentElement.outerHTML
-  const url = Config().copyUrl + '/copy_html'
+  const url = url_ || (Config().copyUrl + '/copy_html')
   const title = document.title
   const cover = coverUrl()
   const description = get(q('meta[name="description"]'), 'content', '')
@@ -32,6 +26,15 @@ const btnClick = async function () {
   }
 }
 
+const btnClick = async function () {
+  postData()
+}
+
+const oncontextmenu = function (event) {
+  event.preventDefault()
+  postData('http://127.0.0.1:9080/copy_html')
+}
+
 
 export default function () {
   const DOM = Html['copy_btn']
@@ -39,4 +42,5 @@ export default function () {
   body.insertAdjacentHTML('beforeend', DOM)
   const btn = q('#id-copy-btn')
   btn.addEventListener('click', btnClick)
+  btn.oncontextmenu = oncontextmenu
 }
