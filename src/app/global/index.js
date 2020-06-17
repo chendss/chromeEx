@@ -23,11 +23,20 @@ const addMeta = function () {
  * @export
  */
 export default function () {
-  addMeta()
-  clearBaidu()
-  clearLink()
-  autoFun()
-  addLoading()
-  copyHtml()
+  const funList = [
+    addMeta,
+    clearBaidu,
+    clearLink,
+    autoFun,
+    addLoading,
+    copyHtml,
+  ]
+  for (let f of funList) {
+    try {
+      f()
+    } catch (error) {
+      console.error('扩展初始化失败', error)
+    }
+  }
   window.lodash_ = lodash
 }
