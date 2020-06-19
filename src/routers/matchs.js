@@ -71,6 +71,7 @@ const mathDict = {
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
   stackoverflow: ['stackoverflow.com'],
   czbk: ['yun.itheima.com'],
+  copy: ['https://copy.dashao.me:2/html/'],
 }
 
 export default mathDict

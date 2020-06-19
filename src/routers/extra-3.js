@@ -70,4 +70,8 @@ export default {
     css: () => require('@/app/czbk/czbk.scss'),
     load: true
   },
+  'copy': {
+    css: () => require('@/app/copy/copy.scss'),
+    load: true
+  },
 }
