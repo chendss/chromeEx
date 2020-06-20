@@ -42,8 +42,8 @@ export default {
     css: () => require('../styles/youdao.scss'),
   },
   baidu: {
-    js: () => require('../model/baidu').default(),
-    css: () => require('../styles/baidu.scss'),
+    js: () => require('../app/baidu').default(),
+    css: () => require('../app/baidu/index.scss'),
     load: true,
   },
   zhihuHome: {

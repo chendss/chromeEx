@@ -239,6 +239,20 @@ export const merge = function () {
   })
 }
 
+/**
+* 浏览器打开json
+*
+* @param {*} json
+*/
+export const jsonOpen = function (json) {
+  const content = new Blob([JSON.stringify(json)], { type: "application/json;charset=utf-8" })
+  let a = document.createElement('a')
+  a.href = URL.createObjectURL(content)
+  a.target = '_Blank'
+  a.click()
+  setTimeout(a.remove.bind(a), 500)
+}
+
 export const jsonParse = function (obj) {
   try {
     return JSON.parse(obj)

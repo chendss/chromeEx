@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-const haoFilter = function() {
+const haoFilter = function () {
   console.log('百家号过滤')
   const list = []
   document.querySelectorAll('.result.c-container').forEach(parent => {
@@ -17,6 +17,6 @@ const haoFilter = function() {
  *
  * @export
  */
-export default function() {
+export default function () {
   haoFilter()
 }

@@ -1,7 +1,7 @@
 export default {
   ruan: {
-    js: () => require('../model/ruan').default(),
-    css: () => require('../styles/ruan.css'),
+    js: () => require('../app/ruan').default(),
+    css: () => require('../app/ruan/index.scss'),
     load: true,
   },
   wenku: {
