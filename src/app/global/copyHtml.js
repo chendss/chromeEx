@@ -3,20 +3,12 @@ import Config from '../../assets/custom'
 import { q } from '@/utils/tools'
 import axios from 'axios'
 import { textToDom, get } from '../../utils'
-import { qs } from '../../utils/tools'
-
-const coverUrl = function () {
-  const imgs = qs('img').filter(img => get(img, 'src.length', 0) > 5)
-  return get(imgs, '[0].src', '')
-}
 
 const postData = async function (url_) {
   const context = document.documentElement.outerHTML
   const doc = textToDom(context)
   const html = doc.documentElement.outerHTML
   const url = url_ || (Config().copyUrl + '/copy_html')
-  const cover = coverUrl()
-  const description = get(q('meta[name="description"]'), 'content', '')
   const href = window.location.href
   const res = await axios.post(url, { html, href, cover, description }, { headers: { 'Content-Type': 'application/json' } })
   const code = get(res, 'data.code', null)
