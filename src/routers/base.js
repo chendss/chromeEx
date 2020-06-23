@@ -46,11 +46,6 @@ export default {
     css: () => require('../app/baidu/index.scss'),
     load: true,
   },
-  zhihuHome: {
-    js: () => require('../model/zhihu').default(),
-    css: () => require('../styles/zhihu/zhihuHome.scss'),
-    load: true,
-  },
   qrCode: {
     js: () => require('../model/qrCode').default(),
     css: () => { },

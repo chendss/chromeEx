@@ -1,4 +1,4 @@
-import { get, isInViewPort } from '../../utils/index'
+import { get, isInViewPort } from '@/utils/index'
 
 class Render {
   constructor() {

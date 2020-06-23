@@ -24,9 +24,7 @@ export default {
   jd: {
     css: () => require('../styles/jd.scss'),
   },
-  'zhihu-search': {
-    css: () => require('../styles/zhihu/zhihu-search.scss'),
-  },
+
   'ty66-down': {
     css: () => require('../styles/ty66/ty66-down.scss'),
     js: () => require('../model/ty66/ty66-down').default(),

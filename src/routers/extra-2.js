@@ -1,22 +1,36 @@
 export default {
   'zhihu-people': {
-    css: () => require('../styles/zhihu/zhihu-people.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-people.scss'),
   },
   'zhihu-question': {
-    css: () => require('../styles/zhihu/zhihu-question.scss'),
-    js: () => require('../model/zhihu/zhihu-question.js').default(),
+    css: () => require('../app/zhihu/zhihu-question.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
   },
   'zhihu-zhanlan': {
-    css: () => require('../styles/zhihu/zhihu-zhanlan.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-zhanlan.scss'),
   },
   'zhihu-zhanlan-p': {
-    css: () => require('../styles/zhihu/zhihu-zhanlan-p.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-zhanlan-p.scss'),
   },
   'zhihu-notifications': {
-    css: () => require('../styles/zhihu/zhihu-notifications.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-notifications.scss'),
   },
   'zhihu-collection': {
-    css: () => require('../styles/zhihu/zhihu-collection.scss'),
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-collection.scss'),
+  },
+  'zhihu-search': {
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihu-search.scss'),
+  },
+  zhihuHome: {
+    js: () => require('../app/zhihu/autoImg.js').default(),
+    css: () => require('../app/zhihu/zhihuHome.scss'),
+    load: true,
   },
   'btdax': {
     css: () => require('../styles/btdx.scss'),
