@@ -1,6 +1,7 @@
 import { toArray } from './tools'
 import rules from '../routers/index'
 import Nedb from 'nedb'
+import md5Action from './md5'
 import axios from 'axios'
 import { isArray, pick, map, mergeWith, get as lodashGet, isEqual, isObject, set, isFunction } from 'lodash'
 
@@ -305,6 +306,8 @@ export const iframeRequest = function (url, wait) {
     }
   })
 }
+
+export const md5 = md5Action
 
 export default function (handle) {
   const matching = {}
