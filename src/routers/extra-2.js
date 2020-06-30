@@ -28,7 +28,7 @@ export default {
     css: () => require('../app/zhihu/zhihu-search.scss'),
   },
   zhihuHome: {
-    js: () => require('../app/zhihu/autoImg.js').default(),
+    js: () => require('../app/zhihu/index.js').default(),
     css: () => require('../app/zhihu/zhihuHome.scss'),
     load: true,
   },
