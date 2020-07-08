@@ -1,8 +1,8 @@
-import Html from './index.html'
-import './styles/copy.scss'
-import Config from '../../assets/custom'
-import { q } from '@/utils/tools'
 import axios from 'axios'
+import './styles/copy.scss'
+import Html from './index.html'
+import { q } from '@/utils/tools'
+import Config from '../../assets/custom'
 import { textToDom, get } from '../../utils'
 
 const postData = async function (url_) {
