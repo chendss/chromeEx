@@ -12,13 +12,14 @@ chrome.runtime.onMessage.addListener(messageName => {
 })
 
 const clearCopy = function () {
-  const addEventListener = EventTarget.prototype.addEventListener
-  EventTarget.prototype.addEventListener = function (key, ...otherProps) {
+  const addEventListener = window.EventTarget.prototype.addEventListener
+  window.EventTarget.prototype.addEventListener = function (key, ...otherProps) {
     if (key === 'copy') {
       return
     }
     addEventListener(key, ...otherProps)
   }
+  document.addEventListener = EventTarget.prototype.addEventListener
 }
 
 const addId = function () {
@@ -84,15 +85,18 @@ const iocStyle = function () {
 }
 
 const main = function () {
+  clearCopy()
   if (window.location.href.includes('localhost')) {
     return
   }
+  window.addEventListener('load', () => {
+    clearCopy()
+  })
   addId()
   iocScript()
   iocGlobalStyle()
   zoom()
   iocStyle()
-  clearCopy()
 }
 
 main()
