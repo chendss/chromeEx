@@ -72,6 +72,7 @@ const mathDict = {
   stackoverflow: ['stackoverflow.com'],
   czbk: ['yun.itheima.com'],
   copy: ['https://copy.dashao.me:2/html/'],
+  segmentfault: ['segmentfault.com'],
 }
 
 export default mathDict

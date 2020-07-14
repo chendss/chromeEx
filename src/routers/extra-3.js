@@ -74,4 +74,9 @@ export default {
     css: () => require('@/app/copy/copy.scss'),
     load: true
   },
+  'segmentfault': {
+    css: () => require('@/app/segmentfault/index.scss'),
+    js: () => () => require('@/app/segmentfault/index').default(),
+    load: true
+  },
 }
