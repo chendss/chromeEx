@@ -2,6 +2,8 @@ $width: calc(100% - 80px); // TODO:
 
 #root {
   .QuestionPage {
+    overflow-x: hidden;
+
     .QuestionHeader {
       .QuestionHeader-content {
         width: 100%;
@@ -50,7 +52,7 @@ $width: calc(100% - 80px); // TODO:
       }
 
       .Question-mainColumn {
-        width: 100%;
+        width: calc(100% - 300px);
       }
 
       .Question-sideColumn.Question-sideColumn--sticky {
