@@ -16,7 +16,8 @@ export default {
     js: () => require('../model/engotozh.js').default(),
   },
   googleSearch: {
-    js: () => require('../model/googleSearch.js').default(),
+    js: () => require('../app/google/index').default(),
+    css: () => require('../app/google/index.scss'),
   },
   bbs3dgame: {
     js: () => require('../model/bbs3dgame.js').default(),

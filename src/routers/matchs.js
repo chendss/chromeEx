@@ -48,7 +48,7 @@ const mathDict = {
   'ty66-page': ['t66y.com/htm_data'],
   segmentfault: ['segmentfault.com'],
   cilixiong: ['cilixiong.com/movie/'],
-  googleSearch: ['google.com/search'],
+  googleSearch: ['google.com/search', 'google.com.hk/search'],
   'zhihu-search': ['zhihu.com/search'],
   'ty66-down': ['rmdown.com/link.php'],
   btdax: ['www.btdx8.com/douban_rating'],
