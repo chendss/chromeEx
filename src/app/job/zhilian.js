@@ -105,7 +105,7 @@ const initData = async function (ul) {
   }, 2000)
 }
 
-export default async function () {
+const main = async function () {
   openLoading()
   const ul = q('#listContent')
   // await insertGlobalData()
@@ -123,4 +123,11 @@ export default async function () {
   await moreData()
   await initData(ul)
   closeLoading()
+}
+
+export default function () {
+  const startBtn = Html['startBtn']
+  document.body.insertAdjacentHTML('beforeend', startBtn)
+  const btn = q('#id-start-btn')
+  btn.addEventListener('click', main)
 }

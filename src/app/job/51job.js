@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Html from './51job.html'
 import GMap from '@/common/Map'
 import { q, e, es } from "@/utils/tools"
 import SearchFilter from './searchFilter'
@@ -209,7 +210,7 @@ const selectItem = function () {
   })
 }
 
-export default async function () {
+const main = async function () {
   openLoading()
   globalConfig.index = pageConfig().index
   const ul = q('#resultList')
@@ -223,4 +224,12 @@ export default async function () {
   await init(ul)
   q('.dw_tlc .chall span .check').setAttribute('onclick', 'selectItem()')
   closeLoading()
+}
+
+
+export default function () {
+  const startBtn = Html['startBtn']
+  document.body.insertAdjacentHTML('beforeend', startBtn)
+  const btn = q('#id-start-btn')
+  btn.addEventListener('click', main)
 }

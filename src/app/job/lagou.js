@@ -222,7 +222,7 @@ const check = function (ul) {
   btn.click()
 }
 
-export default async function () {
+const main = async function () {
   const href = window.location.href
   if (href.includes('sec.lagou')) {
     return
@@ -242,4 +242,11 @@ export default async function () {
   })
   await insertData()
   closeLoading()
+}
+
+export default function () {
+  const startBtn = Html['startBtn']
+  document.body.insertAdjacentHTML('beforeend', startBtn)
+  const btn = q('#id-start-btn')
+  btn.addEventListener('click', main)
 }

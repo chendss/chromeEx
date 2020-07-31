@@ -168,7 +168,7 @@ const allCheck = function (ul) {
   })
 }
 
-export default async function () {
+const main = async function () {
   openLoading()
   const ul = q('.sojob-result .sojob-list')
   window.select = select
@@ -183,4 +183,11 @@ export default async function () {
   await initData()
   await init(ul)
   closeLoading()
+}
+
+export default function () {
+  const startBtn = Html['startBtn']
+  document.body.insertAdjacentHTML('beforeend', startBtn)
+  const btn = q('#id-start-btn')
+  btn.addEventListener('click', main)
 }
