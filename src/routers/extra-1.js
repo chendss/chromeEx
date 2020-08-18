@@ -28,12 +28,10 @@ export default {
   'ty66-down': {
     css: () => require('../styles/ty66/ty66-down.scss'),
     js: () => require('../model/ty66/ty66-down').default(),
-    load: true,
   },
   'ty66-page': {
     css: () => require('../styles/ty66/ty66-page.scss'),
     js: () => require('../model/ty66/ty66-page').default(),
-    load: true,
   },
 
   gogs: {

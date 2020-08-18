@@ -24,14 +24,21 @@ export const qs = function (s) {
   return [...document.querySelectorAll(s)]
 }
 
-export const e = (dom, selector) => dom.querySelector(selector)
+/**
+* document.querySelector
+*
+* @param {HTMLFrameSetElement} dom
+* @param {String} selector
+* @returns {HTMLFrameSetElement}
+*/
+export const e = function (dom, selector) { return dom.querySelector(selector) }
 
 /**
 * 相当于dom.querySelectorAll
 *
-* @param {*} dom
+* @param {HTMLElementTagNameMap} dom
 * @returns {Array<HTMLElementTagNameMap>}
-* @param {*} selector
+* @param {String} selector
 */
 export const es = (dom, selector) => [...dom.querySelectorAll(selector)]
 
