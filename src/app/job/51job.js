@@ -3,7 +3,7 @@ import Html from './51job.html'
 import GMap from '@/common/Map'
 import { q, e, es } from "@/utils/tools"
 import SearchFilter from './searchFilter'
-import { transferDataProcess, sortItem, filterItem, getItemDataValue } from './tools'
+import { transferDataProcess, sortItem, filterItem, getItemDataValue, setState } from './tools'
 import { flatten, chunk, isEqual, sortBy } from 'lodash'
 import { openLoading, closeLoading, textToDom, sleep, dataset, datasetFind, get, jsonParse } from "@/utils"
 
@@ -211,6 +211,7 @@ const selectItem = function () {
 }
 
 const main = async function () {
+  setState()
   openLoading()
   globalConfig.index = pageConfig().index
   const ul = q('#resultList')

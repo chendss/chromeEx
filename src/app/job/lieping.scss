@@ -1,58 +1,61 @@
 @import "./info.scss"; // TODO:
 
 #__dashao {
-  .container {
 
-    .wrap {
-      width  : calc(100% - 300px);
-      padding: 16px;
+  &[state="true"] {
+    .container {
 
-      .job-content {
-        width: 100%;
+      .wrap {
+        width  : calc(100% - 300px);
+        padding: 16px;
 
-        .sojob-result {
+        .job-content {
           width: 100%;
 
-          .sojob-list {
-            width    : 100%;
-            display  : flex;
-            flex-wrap: wrap;
+          .sojob-result {
+            width: 100%;
 
-            li {
-              width     : 48%;
-              margin    : 8px;
-              box-sizing: border-box;
+            .sojob-list {
+              width    : 100%;
+              display  : flex;
+              flex-wrap: wrap;
+
+              li {
+                width     : 48%;
+                margin    : 8px;
+                box-sizing: border-box;
+              }
             }
           }
         }
-      }
 
-      .search-condition-ex {
-        margin : 0;
-        padding: 0;
-        border : 0;
+        .search-condition-ex {
+          margin : 0;
+          padding: 0;
+          border : 0;
+        }
       }
     }
-  }
 
-  #sojob .wrap .side,
-  #im-basic-entry,
-  .cy_btn.check,
-  .commonweblink-main.wrap,
-  .web-link,
-  .appguide {
-    display: none;
-  }
+    #sojob .wrap .side,
+    #im-basic-entry,
+    .cy_btn.check,
+    .commonweblink-main.wrap,
+    .web-link,
+    .appguide {
+      display: none;
+    }
 
-  .fixed-aside {
-    display: none;
-  }
+    .fixed-aside {
+      display: none;
+    }
 
-  .check_ {
-    border: 2px solid red;
-  }
+    .check_ {
+      border: 2px solid red;
+    }
 
-  .check_btn {
-    margin: 10px;
+    .check_btn {
+      margin: 10px;
+    }
   }
 }

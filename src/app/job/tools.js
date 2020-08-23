@@ -229,3 +229,8 @@ export const onConfirmAction = function (data, list, ul) {
     ul.appendChild(item)
   })
 }
+
+export const setState = function () {
+  const html = document.querySelector('#__dashao')
+  html.setAttribute('state', 'true')
+}

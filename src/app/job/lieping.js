@@ -5,7 +5,7 @@ import Html from './lieping.html'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum, chunk } from 'lodash'
 import { qs as toolsQs, es, q, e, average } from '@/utils/tools'
-import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue, onConfirmAction } from './tools'
+import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue, onConfirmAction, setState } from './tools'
 import { get, queryToObj, objToQuery, strFormat, sleep, pointDistance, openLoading, dataset, closeLoading, jsonParse, textToDom, iframeRequest, datasetFind } from '@/utils'
 
 const DB = dataset('/path/liepin_.db')
@@ -169,6 +169,7 @@ const allCheck = function (ul) {
 }
 
 const main = async function () {
+  setState()
   openLoading()
   const ul = q('.sojob-result .sojob-list')
   window.select = select

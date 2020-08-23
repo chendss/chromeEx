@@ -2,89 +2,92 @@
 @import "~@/app/global/styles/collect.scss"; // TODO:
 
 #__dashao {
-  #root {
+  &[state="true"] {
 
-    .c-chat-ads,
-    #rightAdbox,
-    .c-chat-ads img {
-      display: none;
-    }
+    #root {
 
-    .zp__container {
-      width: calc(100% - 100px);
-    }
+      .c-chat-ads,
+      #rightAdbox,
+      .c-chat-ads img {
+        display: none;
+      }
 
-    .contentpile {
-      width: 100%;
+      .zp__container {
+        width: calc(100% - 100px);
+      }
 
-      #listContent {
-        background     : #ddd6d647;
-        margin         : 0;
-        display        : flex;
-        flex-wrap      : wrap;
-        align-items    : center;
-        justify-content: center;
+      .contentpile {
+        width: 100%;
 
-        .contentpile__content__wrapper {
-          width        : calc(50% - 40px);
-          height       : 200px;
-          margin-right : 8px;
-          margin-bottom: 8px;
-          padding      : 4px;
-          background   : #fff;
+        #listContent {
+          background     : #ddd6d647;
+          margin         : 0;
+          display        : flex;
+          flex-wrap      : wrap;
+          align-items    : center;
+          justify-content: center;
 
-          .contentpile__content__wrapper__item {
-            height: 100%;
+          .contentpile__content__wrapper {
+            width        : calc(50% - 40px);
+            height       : 200px;
+            margin-right : 8px;
+            margin-bottom: 8px;
+            padding      : 4px;
+            background   : #fff;
 
-            .contentpile__content__wrapper__item__info {
+            .contentpile__content__wrapper__item {
               height: 100%;
+
+              .contentpile__content__wrapper__item__info {
+                height: 100%;
+              }
             }
           }
-        }
 
-        #check_content {
-          width      : calc(100% - 100px);
-          margin-left: 0;
-          right      : 0;
-          left       : 0;
-          margin     : auto;
+          #check_content {
+            width      : calc(100% - 100px);
+            margin-left: 0;
+            right      : 0;
+            left       : 0;
+            margin     : auto;
+          }
         }
+      }
+
+      #search {
+        padding: 0;
+        width  : calc(100% - 100px);
+
+        ._search_filter_box.cy_panel {
+          border: 0;
+        }
+      }
+
+      #sou-listSortBox,
+      .souheader.souheader--wrapper {
+        display: none;
+      }
+
+
+      .a-center-layout.a-footer {
+        display: none;
       }
     }
 
-    #search {
-      padding: 0;
-      width  : calc(100% - 100px);
-
-      ._search_filter_box.cy_panel {
-        border: 0;
-      }
+    .change_city {
+      position: absolute;
+      left    : 30px;
+      top     : 30px;
     }
 
-    #sou-listSortBox,
-    .souheader.souheader--wrapper {
-      display: none;
+    .number_ {
+      padding     : 8px;
+      font-size   : 20px;
+      padding-left: 24px;
     }
 
-
-    .a-center-layout.a-footer {
-      display: none;
+    #pagination_content {
+      @include empty_element();
     }
-  }
-
-  .change_city {
-    position: absolute;
-    left    : 30px;
-    top     : 30px;
-  }
-
-  .number_ {
-    padding     : 8px;
-    font-size   : 20px;
-    padding-left: 24px;
-  }
-
-  #pagination_content {
-    @include empty_element();
   }
 }

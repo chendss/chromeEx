@@ -1,22 +1,26 @@
 @import "./info.scss"; // TODO:
 
-.dw_filter {
-  width      : 120%;
-  margin-left: -10%;
-}
+html {
+  &[state="true"] {
+    .dw_filter {
+      width      : 120%;
+      margin-left: -10%;
+    }
 
-.dw_table .el {
-  height    : max-content;
-  min-height: 60px;
-}
+    .dw_table .el {
+      height    : max-content;
+      min-height: 60px;
+    }
 
-.mainleft.s_search.search_btm0,
-.dw_fb,
-.dw_page,
-.tResult_bottom_roll {
-  display: none;
-}
+    .mainleft.s_search.search_btm0,
+    .dw_fb,
+    .dw_page,
+    .tResult_bottom_roll {
+      display: none;
+    }
 
-.batch_click {
-  display: none;
+    .batch_click {
+      display: none;
+    }
+  }
 }

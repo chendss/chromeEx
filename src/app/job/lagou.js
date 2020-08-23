@@ -9,7 +9,7 @@ import GMap from '@/common/Map'
 import SearchFilter from './searchFilter'
 import { set, sortBy, sum } from 'lodash'
 import { qs as toolsQs, es, q, e } from '@/utils/tools'
-import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue } from './tools'
+import { transferDataProcess, sortItem, filterItem, waitWindowClose, getItemDataValue, setState } from './tools'
 import { get, queryToObj, strFormat, sleep, pointDistance, openLoading, closeLoading, jsonParse } from '@/utils'
 
 const globalConfig = {
@@ -223,6 +223,7 @@ const check = function (ul) {
 }
 
 const main = async function () {
+  setState()
   const href = window.location.href
   if (href.includes('sec.lagou')) {
     return
