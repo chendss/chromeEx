@@ -33,7 +33,7 @@ const mathDict = {
     'passport.suning.com',
     'ssl.xui.ptlogin2.qq.com',
   ],
-  csdn: ['csdn.'],
+  csdn: ['csdn.net'],
   jd: ['item.jd.com'],
   jd_home: ['www.jd.com/'],
   'jbzj': ['www.jb51.net'],
