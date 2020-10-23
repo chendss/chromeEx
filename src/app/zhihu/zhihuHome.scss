@@ -1,6 +1,15 @@
 $width: calc(100% - 80px); // TODO:
 
+html {
+  overflow: scroll;
+
+  .Modal-wrapper {
+    display: none;
+  }
+}
+
 #root {
+
 
   .Footer,
   .AdblockBanner,
