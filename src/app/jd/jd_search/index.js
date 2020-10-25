@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { random } from '../utils/index'
+import { random } from '@/utils/index'
 
 let goodLength = 0
 

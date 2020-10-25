@@ -1,9 +1,9 @@
 import axios from 'axios'
 import $ from 'jquery'
-import DB from '../utils/DB'
+import DB from '../../utils/DB'
 import Nedb from 'nedb'
 import { sortBy, flatMap, unionBy } from 'lodash'
-import { queryToObj, get, random } from '../utils/index'
+import { queryToObj, get, random } from '../../utils/index'
 
 const dataset = new Nedb({
   filename: '/data/cli.db',

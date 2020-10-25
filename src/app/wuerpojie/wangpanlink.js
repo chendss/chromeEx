@@ -8,7 +8,7 @@ import './jq.cookie'
 import $ from 'jquery'
 import swal from 'sweetalert2'
 import Darkmode from 'darkmode-js'
-import { createScript } from '../../utils'
+import { createScript } from '@/utils/index.js'
 
 (function () {
   'use strict';

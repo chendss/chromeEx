@@ -1,6 +1,6 @@
 import './wangpanlink'
 import { sample } from 'lodash'
-import { dataset, datasetFind } from '../../utils'
+import { dataset, datasetFind } from '@/utils/index.js'
 
 const db = dataset('/path/wuai.db')
 let top_ = document.documentElement.scrollTop

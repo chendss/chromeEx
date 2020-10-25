@@ -1,15 +1,15 @@
 import Nedb from 'nedb'
 import axios from "axios"
-import DB from "../utils/DB"
-import '../utils/spop.min.js'
+import DB from "@/utils/DB"
+import '@/utils/spop.min.js'
 import Clipdboard from 'clipboard'
 import { get, toNumber } from "lodash"
-import { random } from '../utils/index'
+import { random } from '@/utils/index'
 
 const dxNumber = toNumber(get(DB.get("av"), "number", "8"))
 const dataset = new Nedb({
+  autoload: true,
   filename: '/data/btdx.db',
-  autoload: true
 })
 
 const copyStr = function (dom) {
