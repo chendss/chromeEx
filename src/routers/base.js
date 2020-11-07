@@ -234,4 +234,7 @@ export default {
     js: () => () => require('@/app/segmentfault/index').default(),
     load: true
   },
+  'manmanbuy': {
+    css: () => require('@/app/easy/manmanbuy.scss'),
+  },
 }

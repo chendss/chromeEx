@@ -73,6 +73,7 @@ const mathDict = {
   czbk: ['yun.itheima.com'],
   copy: ['https://copy.dashao.me:2/html/'],
   segmentfault: ['segmentfault.com'],
+  manmanbuy: ['manmanbuy.com'],
 }
 
 export default mathDict
