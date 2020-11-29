@@ -237,4 +237,7 @@ export default {
   'manmanbuy': {
     css: () => require('@/app/easy/manmanbuy.scss'),
   },
+  'lizhi-oa': {
+    css: () => require('@/app/lizhi/lizhioa.js').default(),
+  },
 }
