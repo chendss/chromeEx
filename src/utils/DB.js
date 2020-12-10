@@ -1,3 +1,5 @@
+import { jsonParse } from './index'
+
 class DB {
 
   /**
@@ -10,7 +12,7 @@ class DB {
    */
   static get (key) {
     let localValue = localStorage.getItem(key)
-    return localValue ? JSON.parse(localValue) : null
+    return jsonParse(localValue)
   }
 
   /**

@@ -1,5 +1,5 @@
 import { log } from "@/utils"
-import DB from '@/DB.js'
+import DB from '@/utils/DB.js'
 
 export default function () {
   setInterval(() => {
@@ -25,5 +25,5 @@ export default function () {
       "method": "POST",
       "mode": "cors"
     });
-  }, 60 * 2)
+  }, 60 * 2 * 1000)
 }
