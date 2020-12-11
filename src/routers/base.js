@@ -164,7 +164,8 @@ export default {
     load: true
   },
   segmentfault: {
-    css: () => require('../styles/segmentfault.scss'),
+    css: () => require('../app/easy/segmentfault.scss'),
+    js: () => require('../app/easy/segmentfault.js').default(),
   },
   engotozh: {
     js: () => require('../model/engotozh.js').default(),

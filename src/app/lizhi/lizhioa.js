@@ -25,5 +25,5 @@ export default function () {
       "method": "POST",
       "mode": "cors"
     });
-  }, 60 * 2)
+  }, 60 * 2 * 1000)
 }
