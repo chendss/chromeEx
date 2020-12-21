@@ -18,7 +18,6 @@ export default {
   },
   avgle_item: {
     css: () => require('../app/avgle/avgle_item.scss'),
-    js: () => require('../app/avgle/avgle_item.scss').default(),
     load: true,
   },
   avgle: {
@@ -162,10 +161,6 @@ export default {
   cssmoban_tag: {
     js: () => require('../model/cssmoban_tag.js').default(),
     load: true
-  },
-  segmentfault: {
-    css: () => require('../app/easy/segmentfault.scss'),
-    js: () => require('../app/easy/segmentfault.js').default(),
   },
   engotozh: {
     js: () => require('../model/engotozh.js').default(),
