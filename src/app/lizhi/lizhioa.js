@@ -1,5 +1,5 @@
+import DB from '../../utils/DB'
 import { log } from "@/utils"
-import DB from '@/utils/DB.js'
 
 export default function () {
   setInterval(() => {
