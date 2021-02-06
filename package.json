@@ -29,7 +29,7 @@
     "jquery": "^3.4.1",
     "jquery-modal": "^0.9.2",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mavon-editor": "^2.7.5",
     "nedb": "^1.8.0",
     "qs": "^6.9.1",
