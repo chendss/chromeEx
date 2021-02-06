@@ -14,17 +14,17 @@
   }
 
   .jquery-modal {
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
     z-index        : 99;
+    display        : flex;
     width          : 100vw;
     height         : 100vh;
+    align-items    : center;
+    justify-content: center;
   }
 
-  #footer,
-  .footer,
-  footer {
+  #footer:not(.border-component-color),
+  .footer:not(.border-component-color),
+  footer:not(.border-component-color) {
     display: none;
   }
 

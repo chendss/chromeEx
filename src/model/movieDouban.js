@@ -88,7 +88,7 @@ const sleep = async function (time) {
 }
 
 var main = async function () {
-  document.body.insertAdjacentHTML('beforeend', `  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`)
+  document.body.insertAdjacentHTML('beforeend', `  <div class="none" id="cy_loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`)
   toggleLoading()
   await waitInit()
   await sleep(500)

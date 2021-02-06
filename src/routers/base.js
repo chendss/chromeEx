@@ -234,6 +234,10 @@ export default {
     css: () => require('@/app/easy/manmanbuy.scss'),
   },
   'lizhi-oa': {
-    css: () => require('@/app/lizhi/lizhioa.js').default(),
+    js: () => require('@/app/lizhi/lizhioa.js').default(),
+  },
+  'iqyi': {
+    js: () => require('@/app/iqyi/index.js').default(),
+    css: () => require('@/app/iqyi/index.scss'),
   },
 }

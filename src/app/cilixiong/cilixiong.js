@@ -215,7 +215,7 @@ const closeMask = function () {
 
 
 const insertHtml = function () {
-  document.body.insertAdjacentHTML('beforeend', `  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`)
+  document.body.insertAdjacentHTML('beforeend', `  <div class="none" id="cy_loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>`)
   document.body.insertAdjacentHTML('beforeend', `
     <div id="search_btn">筛选</div>
     <div id="id-modal" class="none">

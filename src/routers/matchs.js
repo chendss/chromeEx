@@ -74,7 +74,12 @@ const mathDict = {
   copy: ['https://copy.dashao.me:2/html/'],
   segmentfault: ['segmentfault.com'],
   manmanbuy: ['manmanbuy.com'],
-  'lizhi-oa': ['oa.lizhi.fm']
+  'lizhi-oa': ['oa.lizhi.fm'],
+  'iqyi': [
+    '.iqiyi.com/v_',
+    '.iqiyi.com/w_',
+    '.iqiyi.com/a_',
+  ],
 }
 
 export default mathDict
