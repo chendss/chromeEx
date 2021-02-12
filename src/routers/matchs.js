@@ -80,6 +80,9 @@ const mathDict = {
     '.iqiyi.com/w_',
     '.iqiyi.com/a_',
   ],
+  antd: [
+    '2x.antdv.com'
+  ]
 }
 
 export default mathDict

@@ -8,6 +8,9 @@
       "app/*": [
         "src/app/*"
       ],
-    }
-  }
+    },
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

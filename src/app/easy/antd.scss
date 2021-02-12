@@ -1,0 +1,13 @@
+@import "../global/styles/collect.scss";
+
+@for $i from 0 through 12 {
+  #aswift_#{$i} {
+    @include empty_element();
+  }
+}
+
+.adsbygoogle,
+.ant-carousel,
+.snd-ad {
+  @include empty_element();
+}

@@ -240,4 +240,8 @@ export default {
     js: () => require('@/app/iqyi/index.js').default(),
     css: () => require('@/app/iqyi/index.scss'),
   },
+  'antd': {
+    // js: () => require('@/app/iqyi/index.js').default(),
+    css: () => require('@/app/easy/antd.scss'),
+  },
 }
