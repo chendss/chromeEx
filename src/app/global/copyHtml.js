@@ -36,6 +36,9 @@ const oncontextmenu = function (event) {
 
 
 export default function () {
+  if (['192.168', 'localhost:'].some(s => window.location.href.includes(s))) {
+    return
+  }
   const DOM = Html['copy_btn']
   const body = document.querySelector('html')
   body.insertAdjacentHTML('beforeend', DOM)

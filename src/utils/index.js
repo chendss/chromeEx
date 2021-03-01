@@ -321,5 +321,6 @@ export default function (handle) {
       handle(rule)
     }
   }
+  window.__matching = matching
   log('规则制定', matching)
 }

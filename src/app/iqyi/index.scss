@@ -1,0 +1,45 @@
+.full-btn-box {
+  left         : 0px;
+  border-radius: 8px;
+  z-index      : 9999;
+  position     : fixed;
+  top          : 380px;
+  background   : transparent;
+
+  .full_btn {
+
+    border-radius   : 8px;
+    transition      : 0.3s;
+    text-decoration : none;
+    min-width       : 80px;
+    margin-left     : -75px;
+    text-align      : right;
+    white-space     : nowrap;
+    background-color: #f44336;
+    position        : absolute;
+    color           : white !important;
+    padding         : 15px 30px 15px 15px;
+    font            : 20px "Microsoft YaHei", SimHei, helvetica, arial, verdana, tahoma, sans-serif;
+    cursor          : pointer;
+
+    &:hover {
+      margin-left: 5px;
+    }
+  }
+}
+
+#block-V,
+#nav_game,
+.detail-sd,
+#nav_appDown,
+#nav_message,
+#contentArea,
+#J-nav-upload,
+.footer-content,
+.qy-footer-channel,
+.search-right-entry,
+#J-header-play-history-wrap,
+.qy-flash-func.qy-flash-func-v1,
+#nav_renewBtn {
+  display: none;
+}

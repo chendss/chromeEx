@@ -18,7 +18,6 @@ export default {
   },
   avgle_item: {
     css: () => require('../app/avgle/avgle_item.scss'),
-    js: () => require('../app/avgle/avgle_item.scss').default(),
     load: true,
   },
   avgle: {
@@ -163,10 +162,6 @@ export default {
     js: () => require('../model/cssmoban_tag.js').default(),
     load: true
   },
-  segmentfault: {
-    css: () => require('../app/easy/segmentfault.scss'),
-    js: () => require('../app/easy/segmentfault.js').default(),
-  },
   engotozh: {
     js: () => require('../model/engotozh.js').default(),
   },
@@ -239,6 +234,14 @@ export default {
     css: () => require('@/app/easy/manmanbuy.scss'),
   },
   'lizhi-oa': {
-    css: () => require('@/app/lizhi/lizhioa.js').default(),
+    js: () => require('@/app/lizhi/lizhioa.js').default(),
+  },
+  'iqyi': {
+    js: () => require('@/app/iqyi/index.js').default(),
+    css: () => require('@/app/iqyi/index.scss'),
+  },
+  'antd': {
+    // js: () => require('@/app/iqyi/index.js').default(),
+    css: () => require('@/app/easy/antd.scss'),
   },
 }

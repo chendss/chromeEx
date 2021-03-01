@@ -157,7 +157,7 @@ const closeLoading = function () {
 const addLoading = function () {
   const body = document.querySelector("body")
   const html = `
-  <div class="none" id="loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="none" id="cy_loading"><div class="ball-pulse-rise"><div></div><div></div><div></div><div></div><div></div></div></div>
   <div id="fiexd_btn"> </div>
   <div id="id-modal" class="none">
     <div class="mark"></div>
