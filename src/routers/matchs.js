@@ -82,7 +82,10 @@ const mathDict = {
   ],
   antd: [
     '2x.antdv.com'
-  ]
+  ],
+  gitlab: [
+    'gitlab.lizhi.fm'
+  ],
 }
 
 export default mathDict
