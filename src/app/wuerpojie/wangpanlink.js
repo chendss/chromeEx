@@ -8,9 +8,9 @@ import './jq.cookie'
 import $ from 'jquery'
 import swal from 'sweetalert2'
 import Darkmode from 'darkmode-js'
-import { createScript } from '@/utils/index.js'
+import { createScriptFormRemote } from '@/utils/index.js'
 
-(function () {
+export default function () {
   'use strict';
   var PLUGIN_NAME = '吾爱破解论坛_百度网盘链接激活 && 提取码自动补全';
   var location = self.location;
@@ -83,7 +83,7 @@ import { createScript } from '@/utils/index.js'
   /**
    * 无法require时，插件引用注入-开始
    */
-  createScript('https://www.52pojie.cn/source/plugin/noti/template/noti.js')
+  createScriptFormRemote('https://www.52pojie.cn/source/plugin/noti/template/noti.js')
 
   /**
    * noti插件 提示网盘链接数量
@@ -520,4 +520,4 @@ import { createScript } from '@/utils/index.js'
     /************************************************ 网盘页面，提取码自动补全功能-结束 ************************************************/
   });
 
-})();
+}

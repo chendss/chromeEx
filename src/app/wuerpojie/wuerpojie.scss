@@ -1,17 +1,20 @@
 body {
   #jz52top {
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    top            : 0;
+    bottom         : 0;
+    margin         : auto;
+    display        : flex;
+    align-items    : center;
+    flex-direction : column;
     justify-content: center;
-    span {
+
+    span:not(.replyfast_span) {
       display: none;
+
       &:first-child {
         display: block;
       }
+
       &:last-child {
         display: block;
       }
@@ -20,119 +23,137 @@ body {
 }
 
 .my_baidu_link {
-  padding: 2px 2px;
+  padding        : 2px 2px;
   text-decoration: none !important;
-  background: #fff !important;
-  color: #00bfff !important;
-  border: 1px solid #00bfff;
-  border-radius: 6px;
-  transition: 0.3s background linear, 0.2s color linear;
+  background     : #fff !important;
+  color          : #00bfff !important;
+  border         : 1px solid #00bfff;
+  border-radius  : 6px;
+  transition     : 0.3s background linear, 0.2s color linear;
 }
+
 .my_baidu_link:hover {
-  padding: 2px 2px;
+  padding        : 2px 2px;
   text-decoration: none !important;
-  background: #00bfff !important;
-  color: #fff !important;
-  border: 1px solid #00bfff;
-  border-radius: 6px;
-  transition: 0.3s background linear, 0.2s color linear;
+  background     : #00bfff !important;
+  color          : #fff !important;
+  border         : 1px solid #00bfff;
+  border-radius  : 6px;
+  transition     : 0.3s background linear, 0.2s color linear;
 }
+
 .my_baidu_link_destroy {
-  cursor: not-allowed;
+  cursor         : not-allowed;
   text-decoration: line-through !important;
-  color: #ff6b68 !important;
-  border: 1px solid #ff6b68;
+  color          : #ff6b68 !important;
+  border         : 1px solid #ff6b68;
 }
+
 .jzcount {
   background-position: 0 -240px !important;
 }
+
 .jzcount:hover {
   background-position: -40px -240px !important;
 }
+
 table.my_baidu_link_table {
   margin: 0 auto;
 }
-.my_baidu_link_table > tbody > tr > td,
-.my_baidu_link_table > tbody > tr > th,
-.my_baidu_link_table > tfoot > tr > td,
-.my_baidu_link_table > tfoot > tr > th,
-.my_baidu_link_table > thead > tr > td,
-.my_baidu_link_table > thead > tr > th {
-  padding: 10px;
-  line-height: 1.42857143;
+
+.my_baidu_link_table>tbody>tr>td,
+.my_baidu_link_table>tbody>tr>th,
+.my_baidu_link_table>tfoot>tr>td,
+.my_baidu_link_table>tfoot>tr>th,
+.my_baidu_link_table>thead>tr>td,
+.my_baidu_link_table>thead>tr>th {
+  padding       : 10px;
+  line-height   : 1.42857143;
   vertical-align: top;
-  border: 1px solid #f5f5f5;
-  text-align: center;
-  color: #3f51b5 !important;
+  border        : 1px solid #f5f5f5;
+  text-align    : center;
+  color         : #3f51b5 !important;
 }
-.my_baidu_link_table > tbody > tr > td > a,
-.my_baidu_link_table > tbody > tr > th > a,
-.my_baidu_link_table > tfoot > tr > td > a,
-.my_baidu_link_table > tfoot > tr > th > a,
-.my_baidu_link_table > thead > tr > td > a,
-.my_baidu_link_table > thead > tr > th > a {
-  color: #00bfff /* !important */; /* text-decoration: none !important; */
+
+.my_baidu_link_table>tbody>tr>td>a,
+.my_baidu_link_table>tbody>tr>th>a,
+.my_baidu_link_table>tfoot>tr>td>a,
+.my_baidu_link_table>tfoot>tr>th>a,
+.my_baidu_link_table>thead>tr>td>a,
+.my_baidu_link_table>thead>tr>th>a {
+  color: #00bfff
+    /* !important */
+  ;
+  /* text-decoration: none !important; */
 }
+
 /* 右侧按钮CSS */
 #pancount {
-  font-size: 25px;
-  font-weight: bold;
-  line-height: 38px !important;
-  color: #fff !important;
-  border: 1px solid #00bfff;
+  font-size    : 25px;
+  font-weight  : bold;
+  line-height  : 38px !important;
+  color        : #fff !important;
+  border       : 1px solid #00bfff;
   border-radius: 50px;
-  background: #2196f3 !important;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12),
+  background   : #2196f3 !important;
+  box-shadow   : 0 2px 2px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   transition: 0.3s background linear, 0.2s color linear;
 }
+
 #pancount:hover {
   background: #5352ed !important;
   transition: 0.3s background linear, 0.2s color linear;
 }
-.jzcount > .cloud__logo-del {
-  position: relative;
-  right: -10000px;
+
+.jzcount>.cloud__logo-del {
+  position    : relative;
+  right       : -10000px;
   border-right: 0 solid transparent;
-  filter: drop-shadow(-10000px 0 #fff);
+  filter      : drop-shadow(-10000px 0 #fff);
 }
+
 /* 选择框CSS */
 .pan_notice_label {
-  display: inline-block;
-  top: 4px;
-  width: 34px;
-  height: 18px;
-  background: #ccc;
-  border-radius: 30px;
-  cursor: pointer;
-  position: relative;
+  display           : inline-block;
+  top               : 4px;
+  width             : 34px;
+  height            : 18px;
+  background        : #ccc;
+  border-radius     : 30px;
+  cursor            : pointer;
+  position          : relative;
   -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+  transition        : 0.3s ease;
 }
+
 .pan_notice_label:after {
-  content: "";
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 100%;
-  background: #fff;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  left: 1px;
-  top: 1px;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  content           : "";
+  display           : block;
+  width             : 16px;
+  height            : 16px;
+  border-radius     : 100%;
+  background        : #fff;
+  box-shadow        : 0 1px 1px rgba(0, 0, 0, 0.1);
+  position          : absolute;
+  left              : 1px;
+  top               : 1px;
+  -webkit-transform : translateZ(0);
+  transform         : translateZ(0);
   -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
+  transition        : 0.3s ease;
 }
+
 .pan_notice_slide {
-  width: 50px;
+  width : 50px;
   height: 20px;
 }
-.pan_notice_slide input:checked + label {
+
+.pan_notice_slide input:checked+label {
   background: #34bf49;
   transition: 0.3s ease;
 }
-.pan_notice_slide input:checked + label:after {
+
+.pan_notice_slide input:checked+label:after {
   left: 17px;
 }

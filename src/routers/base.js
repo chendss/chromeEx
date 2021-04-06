@@ -149,7 +149,7 @@ export default {
   },
   wuerpojie: {
     css: () => require('../app/wuerpojie/wuerpojie.scss'),
-    js: () => require('../app/wuerpojie/index').default(),
+    js: () => require('../app/wuerpojie/index.js').default(),
     load: true
   },
   xiaozong: {

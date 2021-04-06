@@ -1,4 +1,4 @@
-import './wangpanlink'
+import wangpanlink from './wangpanlink'
 import { sample } from 'lodash'
 import { dataset, datasetFind } from '@/utils/index.js'
 
@@ -7,7 +7,8 @@ let top_ = document.documentElement.scrollTop
 
 const replyHtml = function () {
   const parent = document.querySelector('#jz52top')
-  const span = `<span><a href="javascript:void(0);" onclick="reply()" class="replyfast" title="快速回复"><b>快速回复</b></a></span>`
+  console.log('元素加载', parent)
+  const span = `<span class="replyfast_span"><a href="javascript:void(0);" onclick="reply()" class="replyfast" title="快速回复"><b>快速回复</b></a></span>`
   parent.insertAdjacentHTML('beforeend', span)
 }
 
@@ -44,6 +45,8 @@ const 文案 = function () {
     '楼主牛皮，加油啊，再接再厉',
     '软件值得下载。感谢楼主付出！',
     '如果好用的话，就很适合我使用了',
+    '过来提前占个楼',
+    '我要占沙发  辛苦了 H大',
     '谢谢楼主的分享，这个绝对要顶！',
     '很实用的好工具，谢谢分享!!!',
     '谢谢楼主的分享，这个绝对要顶！',
@@ -65,16 +68,17 @@ const reply = function () {
   btn.click()
 }
 
-export default function () {
+export default async function () {
   replyHtml()
   window.reply = reply
-  const dict = datasetFind(db, { id: window.location.href })
+  const dict = await datasetFind(db, { id: window.location.href })
   if (dict == null) {
     setTimeout(() => {
       reply()
       db.insert({ id: window.location.href })
     }, 500)
   }
+  setTimeout(wangpanlink, 300)
   const btn = document.querySelector('#fastpostsubmit')
   btn.addEventListener('click', () => {
     const k = setInterval(() => {
@@ -84,20 +88,6 @@ export default function () {
         clearInterval(k)
       }
     }, 300);
-    setTimeout(() => {
-
-    }, 300)
   })
-  // chrome.runtime.sendMessage('edggalppcgbgdhbfobcnanmpflpekohl',
-  //   {
-  //     // 里面的值应该可以自定义，用于判断哪个请求之类的
-  //     type: 'fetch',
-  //     url: 'https://btools.cc/zatsudan-1/' // 需要请求的url
-  //   },
-  //   response => {
-  //     console.log('hhh', response)
-  //     const dd = JSON.parse(response.text())
-  //   }
-  // )
 }
 
