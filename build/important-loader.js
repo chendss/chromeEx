@@ -18,7 +18,7 @@ const check = function (code = '') {
 }
 
 module.exports = function (source) {
-  const line = source.split('\r\n')
+  const line = source.split(/[\r\n]{1,2}/)
   const codeList = line.map(code => {
     let result = code
     let code_ = code.replace(/\s*/g, "")

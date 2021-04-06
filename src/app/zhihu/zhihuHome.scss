@@ -10,6 +10,12 @@ html {
 
 #root {
 
+  .List-item {
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
 
   .Footer,
   .AdblockBanner,
@@ -34,6 +40,11 @@ html {
     }
   }
 
+  .ListShortcut {
+    width      : auto;
+    margin-left: 0;
+  }
+
   main {
     display        : flex;
     justify-content: center;
@@ -47,7 +58,7 @@ html {
         width: $width;
 
         .Topstory-mainColumn {
-          width: calc(100% - 300px);
+          width: 100%;
         }
 
         .GlobalSideBar {

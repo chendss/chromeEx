@@ -244,4 +244,9 @@ export default {
     // js: () => require('@/app/iqyi/index.js').default(),
     css: () => require('@/app/easy/antd.scss'),
   },
+  'gitlab': {
+    js: () => require('@/app/gitlab/index.js').default(),
+    css: () => require('@/app/gitlab/index.scss'),
+    load: true
+  },
 }
