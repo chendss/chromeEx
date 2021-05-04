@@ -4,16 +4,18 @@
   </div>
 </template>
 <script>
-
 export default {
   name: 'App',
-  data () {
+  data() {
     return {}
   },
-  created () {
-    chrome.runtime.sendMessage({ greeting: 'Hello' }, (response) => {
-      console.log(response, '复杂')
-    })
-  }
+  created() {},
 }
 </script>
+
+<style lang="scss" scoped>
+#app {
+  width: 300px;
+  height: 500px;
+}
+</style>
