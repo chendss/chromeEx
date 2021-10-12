@@ -244,9 +244,9 @@ export default {
     // js: () => require('@/app/iqyi/index.js').default(),
     css: () => require('@/app/easy/antd.scss'),
   },
-  'gitlab': {
-    js: () => require('@/app/gitlab/index.js').default(),
-    css: () => require('@/app/gitlab/index.scss'),
+  'madou': {
+    js: () => require('@/app/madou/index.js').default(),
+    css: () => require('@/app/madou/index.scss'),
     load: true
   },
 }

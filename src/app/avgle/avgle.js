@@ -156,7 +156,7 @@ const eventInput = function () {
 
 export default function () {
   if (!location.pathname.includes("videos")) return
-  addLoading()
-  eventBtn()
-  eventInput()
+  // addLoading()
+  // eventBtn()
+  // eventInput()
 }

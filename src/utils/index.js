@@ -184,12 +184,12 @@ export const sleep = async function (time) {
 }
 
 export const openLoading = function () {
-  const loading = document.querySelector("#loading")
+  const loading = document.querySelector("#cy_loading")
   loading.classList.remove("none")
 }
 
 export const closeLoading = function () {
-  const loading = document.querySelector("#loading")
+  const loading = document.querySelector("#cy_loading")
   loading.classList.add("none")
 }
 

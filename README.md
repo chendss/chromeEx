@@ -2,11 +2,11 @@
 
 ## 组件库文档
 
-- [Vue](https://vue.dashao.me/) 前端框架
+- [Vue](https://vue.rainys.me/) 前端框架
 - [ChanceJS](https://chancejs.com/) 生成随机数
 - [lodash](https://www.lodashjs.com/) 函数库
 - [axios](http://www.axios-js.com/) api 请求库
-- [Element-ui](https://ele.dashao.me) - 后台组件库
+- [Element-ui](https://ele.rainys.me) - 后台组件库
 - [jquery](https://www.jquery123.com/) dom 操控库
 - [vuex](https://vuex.vuejs.org/zh/guide/) 状态管理
 - [vue-router](https://router.vuejs.org/zh/) 前端框架
