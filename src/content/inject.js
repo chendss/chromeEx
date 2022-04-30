@@ -67,10 +67,10 @@ const iocScript = function (src) {
 
 const zoom = function () {
   if (excludes()) return
-  let dx = window.innerWidth / 1920
-  dx = Math.max(dx * 0.9, 1)
-  const style = document.documentElement.style
-  style.zoom = dx
+  // let dx = window.innerWidth / 1920
+  // dx = Math.max(dx * 0.9, 1)
+  // const style = document.documentElement.style
+  // style.zoom = dx
 }
 
 const iocStyle = function () {
@@ -79,7 +79,11 @@ const iocStyle = function () {
   iocHandle((rule, r) => {
     const { css } = rule
     matching.push(rule)
-    css && css()
+    try {
+      css && css()
+    } catch (error) {
+
+    }
   })
   console.log('规则有', matching)
 }

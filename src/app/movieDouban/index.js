@@ -1,12 +1,12 @@
 import axios from 'axios'
-import DB from '../utils/DB'
-import { sortBy, flatMap, unionBy } from 'lodash'
-import { queryToObj, get } from '../utils/index'
+import DB from '@/utils/DB'
+import { sortBy, unionBy } from 'lodash'
+import { queryToObj, get } from '@/utils/index'
 
 const queryObj = queryToObj()
 queryObj.tag = decodeURIComponent(queryObj.tag)
 let page_start = Number(queryObj.page_start)
-let num = 8
+let num = 10
 let limit = 20 * 20
 let type = queryObj['https://movie.douban.com/explore#!type']
 let loading = false
@@ -27,7 +27,10 @@ const modal = function (info) {
 }
 
 const toggleLoading = function () {
-  document.querySelector('#loading').classList.toggle('none')
+  const loadingDom = document.querySelector('#loading')
+  if (loadingDom) {
+    loadingDom.classList.toggle('none')
+  }
 }
 
 const setMoves = function (list) {
@@ -37,10 +40,25 @@ const setMoves = function (list) {
   GD.moves = list
 }
 
+const flatMap = (arrList) => {
+  const result = []
+  for (let i = 0; i < arrList.length; i++) {
+    const arr = arrList[i]
+    for (let j = 0; j < arr.length; j++) {
+      result.push(arr[j])
+    }
+  }
+  return result
+}
+
+const getDetail = (id) => {
+  // https://movie.douban.com/j/subject_abstract?subject_id=30140054
+}
+
 const action = async function (index, limit_) {
   const params = {
     tag: queryObj.tag,
-    sort: queryObj.sort,
+    sort: 'time',
     page_limit: (limit_ || limit) + '',
     page_start: page_start + index * limit,
     type,
@@ -58,7 +76,7 @@ const addMove = async function () {
       promiseList.push(action(i))
     }
     let result = await Promise.all(promiseList)
-    middle = flatMap(result).filter(item => Number(item.rate) > 7.2)
+    middle = flatMap(result).filter(item => Number(item.rate) > 8)
   } catch (error) {
   }
   toggleLoading()
@@ -73,8 +91,8 @@ const sortMove = function () {
       let list = [...GD.moves]
       list.push(...middle)
       middle = []
-      let sortList = sortBy(list, 'rate').reverse()
-      setMoves(sortList)
+      // let sortList = sortBy(list, 'rate').reverse()
+      setMoves(list)
     }
   }, 300)
 }

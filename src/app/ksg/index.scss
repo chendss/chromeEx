@@ -1,0 +1,30 @@
+html {
+  width: 100vw;
+
+  #wp {
+    width: 1400px;
+
+    #waterfall {
+      display        : flex;
+      flex-wrap      : wrap;
+      justify-content: space-around;
+      width          : auto;
+
+      li {
+        left    : 0px;
+        top     : 0px;
+        position: relative;
+      }
+    }
+  }
+
+  .display-right-display-all,
+  .vk_ft_bg.vk_ft_bg_color {
+    display: none;
+  }
+}
+
+
+.vk_top_side_post {
+  display: none;
+}

@@ -27,7 +27,10 @@ const datasetFind = function (href) {
 }
 
 const toggleLoading = function () {
-  document.querySelector('#loading').classList.toggle('none')
+  const loadingDom = document.querySelector('#loading')
+  if (loadingDom) {
+    loadingDom.classList.toggle('none')
+  }
 }
 
 const choseInit = function (type) {

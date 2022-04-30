@@ -133,8 +133,8 @@ export default {
     load: true
   },
   movieDouban: {
-    css: () => require('../styles/movieDouban.scss'),
-    js: () => require('../model/movieDouban.js').default(),
+    css: () => require('../app/movieDouban/index.scss'),
+    js: () => require('../app/movieDouban/index.js').default(),
     load: true
   },
   cilixiong: {
@@ -247,6 +247,16 @@ export default {
   'madou': {
     js: () => require('@/app/madou/index.js').default(),
     css: () => require('@/app/madou/index.scss'),
+    load: true
+  },
+  'douyin': {
+    js: () => require('@/app/madou/index.js').default(),
+    css: () => require('@/app/madou/index.scss'),
+    load: true
+  },
+  'ksg': {
+    js: () => require('@/app/ksg/index.js').default(),
+    css: () => require('@/app/ksg/index.scss'),
     load: true
   },
 }

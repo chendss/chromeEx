@@ -9,7 +9,11 @@ const actionJs = function (rule) {
   const load = rule.load || false
   const { js } = rule
   const action = js || function () { }
-  load ? loadAction(action) : action()
+  try {
+    load ? loadAction(action) : action()
+  } catch (error) {
+
+  }
 }
 
 const main = function () {

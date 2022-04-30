@@ -80,6 +80,9 @@ const mathDict = {
   engotozh: ['www.php.net/manual/en', 'developer.mozilla.org/en-US', 'eslint.org/', 'api.jquery.com/'],
   madou: [
     'https://madou.club'
+  ],
+  ksg: [
+    'www.4ksg.com'
   ]
 }
 
