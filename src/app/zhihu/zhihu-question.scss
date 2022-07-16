@@ -6,7 +6,9 @@ $width: calc(100% - 80px); // TODO:
 
     .QuestionHeader {
       .QuestionHeader-content {
-        width: 100%;
+        width       : 100%;
+        max-width   : none;
+        padding-left: 0;
 
         .QuestionHeader-main {
           width: calc(100% - 296px);
@@ -52,7 +54,8 @@ $width: calc(100% - 80px); // TODO:
       }
 
       .Question-mainColumn {
-        width: 100%;
+        width    : calc(100%);
+        max-width: calc(100% - 300px);
       }
 
       .Question-sideColumn.Question-sideColumn--sticky {
