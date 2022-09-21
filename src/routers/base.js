@@ -183,10 +183,10 @@ export default {
     js: () => require('@/app/job/lagou').default(),
     css: () => require('@/app/job/lagou.scss'),
   },
-  'job-boss': {
-    js: () => require('@/app/job/boss').default(),
-    css: () => require('@/app/job/boss.scss'),
-  },
+  // 'job-boss': {
+  //   js: () => require('@/app/job/boss').default(),
+  //   css: () => require('@/app/job/boss.scss'),
+  // },
   'job-51job': {
     js: () => require('@/app/job/51job').default(),
     css: () => require('@/app/job/51job.scss'),
@@ -259,4 +259,19 @@ export default {
     css: () => require('@/app/ksg/index.scss'),
     load: true
   },
+  'ksg': {
+    js: () => require('@/app/ksg/index.js').default(),
+    css: () => require('@/app/ksg/index.scss'),
+    load: true
+  },
+  'jable-item': {
+    js: () => require('@/app/jable/videos.js').default(),
+    css: () => require('@/app/jable/videos.scss'),
+    load: true
+  },
+  // 'jable-list': {
+  //   js: () => require('@/app/jable/index.js').default(),
+  //   css: () => require('@/app/ksg/index.scss'),
+  //   load: true
+  // },
 }

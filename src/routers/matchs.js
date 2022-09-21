@@ -83,6 +83,9 @@ const mathDict = {
   ],
   ksg: [
     'www.4ksg.com'
+  ],
+  'jable-item': [
+    'https://jable.tv/videos'
   ]
 }
 

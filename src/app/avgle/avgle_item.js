@@ -1,11 +1,12 @@
-export default function() {
+export default function () {
+  return
   if (location.pathname.includes('videos')) return
   let config = {
     referer: window.location.href,
     name: document.title.split('-')[0].trim(),
     m3u8: '未知',
   }
-  const post = function(url) {
+  const post = function (url) {
     let str = document.querySelector('.custom-box').value
     let data = JSON.parse(str)
     data.m3u8 = document.querySelector('#custom-box2').value
@@ -15,8 +16,8 @@ export default function() {
       type: 'post',
       contentType: 'application/json',
       data: data,
-      success: function() {},
-      error: function() {
+      success: function () { },
+      error: function () {
         alert('失败')
         console.log(arguments)
       },
